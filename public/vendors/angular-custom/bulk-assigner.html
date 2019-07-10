@@ -1,0 +1,19 @@
+<div id="bulk-assignment" class="row bulk-edit" ng-if="target && target.length">
+    <div class="col-sm-2" style="padding-left: 0">
+        <div uib-dropdown dropdown-append-to-body="true">
+            <button class="btn btn-flat" uib-dropdown-toggle ng-disabled="!bulkAssigner.selectedItemsCount()">
+                <span ng-if="bulkAssigner.selectedItemsCount()">({{bulkAssigner.selectedItemsCount()}})</span>
+                Bulk Edit&nbsp;&nbsp;
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu>
+                <li ng-repeat="field in bulkAssigner.fields">
+                    <a ng-click="bulkAssigner.selectedField = field" href>
+                        {{field.label}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="form-container col-sm-6" ng-transclude></div>
+</div>

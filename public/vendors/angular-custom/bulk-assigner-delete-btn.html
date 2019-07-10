@@ -1,0 +1,6 @@
+<a href class="bg-danger box-option"
+   ng-if="selectedItemsCount()"
+   ng-click="delete()">
+    <span ng-if="!deleting">Bulk Delete ({{selectedItemsCount()}})</span>
+    <span ng-if="deleting">Deleting ...</span>
+</a>

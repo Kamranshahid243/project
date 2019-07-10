@@ -1,0 +1,4 @@
+<form name="nvdForm" ng-submit="nvdForm.$valid && saveForm()" novalidate show-loader="loading">
+    <div ng-if="errorResponse" class="alert alert-danger">{{errorResponse}}</div>
+    <div ng-transclude></div>
+</form>

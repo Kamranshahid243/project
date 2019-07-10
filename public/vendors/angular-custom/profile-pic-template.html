@@ -1,0 +1,17 @@
+<div class="pp-container">
+    <img class="pp-img" ng-src="{{cropped.image}}"/>
+    <div class="croppie-bkg" ng-if="showPicSelector">
+        <div class="croppie-wrapper">
+            <!-- Croppie needs a container -> using 'boundary' option -->
+            <croppie src="cropped.source"
+                     ng-model="cropped.image"
+                     options="{boundary:{width:400,height:400}}"
+            ></croppie>
+            <p class="text-right">
+                <button class="btn btn-warning btn-squared" ng-click="cancel()">Cancel</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-primary btn-squared" ng-click="save()">Save</button>
+            </p>
+        </div>
+    </div>
+</div>

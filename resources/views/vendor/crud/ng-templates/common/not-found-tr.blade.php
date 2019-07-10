@@ -1,0 +1,1 @@
+<tr class="alert alert-warning" ng-if="!{{$model}}.length"><td colspan="{{$colspan}}">No records found.</td></tr>

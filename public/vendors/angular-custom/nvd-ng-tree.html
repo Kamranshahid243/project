@@ -1,0 +1,24 @@
+<script type="text/ng-template" id="node_renderer.html">
+    <span class="node-opener text-success" ng-click="node.toggleOpen()" ng-if="node.children">
+        <i class="fa fa-caret-right fa-lg" ng-if="!node.opened"></i>
+        <i class="fa fa-caret-down fa-lg" ng-if="node.opened"></i>
+    </span>
+    <i ng-if="!node.children">&nbsp;</i>
+    
+    <span class="node" ng-click="node.toggleChecked(tree.nodes)">
+        <i ng-if="node.checked" class="fa fa-check-square text-success"></i>
+        <span ng-if="!node.checked" class="text-success">
+            <i ng-if="!node.hasCheckedChildren" class="far fa-square"></i>
+            <i ng-if="node.hasCheckedChildren" class="fas fa-square"></i>&nbsp;
+        </span>
+        {{node.label}}
+    </span>
+
+    <ul ng-if="node.opened && node.children && node.children.length">
+        <li ng-repeat="node in node.children" ng-include="'node_renderer.html'"></li>
+    </ul>
+</script>
+
+<ul class="nvd-ng-tree" onselectstart="return false;" onmousedown="return false;">
+    <li ng-repeat="node in tree.nodes" ng-include="'node_renderer.html'"></li>
+</ul>

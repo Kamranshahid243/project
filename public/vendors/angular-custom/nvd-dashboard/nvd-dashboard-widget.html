@@ -1,0 +1,47 @@
+<div class="box nvd-dashboard-widget" ng-class="'box-'+widget.color">
+    <div class="box-header with-border drag-handle">
+        <h3 class="box-title">{{widget.title}}</h3>
+        <div class="box-tools pull-right">
+            <button type="button"
+                    ng-if="widget.reloadAction"
+                    ng-click="widget.reloadAction()"
+                    class="btn btn-box-tool">
+                <i class="fa fa-sync-alt"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool"
+                    uib-popover-template="'settings-template.html'"
+                    popover-placement="left-top"
+                    popover-append-to-body="true"
+                    popover-title="Settings"
+                    popover-trigger="outsideClick">
+                <i class="fa fa-cog"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool"
+                    ng-if="!widget.locked || widget.locked == '0'"
+                    ng-click="service.removeWidget(widget, tab)">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="settings-template.html">
+        <ul class="list-group">
+            <li class="list-group-item">
+                Theme:
+                <div class="btn-group">
+                    <label class="btn btn-flat btn-sm"
+                           ng-repeat="color in ['success', 'primary', 'default', 'warning', 'danger']"
+                           ng-class="'btn-'+color"
+                           ng-model="widget.color"
+                           uib-btn-radio="color"></label>
+                </div>
+            </li>
+        </ul>
+    </script>
+
+    <div class="box-body">
+        <ng-include ng-if="widget.templateUrl" src="widget.templateUrl"></ng-include>
+    </div>
+
+    <div class="box-footer fixed-bottom" ng-if="widget.footerTemplateUrl" ng-include="widget.footerTemplateUrl"></div>
+</div>

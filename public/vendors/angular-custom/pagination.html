@@ -1,0 +1,28 @@
+<div class="row pagination-wrapper">
+
+    <div class="col-md-3">
+        <p class="pagination-status">Showing {{recordsFrom()}} to {{recordsTo()}} of {{recordsInfo.total}} entries</p>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group per-page">
+            <label>Records Per Page:</label>
+            <select ng-model="state.params.perPage"
+                ng-options="item for item in [10,15,20,30,50,100,150]"
+            ></select>
+        </div>
+    </div>
+
+    <div class="col-md-6" ng-if="recordsInfo.total > state.params.perPage">
+        <div class="pull-right">
+            <uib-pagination
+                    total-items="recordsInfo.total"
+                    ng-model="state.params.page"
+                    items-per-page="state.params.perPage"
+                    max-size="4"
+                    boundary-link-numbers="true"
+            ></uib-pagination>
+        </div>
+    </div>
+
+</div>

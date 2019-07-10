@@ -1,0 +1,5 @@
+<select ng-model="ngModel" class="form-control"
+        ng-change="handleChange(ngModel)"
+        ng-options="option[valueField] as option[labelField] for option in options">
+    <option value="">{{placeholder}}</option>
+</select>

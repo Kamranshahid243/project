@@ -1,0 +1,50 @@
+<div class="nvd-dashboard-container" show-loader="service.loadingConfig">
+    <uib-tabset active="service.activeTab">
+        <uib-tab ng-repeat="tab in service.config.tabs" index="$index">
+            <uib-tab-heading>
+                <b>{{tab.title}}</b>
+                <span class="tab-options" ng-click="service.activeTab=$index">
+                    <span uib-dropdown>
+                        <a href uib-tooltip="Add a new widget" class="text-muted"
+                                ng-if="tab.numWidgets < tab.widgets.length"
+                                uib-dropdown-toggle>
+                            &nbsp;&nbsp;
+                            <i class="fa fa-plus"></i>
+                        </a>
+                        <ul class="dropdown-menu" uib-dropdown-menu>
+                            <li ng-repeat="widget in tab.widgets" ng-if="!widget.enabled">
+                                <a ng-click="service.addWidget(widget, tab)" href>{{widget.title}}</a>
+                            </li>
+                        </ul>
+                    </span>
+                    <a href ng-if="$index > 0" class="text-muted" ng-click="service.removeTab(tab)">
+                        &nbsp;&nbsp;
+                        <i class="fa fa-times"></i>
+                    </a>
+                </span>
+            </uib-tab-heading>
+
+            <div gridster="service.config.gridsterOpts">
+                <div ng-repeat="widget in tab.widgets"
+                     ng-if="widget.enabled"
+                     gridster-item="widget">
+                    <nvd-dashboard-widget widget="widget" tab="tab"></nvd-dashboard-widget>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+
+    <div class="box-options">
+        <!--<a href ng-click="service.reset()" class="box-option">-->
+            <!--<i class="fa fa-sync-alt" uib-tooltip="Reset grid"></i>-->
+        <!--</a>&nbsp;&nbsp;-->
+        <a href class="box-option saving-indicator"
+           uib-tooltip="Saving config..." tooltip-placement="left-top"
+           style="position: fixed;top: 5.2em;right: 0.3em;font-size: 10px;" ng-if="service.savingConfig">
+            <i class="fa fa-circle-notch text-muted fa-spin"></i>
+        </a>
+        <a href ng-click="service.addTab()" class="box-option" uib-tooltip="Add a new tab" tooltip-placement="left-top">
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
+</div>

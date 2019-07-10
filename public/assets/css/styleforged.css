@@ -1,0 +1,139 @@
+html {
+  height: 100%;
+}
+body {
+  background: #ffffff;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+
+a {
+  text-decoration: none;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+h1 {
+  font-weight: 300;
+  font-size: 4em;
+}
+h2 {
+  font-size: 3em;
+  font-weight: fontweightlight;
+}
+.wrapper {
+  height: 100% !important;
+  height: 100%;
+  margin: 0 auto;
+}
+.main section {
+  overflow: hidden;
+}
+
+.paragraph {
+  font-size: 1.2em;
+  line-height: 30px;
+  font-weight: fontweightlight;
+}
+.wrap {
+    margin: 0 auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding-top: 0 !important;
+     overflow: auto; 
+}
+.roundbtn {
+  color: #ffffff;
+  background: #1daed3;
+  border-radius: 10px;
+}
+.page1 {
+  background: #69c0dc;
+}
+.banner {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 12%;
+  text-align: center;
+  z-index: 1000;
+}
+.banner h1.taskme {
+  font-size: 54px;
+  font-weight: 200;
+  line-height: 89px;
+  color: #ffffff;
+  margin: 25px 0;
+  transition: font-size 0.61s;
+}
+.banner .roundbtn {
+  font-size: 30px;
+  margin-right: 25px;
+  padding: 10px 36px;
+}
+.banner .signinbtn {
+  background: #efefef;
+  color: #1daed3;
+}
+.page2,
+.page3,
+.page4,
+.page5,
+.page6 {
+  padding: 60px 0;
+}
+.page3,
+.page4 {
+  color: #13a3cb;
+}
+.page2 {
+  color: #ffffff;
+  background: #13a3cb;
+}
+.page2 h1 {
+  margin-bottom: 35px;
+}
+.page2 .downloadlinks a {
+  display: inline-block;
+  margin-right: 20px;
+}
+.page3 {
+  background: #f6f6f6;
+}
+.page3 .roundbtn {
+  font-size: 1.7em;
+  padding: 10px 30px;
+}
+.page4 .slider-list {
+  padding-left: 20px;
+}
+.page4 .slider-list li {
+  list-style-image: url('../images/listitem.png');
+  line-height: 36px;
+}
+.page4 .slider-list a {
+  font-size: 20px;
+  color: #13a3cb;
+}
+.page5 {
+  background: #13a3cb;
+  color: #ffffff;
+}
+.page5 figure {
+  padding: 15px;
+  margin: 30px 0;
+}
+.page5 figure a {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.page5 figure figcaption {
+  font-size: 1.2em;
+}
+
+/**************************Slider Style Start**************************/

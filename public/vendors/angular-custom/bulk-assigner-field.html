@@ -1,0 +1,9 @@
+<div class="row" ng-if="bulkAssigner.selectedField == field && bulkAssigner.selectedItemsCount()">
+    <div class="col-sm-3 text-right" style="padding-top: 0.5em"><label>{{field.label}}</label></div>
+    <div class="col-sm-6" ng-transclude></div>
+    <div class="col-sm-3">
+        <button class="btn btn-flat btn-primary"
+                ng-click="bulkAssigner.assign(field)"
+                ng-disabled="bulkAssigner.assigning">Apply</button>
+    </div>
+</div>

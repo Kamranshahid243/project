@@ -1,0 +1,4 @@
+<div class="form-group form-material" ng-class="{'has-error': errors}">
+    <div ng-transclude></div>
+    <span class="help-block" ng-if="errors" ng-repeat="msg in errors">{{msg}}</span>
+</div>

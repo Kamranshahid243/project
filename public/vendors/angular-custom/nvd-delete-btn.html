@@ -1,0 +1,5 @@
+<nvd-form model="{_method:'DELETE'}" action="{{action}}" on-success="onSuccess({$response:$response})" before-send="beforeSend()">
+    <button style="outline: none;background: transparent;border: none;padding: 0"
+            onclick="return confirm('Are You Sure?')"
+            type="submit" class="text-danger" ng-transclude></button>
+</nvd-form>

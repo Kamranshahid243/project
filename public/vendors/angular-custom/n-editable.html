@@ -1,0 +1,26 @@
+<span ng-switch="type">
+
+<span ng-switch-when="text" editable-text="value" onbeforesave="save($data)">
+    {{(value === null || value === '' ) ? 'not set': value }}
+</span>
+
+<span ng-switch-when="date" editable-date="value" onbeforesave="save($data)"
+    >{{value | date}}</span>
+
+<span ng-switch-when="textarea"
+      editable-textarea="value"
+      onbeforesave="save($data)">
+    <span ng-if="value.length">{{value | limitTo:charLimit}}</span>
+    <span ng-if="value.length > charLimit">...</span>
+    <span ng-if="!value.length">not set</span>
+</span>
+
+<span ng-switch-when="select"
+    editable-select="value"
+    onbeforesave="save($data)"
+    e-ng-options="option[ddValueField] as option[ddLabelField] for option in options"
+    >{{ selectedOption[ddLabelField] || 'not set' }}</span>
+
+<span ng-switch-default class="alert alert-danger">Error: Editable type '{{type}}' not set.</span>
+
+</span>
