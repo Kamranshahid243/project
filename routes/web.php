@@ -21,6 +21,13 @@ Route::group(['middleware' => ['web']], function () {
 		Route::post('/user/bulk-edit', 'UserController@bulkEdit');
 		Route::post('/user/bulk-delete', 'UserController@bulkDelete');
 
+        // shop
+//        Route::post('/user/change-password', 'UserController@changePassword');
+//        Route::get('/user/profile', 'UserController@profile');
+        Route::resource('shops', 'ShopController');
+//        Route::post('/user/bulk-edit', 'UserController@bulkEdit');
+//        Route::post('/user/bulk-delete', 'UserController@bulkDelete');
+
         // user roles
         Route::resource('user-role', 'UserRoleController');
         Route::post('/user-role/bulk-edit', 'UserRoleController@bulkEdit');
