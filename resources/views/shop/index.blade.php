@@ -56,10 +56,10 @@
                                 </td>
                                 <td>
                                     <remote-select
-                                        url="/user-role"
-                                        ng-model="state.params.user_role_id"
-                                        label-field="role" value-field="id"
-                                        placeholder="User Role"
+                                            url="/user-role"
+                                            ng-model="state.params.user_role_id"
+                                            label-field="role" value-field="id"
+                                            placeholder="User Role"
                                     ></remote-select>
                                 </td>
                                 <td></td>
@@ -114,8 +114,8 @@
                             </td>
                             <td>@{{ user.email }}
                                 {{--<n-editable type="text" name="email"--}}
-                                            {{--value="user.email"--}}
-                                            {{--url="/user/@{{user.id}}"--}}
+                                {{--value="user.email"--}}
+                                {{--url="/user/@{{user.id}}"--}}
                                 {{--></n-editable>--}}
                             </td>
                             <td>
