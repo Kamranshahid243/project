@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AppSettingsSeeder::class);
         $this->call(UsersSeeder::class);
         $this->call(UsersWidgetSeeder::class);
+        $this->call(ShopsMenuSeeder::class);
     }
 
     public function call($class)

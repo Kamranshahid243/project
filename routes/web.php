@@ -6,6 +6,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/', function () { return view('dashboard.dashboard'); });
         Route::get('/dashboard', function () { return view('dashboard.dashboard'); });
 
+        Route::get('/shops2', function () {
+            echo "here";
+        });
+
         Route::get('/nvd-dashboard/load-config', 'NvdDashboardController@loadConfig');
         Route::post('/nvd-dashboard/save-config', 'NvdDashboardController@saveConfig');
         // nvd-crud routes go here
