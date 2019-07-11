@@ -37,26 +37,26 @@ class ShopController extends Controller
         return Shop::create($data);
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, Shop $shop)
     {
         if ($request->wantsJson()) {
             $data = [$request->name => $request->value];
-            $validator = \Validator::make($data, User::validationRules($request->name));
+            $validator = \Validator::make($data, Shop::validationRules($request->name));
             if ($validator->fails())
                 return response($validator->errors()->first($request->name), 403);
-            $user->update($data);
-            return "User updated.";
+            $shop->update($data);
+            return "Shop updated.";
         }
 
-        $this->validate($request, User::validationRules());
-        $user->update($request->all());
-        return redirect('/user');
+        $this->validate($request, Shop::validationRules());
+        $shop->update($request->all());
+        return redirect('/shops');
     }
 
-    public function destroy(Request $request, User $user)
+    public function destroy(Request $request, Shop $shop)
     {
-        $user->delete();
-        return "User deleted";
+        $shop->delete();
+        return "Shop deleted";
     }
 
     public function bulkDelete(Request $request)
@@ -66,11 +66,11 @@ class ShopController extends Controller
             abort(403, "Please select some items.");
         }
 
-        if (!$ids = collect($items)->pluck('id')->all()) {
-            abort(403, "No ids provided.");
+        if (!$ids = collect($items)->pluck('shop_id')->all()) {
+            abort(403, "No IDs provided.");
         }
 
-        User::whereIn('id', $ids)->delete();
+        Shop::whereIn('shop_id', $ids)->delete();
         return response("Deleted");
     }
 

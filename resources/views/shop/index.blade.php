@@ -35,7 +35,7 @@
                            tooltip-placement="left"></i>
                     </a>&nbsp;
                     <bulk-assigner-delete-btn target="shopsArray"
-                                              url="/shop/bulk-delete"
+                                              url="/shops/bulk-delete"
                     ></bulk-assigner-delete-btn>
                 </div>
                 <div class="box-body">
@@ -105,19 +105,19 @@
                             <td>
                                 <n-editable type="text" name="shop_name"
                                             value="shop.shop_name"
-                                            url="/shop/@{{shop.shop_id}}"
+                                            url="/shops/@{{shop.shop_id}}"
                                 ></n-editable>
                             </td>
                             <td>
                                 <n-editable type="text" name="shop_address"
                                 value="shop.shop_address"
-                                url="/shop/@{{shop.shop_id}}"
+                                url="/shops/@{{shop.shop_id}}"
                                 ></n-editable>
                             </td>
                             <td>
                                 <n-editable type="select" name="shop_type"
                                             value="shop.shop_type"
-                                            url="/shop/@{{shop.shop_id}}"
+                                            url="/shops/@{{shop.shop_id}}"
                                             dd-options="[{o:'Wholesale'},{o:'Retail'}]"
                                             dd-label-field="o"
                                             dd-value-field="o"
@@ -126,14 +126,14 @@
                             <td>
                                 <n-editable type="select" name="printer_type"
                                             value="shop.printer_type"
-                                            url="/shop/@{{shop.shop_id}}"
+                                            url="/shops/@{{shop.shop_id}}"
                                             dd-options="[{o:'Thermal'},{o:'Laser'}]"
                                             dd-label-field="o"
                                             dd-value-field="o"
                                 ></n-editable>
                             </td>
                             <td>
-                                <delete-btn action="/shop/@{{shop.shop_id}}" on-success="loadShops()">
+                                <delete-btn action="/shops/@{{shop.shop_id}}" on-success="loadShops()">
                                     <i class="fa fa-trash"></i>
                                 </delete-btn>
                             </td>

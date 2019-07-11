@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shop extends Model
 {
+    protected $primaryKey="shop_id";
     protected $guarded = ["shop_id", "created_at", "updated_at"];
     public static $bulkEditableFields = ['shop_name', 'shop_address','shop_type','printer_type'];
 

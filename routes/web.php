@@ -33,7 +33,7 @@ Route::group(['middleware' => ['web']], function () {
 //        Route::get('/user/profile', 'UserController@profile');
         Route::resource('shops', 'ShopController');
         Route::post('/shops/bulk-edit','ShopController@bulkEdit');
-//        Route::post('/user/bulk-delete', 'UserController@bulkDelete');
+        Route::post('/shops/bulk-delete', 'ShopController@bulkDelete');
 
     });
 });
