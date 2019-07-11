@@ -11,7 +11,7 @@
                     </nvd-form-element>
 
                     <nvd-form-element field="shop_address">
-                        <input class="form-control" ng-model="form.shop_address" placeholder="Email"/>
+                        <input class="form-control" ng-model="form.shop_address" placeholder="Shop Address"/>
                     </nvd-form-element>
 
                     <nvd-form-element field="shop_type">
@@ -22,9 +22,9 @@
                     </nvd-form-element>
 
                     <nvd-form-element field="printer_type">
-                        <select ng-options="item for item in ['Wholesale','Retail']" class="form-control"
-                                ng-model="form.shop_type">
-                            <option value="">Shop Type</option>
+                        <select ng-options="item for item in ['Thermal','Laser']" class="form-control"
+                                ng-model="form.printer_type">
+                            <option value="">Printer Type</option>
                         </select>
                     </nvd-form-element>
                     {{--<nvd-form-element field="printer_type">--}}

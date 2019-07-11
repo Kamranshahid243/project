@@ -53,12 +53,10 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <remote-select
-                                            url="/printer-type"
-                                            ng-model="state.params.printer_type"
-                                            label-field="printer_type" value-field="shop_id"
-                                            placeholder="Printer Type"
-                                    ></remote-select>
+                                    <select ng-options="item for item in ['Thermal','Laser']" class="form-control"
+                                            ng-model="state.params.printer_type">
+                                        <option value="">Printer Type</option>
+                                    </select>
                                 </td>
                                 <td></td>
                             </form>
@@ -100,9 +98,9 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="shop in shopsArray"
-                            ng-class="{'bg-aqua-active': user.$selected}">
+                            ng-class="{'bg-aqua-active': shop.$selected}">
                             <th>
-                                <bulk-assigner-checkbox target="user"></bulk-assigner-checkbox>
+                                <bulk-assigner-checkbox target="shop"></bulk-assigner-checkbox>
                             </th>
                             <td>
                                 <n-editable type="text" name="shop_name"

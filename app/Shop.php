@@ -42,12 +42,12 @@ class Shop extends Model
 
     public function saveDashboardSettings($settings)
     {
-        $settingsModel = UserDashboardSetting::where('user_id', $this->id)->first();
+        $settingsModel = ShopDashboardSetting::where('shop_id', $this->id)->first();
         if (!$settingsModel) {
-            $settingsModel = new UserDashboardSetting();
+            $settingsModel = new ShopDashboardSetting();
         }
         $settingsModel->settings = json_encode($settings);
-        $settingsModel->user_id = $this->id;
+        $settingsModel->shop_id = $this->id;
         return $settingsModel->save();
     }
 

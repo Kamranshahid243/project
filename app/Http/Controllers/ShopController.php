@@ -9,24 +9,6 @@ class ShopController extends Controller
 {
     public $viewDir = "shop";
 
-    public function changePassword(Request $request)
-    {
-        $admin = \Auth::user();
-        $this->validate($request, [
-            "currentPassword" => "required",
-            "newPassword" => "required|confirmed|min:6",
-            "newPassword_confirmation" => "required",
-        ]);
-
-        if (!\Auth::attempt(['email' => $admin->email, 'password' => $request->currentPassword])) {
-            abort(400, 'Current password does not match.');
-        }
-
-        $admin->password = bcrypt($request->newPassword);
-        $admin->save();
-
-        return response('Updated');
-    }
 
     public function profile(Request $request)
     {
@@ -46,10 +28,13 @@ class ShopController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, User::validationRules());
+        $this->validate($request, Shop::validationRules());
         $data = $request->all();
-        $data['password'] = bcrypt($data['password']);
-        return User::create($data);
+        $data['shop_name'] = $data['shop_name'];
+        $data['shop_address']=$data['shop_address'];
+        $data['shop_type']=$data['shop_type'];
+        $data['printer_type']=$data['printer_type'];
+        return Shop::create($data);
     }
 
     public function update(Request $request, User $user)
@@ -99,7 +84,7 @@ class ShopController extends Controller
             abort(403, "Invalid request. Please provide a field name.");
         }
 
-        if (!in_array($fieldName, User::$bulkEditableFields)) {
+        if (!in_array($fieldName, Shop::$bulkEditableFields)) {
             abort(403, "Bulk editing the {$fieldName} is not allowed.");
         }
 
@@ -111,7 +96,7 @@ class ShopController extends Controller
             abort(403, "No ids provided.");
         }
 
-        User::whereIn('id', $ids)->update([$fieldName => array_get($field, 'value')]);
+        Shop::whereIn('shop_id', $ids)->update([$fieldName => array_get($field, 'value')]);
         return response("Updated");
     }
 

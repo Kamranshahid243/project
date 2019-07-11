@@ -25,7 +25,7 @@ Route::group(['middleware' => ['web']], function () {
 //        Route::post('/user/change-password', 'UserController@changePassword');
 //        Route::get('/user/profile', 'UserController@profile');
         Route::resource('shops', 'ShopController');
-//        Route::post('/user/bulk-edit', 'UserController@bulkEdit');
+        Route::post('/user/bulk-edit', 'ShopController@bulkEdit');
 //        Route::post('/user/bulk-delete', 'UserController@bulkDelete');
 
         // user roles
