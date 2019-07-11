@@ -1,13 +1,13 @@
 @extends("layouts.master")
 @section('title') Shops @stop
 @section('content')
-    <div class="row" ng-controller="MainController" show-loader="state.loadingUsers">
+    <div class="row" ng-controller="MainController" show-loader="state.loadingShops">
         <div class="col-sm-12">
             @include('shop.create')
             <div class="box">
-                <bulk-assigner target="shops" url="/shops/bulk-edit">
-                    <bulk-assigner-field field="bulkAssignerFields.status">
-                        <select ng-options="item for item in ['Enabled','Disabled']" class="form-control"
+                <bulk-assigner target="shopsArray" url="/shops/bulk-edit">
+                    <bulk-assigner-field field="bulkAssignerFields.shopName">
+                        <select ng-options="item for item in ['Wholesale','Retail']" class="form-control"
                                 ng-model="bulkAssignerFields.status.value">
                             <option value="">Status</option>
                         </select>
@@ -15,7 +15,7 @@
                     <bulk-assigner-field field="bulkAssignerFields.user_role_id">
                         <remote-select
                                 url="/user-role"
-                                ng-model="bulkAssignerFields.user_role_id.value"
+                                ng-model="bulkAssignerFields.shopName.value"
                                 label-field="role" value-field="id"
                                 placeholder="User Role"
                         ></remote-select>
@@ -23,9 +23,9 @@
                 </bulk-assigner>
                 <div class="box-options">
                     <a href="javascript:void(0)" class="box-option"
-                       ng-if="users.length">
-                        <i to-csv="users"
-                           csv-file-name="users.csv"
+                       ng-if="shopsArray.length">
+                        <i to-csv="shopsArray"
+                           csv-file-name="shopsArray.csv"
                            csv-fields="csvFields"
                            class="fa fa-download"
                            uib-tooltip="Download data as CSV"
@@ -36,7 +36,7 @@
                            uib-tooltip="Reload records"
                            tooltip-placement="left"></i>
                     </a>&nbsp;
-                    <bulk-assigner-delete-btn target="users"
+                    <bulk-assigner-delete-btn target="shopsArray"
                                               url="/user/bulk-delete"
                     ></bulk-assigner-delete-btn>
                 </div>
@@ -67,33 +67,33 @@
                         </tr>
                         <tr class="header-row">
                             <th>
-                                <bulk-assigner-toggle-all target="users"></bulk-assigner-toggle-all>
+                                <bulk-assigner-toggle-all target="shopsArray"></bulk-assigner-toggle-all>
                             </th>
                             <th>
                                 <filter-btn
-                                        field-name="name"
-                                        field-label="Name"
+                                        field-name="shop_name"
+                                        field-label="Shop Name"
                                         model="state.params"
                                 ></filter-btn>
                             </th>
                             <th>
                                 <filter-btn
-                                        field-name="email"
-                                        field-label="Email"
+                                        field-name="shop_address"
+                                        field-label="Shop Address"
                                         model="state.params"
                                 ></filter-btn>
                             </th>
                             <th>
                                 <filter-btn
-                                        field-name="status"
-                                        field-label="Status"
+                                        field-name="shop_type"
+                                        field-label="Shop Type"
                                         model="state.params"
                                 ></filter-btn>
                             </th>
                             <th>
                                 <filter-btn
-                                        field-name="user_role_id"
-                                        field-label="User Role"
+                                        field-name="printer_type"
+                                        field-label="Printer Type"
                                         model="state.params"
                                 ></filter-btn>
                             </th>
@@ -101,39 +101,39 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="user in users"
+                        <tr ng-repeat="shop in shopsArray"
                             ng-class="{'bg-aqua-active': user.$selected}">
                             <th>
                                 <bulk-assigner-checkbox target="user"></bulk-assigner-checkbox>
                             </th>
                             <td>
-                                <n-editable type="text" name="name"
-                                            value="user.name"
-                                            url="/user/@{{user.id}}"
+                                <n-editable type="text" name="shop_name"
+                                            value="shop.shop_name"
+                                            url="/shop/@{{shop.shop_id}}"
                                 ></n-editable>
                             </td>
-                            <td>@{{ user.email }}
-                                {{--<n-editable type="text" name="email"--}}
-                                {{--value="user.email"--}}
-                                {{--url="/user/@{{user.id}}"--}}
-                                {{--></n-editable>--}}
+                            <td>
+                                <n-editable type="text" name="shop_address"
+                                value="shop.shop_address"
+                                url="/shop/@{{shop.shop_id}}"
+                                ></n-editable>
                             </td>
                             <td>
-                                <n-editable type="select" name="status"
-                                            value="user.status"
-                                            url="/user/@{{user.id}}"
-                                            dd-options="[{o:'Enabled'},{o:'Disabled'}]"
+                                <n-editable type="select" name="shop_type"
+                                            value="shop.shop_type"
+                                            url="/shop/@{{shop.shop_id}}"
+                                            dd-options="[{o:'Wholesale'},{o:'Retail'}]"
                                             dd-label-field="o"
                                             dd-value-field="o"
                                 ></n-editable>
                             </td>
                             <td>
-                                <n-editable type="select" name="user_role_id"
-                                            value="user.user_role_id"
-                                            url="/user/@{{user.id}}"
-                                            dd-options-url="/user-role"
-                                            dd-label-field="role"
-                                            dd-value-field="id"
+                                <n-editable type="select" name="printer_type"
+                                            value="shop.printer_type"
+                                            url="/shop/@{{shop.shop_id}}"
+                                            dd-options="[{o:'Thermal'},{o:'Laser'}]"
+                                            dd-label-field="o"
+                                            dd-value-field="o"
                                 ></n-editable>
                             </td>
                             <td>
@@ -143,7 +143,7 @@
                             </td>
                         </tr>
 
-                        <tr class="alert alert-warning" ng-if="!users.length && !state.loadingUsers">
+                        <tr class="alert alert-warning" ng-if="!shopsArray.length && !state.loadingShops">
                             <td colspan="6">No records found.</td>
                         </tr>
                         </tbody>
@@ -156,4 +156,4 @@
         <toaster-container></toaster-container>
     </div>
 @endsection
-@include('user.user-ng-app')
+@include('shop.shop-ng-app')

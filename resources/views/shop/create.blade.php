@@ -21,14 +21,20 @@
                         </select>
                     </nvd-form-element>
 
-                    <nvd-form-element field="">
-                        <remote-select
-                                url="/user-role"
-                                ng-model="form.user_role_id"
-                                label-field="role" value-field="id"
-                                placeholder="User Role"
-                        ></remote-select>
+                    <nvd-form-element field="printer_type">
+                        <select ng-options="item for item in ['Wholesale','Retail']" class="form-control"
+                                ng-model="form.shop_type">
+                            <option value="">Shop Type</option>
+                        </select>
                     </nvd-form-element>
+                    {{--<nvd-form-element field="printer_type">--}}
+                        {{--<remote-select--}}
+                                {{--url="/printer-type"--}}
+                                {{--ng-model="form.printer_type"--}}
+                                {{--label-field="role" value-field="id"--}}
+                                {{--placeholder="Printer Type"--}}
+                        {{--></remote-select>--}}
+                    {{--</nvd-form-element>--}}
 
                     <button type="submit" class="btn btn-primary btn-flat">Create</button>
                 </nvd-form>

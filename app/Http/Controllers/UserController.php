@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Shop;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            return User::findRequested();
+            return Shop::findRequested();
         }
         return $this->view("index");
     }

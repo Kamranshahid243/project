@@ -40,50 +40,41 @@ class Shop extends Model
         return null;
     }
 
-//    public function saveDashboardSettings($settings)
-//    {
-//        $settingsModel = UserDashboardSetting::where('user_id', $this->id)->first();
-//        if (!$settingsModel) {
-//            $settingsModel = new UserDashboardSetting();
-//        }
-//        $settingsModel->settings = json_encode($settings);
-//        $settingsModel->user_id = $this->id;
-//        return $settingsModel->save();
-//    }
-//
-//    public static function validationRules($attributes = null)
-//    {
-//        $rules = [
-//            'name' => 'required|string|max:191',
-//            'email' => 'required|email|unique:users,email',
-//            'password' => 'required|string|min:6',
-//            'status' => 'required|in:Enabled,Disabled',
-//            'user_role_id' => 'required|integer',
-//        ];
-//
-//        // no list is provided
-//        if (!$attributes)
-//            return $rules;
-//
-//        // a single attribute is provided
-//        if (!is_array($attributes))
-//            return [$attributes => $rules[$attributes]];
-//
-//        // a list of attributes is provided
-//        $newRules = [];
-//        foreach ($attributes as $attr)
-//            $newRules[$attr] = $rules[$attr];
-//        return $newRules;
-//    }
-//
-//    public function role()
-//    {
-//        return $this->hasOne(UserRole::class, 'id', 'user_role_id');
-//    }
-//
-//    public function isSuperAdmin()
-//    {
-//        return $this->user_role_id == 1;
-//    }
+    public function saveDashboardSettings($settings)
+    {
+        $settingsModel = UserDashboardSetting::where('user_id', $this->id)->first();
+        if (!$settingsModel) {
+            $settingsModel = new UserDashboardSetting();
+        }
+        $settingsModel->settings = json_encode($settings);
+        $settingsModel->user_id = $this->id;
+        return $settingsModel->save();
+    }
+
+    public static function validationRules($attributes = null)
+    {
+        $rules = [
+            'shop_name' => 'required|string|max:191',
+            'shop_address' => 'required|string|max:191',
+            'shop_type' => 'required|in:Wholesale,Retail',
+            'printer_type' => 'required|in:Thermal,Laser',
+        ];
+
+        // no list is provided
+        if (!$attributes)
+            return $rules;
+
+        // a single attribute is provided
+        if (!is_array($attributes))
+            return [$attributes => $rules[$attributes]];
+
+        // a list of attributes is provided
+        $newRules = [];
+        foreach ($attributes as $attr)
+            $newRules[$attr] = $rules[$attr];
+        return $newRules;
+    }
+
+
 
 }
