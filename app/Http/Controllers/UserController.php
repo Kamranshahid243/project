@@ -39,7 +39,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            return Shop::findRequested();
+            return User::findRequested();
         }
         return $this->view("index");
     }

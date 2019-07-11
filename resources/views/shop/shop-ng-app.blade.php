@@ -30,7 +30,7 @@ function MainController($http, $scope, PageState, toaster) {
     $scope.$watch('state.params', $scope.loadShops, true);
 
     $scope.bulkAssignerFields = {
-        shopName: {name: 'shopName', label: 'Shop Name'},
+        shopType: {name: 'shopType', label: 'Shop Type'},
         printerType: {name: 'printerType', label: 'Printer Type'}
     };
 

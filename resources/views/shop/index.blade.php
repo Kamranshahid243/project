@@ -6,19 +6,17 @@
             @include('shop.create')
             <div class="box">
                 <bulk-assigner target="shopsArray" url="/shops/bulk-edit">
-                    <bulk-assigner-field field="bulkAssignerFields.shopName">
+                    <bulk-assigner-field field="bulkAssignerFields.shopType">
                         <select ng-options="item for item in ['Wholesale','Retail']" class="form-control"
-                                ng-model="bulkAssignerFields.status.value">
-                            <option value="">Status</option>
+                                ng-model="bulkAssignerFields.shopType.value">
+                            <option value="">Shop Type</option>
                         </select>
                     </bulk-assigner-field>
-                    <bulk-assigner-field field="bulkAssignerFields.user_role_id">
-                        <remote-select
-                                url="/user-role"
-                                ng-model="bulkAssignerFields.shopName.value"
-                                label-field="role" value-field="id"
-                                placeholder="User Role"
-                        ></remote-select>
+                    <bulk-assigner-field field="bulkAssignerFields.printerType">
+                        <select ng-options="item for item in ['Thermal','laser']" class="form-control"
+                                ng-model="bulkAssignerFields.printerType.value">
+                            <option value="">Printer Type</option>
+                        </select>
                     </bulk-assigner-field>
                 </bulk-assigner>
                 <div class="box-options">
@@ -31,13 +29,13 @@
                            uib-tooltip="Download data as CSV"
                            tooltip-placement="left"></i>
                     </a>&nbsp;
-                    <a href="javascript:void(0)" ng-click="loadUsers()" class="box-option">
+                    <a href="javascript:void(0)" ng-click="loadShops()" class="box-option">
                         <i class="fa fa-sync-alt"
                            uib-tooltip="Reload records"
                            tooltip-placement="left"></i>
                     </a>&nbsp;
                     <bulk-assigner-delete-btn target="shopsArray"
-                                              url="/user/bulk-delete"
+                                              url="/shop/bulk-delete"
                     ></bulk-assigner-delete-btn>
                 </div>
                 <div class="box-body">
@@ -46,20 +44,20 @@
                         <tr class="search-row">
                             <td></td>
                             <form class="search-form form-material">
-                                <td><input class="form-control" ng-model="state.params.name"/></td>
-                                <td><input class="form-control" ng-model="state.params.email"/></td>
+                                <td><input class="form-control" ng-model="state.params.shop_name"/></td>
+                                <td><input class="form-control" ng-model="state.params.shop_address"/></td>
                                 <td>
-                                    <select ng-options="item for item in ['Enabled','Disabled']" class="form-control"
-                                            ng-model="state.params.status">
-                                        <option value="">Status</option>
+                                    <select ng-options="item for item in ['Wholesale','Retail']" class="form-control"
+                                            ng-model="state.params.shop_type">
+                                        <option value="">Shop Type</option>
                                     </select>
                                 </td>
                                 <td>
                                     <remote-select
-                                            url="/user-role"
-                                            ng-model="state.params.user_role_id"
-                                            label-field="role" value-field="id"
-                                            placeholder="User Role"
+                                            url="/printer-type"
+                                            ng-model="state.params.printer_type"
+                                            label-field="printer_type" value-field="shop_id"
+                                            placeholder="Printer Type"
                                     ></remote-select>
                                 </td>
                                 <td></td>
@@ -137,7 +135,7 @@
                                 ></n-editable>
                             </td>
                             <td>
-                                <delete-btn action="/user/@{{user.id}}" on-success="loadUsers()">
+                                <delete-btn action="/shop/@{{shop.shop_id}}" on-success="loadShops()">
                                     <i class="fa fa-trash"></i>
                                 </delete-btn>
                             </td>
