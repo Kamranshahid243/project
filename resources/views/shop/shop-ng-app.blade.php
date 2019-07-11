@@ -30,8 +30,8 @@ function MainController($http, $scope, PageState, toaster) {
     $scope.$watch('state.params', $scope.loadShops, true);
 
     $scope.bulkAssignerFields = {
-        shopType: {name: 'shopType', label: 'Shop Type'},
-        printerType: {name: 'printerType', label: 'Printer Type'}
+        shopType: {name: 'shop_type', label: 'ShopType'},
+        printerType: {name: 'printer_type', label: 'printerType'}
     };
 
     $scope.csvFields = [

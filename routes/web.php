@@ -6,10 +6,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/', function () { return view('dashboard.dashboard'); });
         Route::get('/dashboard', function () { return view('dashboard.dashboard'); });
 
-        Route::get('/shops2', function () {
-            echo "here";
-        });
-
         Route::get('/nvd-dashboard/load-config', 'NvdDashboardController@loadConfig');
         Route::post('/nvd-dashboard/save-config', 'NvdDashboardController@saveConfig');
         // nvd-crud routes go here
@@ -21,13 +17,6 @@ Route::group(['middleware' => ['web']], function () {
 		Route::post('/user/bulk-edit', 'UserController@bulkEdit');
 		Route::post('/user/bulk-delete', 'UserController@bulkDelete');
 
-        // shop
-//        Route::post('/user/change-password', 'UserController@changePassword');
-//        Route::get('/user/profile', 'UserController@profile');
-        Route::resource('shops', 'ShopController');
-        Route::post('/user/bulk-edit', 'ShopController@bulkEdit');
-//        Route::post('/user/bulk-delete', 'UserController@bulkDelete');
-
         // user roles
         Route::resource('user-role', 'UserRoleController');
         Route::post('/user-role/bulk-edit', 'UserRoleController@bulkEdit');
@@ -38,6 +27,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('load-menu', 'MenuController@load');
 
         Route::get('/online-users/load', 'OnlineUsersController@load');
+
+        // shop
+//        Route::post('/user/change-password', 'UserController@changePassword');
+//        Route::get('/user/profile', 'UserController@profile');
+        Route::resource('shops', 'ShopController');
+        Route::post('/shops/bulk-edit','ShopController@bulkEdit');
+//        Route::post('/user/bulk-delete', 'UserController@bulkDelete');
 
     });
 });

@@ -92,7 +92,7 @@ class ShopController extends Controller
             abort(403, "Please select some items.");
         }
 
-        if (!$ids = collect($items)->pluck('id')->all()) {
+        if (!$ids = collect($items)->pluck('shop_id')->all()) {
             abort(403, "No ids provided.");
         }
 
