@@ -85,6 +85,11 @@ class MenuController extends Controller
                 'title' => 'Shops'
             ],
             [
+                'url' => 'showProducts',
+                'class' => 'fab fa-product-hunt',
+                'title' => 'Products',
+            ],
+            [
                 'class' => 'fa fa-cogs',
                 'title' => 'System',
                 'child' => $this->system()

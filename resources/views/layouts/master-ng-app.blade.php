@@ -18,7 +18,9 @@
             });
         }).controller('LayoutController', LayoutController);
 
-        function LayoutController($http, $scope) {}
+        function LayoutController($http, $scope) {
+
+        }
 
     })();
 </script>

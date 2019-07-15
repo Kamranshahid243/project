@@ -16,9 +16,12 @@
             <i class="fas fa-bars"></i>
             <span class="sr-only">Toggle navigation</span>
         </a>
+
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
+
             <ul class="nav navbar-nav">
+
                 <!-- User Account Menu -->
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->

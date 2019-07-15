@@ -238,7 +238,7 @@
 
         state.sortBy = function (column) {
             if (column == state.params.sort)
-                state.params.sortType = ( state.params.sortType == 'asc' ) ? 'desc' : 'asc';
+                state.params.sortType = (state.params.sortType == 'asc') ? 'desc' : 'asc';
             else {
                 state.params.sort = column;
                 state.params.sortType = 'asc';
@@ -267,7 +267,7 @@
         return {
             restrict: 'A',
             scope: {
-                method:'@httpRequest',
+                method: '@httpRequest',
                 url: '@url',
                 data: '=data',
                 onSuccess: '&onSuccess',
@@ -275,15 +275,14 @@
             },
             link: function (scope, elem, attrs) {
                 elem.click(function () {
-                    if(!scope.url || !scope.data)
-                    {
+                    if (!scope.url || !scope.data) {
                         toaster.pop('error', 'Error', 'No data to post.');
                         return;
                     }
 
                     var prevText = elem.text();
                     elem.text('Working...');
-                    elem.attr('disabled','disabled');
+                    elem.attr('disabled', 'disabled');
 
                     $http({
                         method: scope.method,
@@ -324,8 +323,8 @@
                 optionsUrl: '@', // url to fetch options from
                 optionLabelField: '@', // field to be displayed for an option
                 optionValueField: '@', // field whose value is to be set for the selected option
-                searchField:'=?',  //Show search field (passing true will show text field)
-                options:'=options', //will be preferred over optionsUrl
+                searchField: '=?',  //Show search field (passing true will show text field)
+                options: '=options', //will be preferred over optionsUrl
                 model: '=model'
             },
             controller: function ($scope, $element, $attrs) {
@@ -399,7 +398,7 @@
             scope: {
                 target: '=target',
                 extraDataToPost: '=?',
-                onSuccess:'&onSuccess',
+                onSuccess: '&onSuccess',
                 url: '@'
             },
             controller: function ($scope, $element, $attrs) {
@@ -585,6 +584,7 @@
                     }
                     return finalVal + '\n';
                 };
+
                 // logic for the export functionality
                 function downloadCsv(filename, csvString) {
                     var blob = new Blob([csvString], {type: 'text/csv;charset=utf-8;'});
@@ -811,7 +811,7 @@
             link: function ($scope, $element, $attrs) {
                 var state = $scope.state;
                 $scope.recordsFrom = function () {
-                    return ( (state.params.page - 1) * state.params.perPage ) + 1;
+                    return ((state.params.page - 1) * state.params.perPage) + 1;
                 };
 
                 $scope.recordsTo = function () {
@@ -937,6 +937,7 @@
     });
 
     app.directive('nvdQrCode', QrCodeDirective);
+
     function QrCodeDirective() {
         return {
             restrict: 'E',

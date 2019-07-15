@@ -31,9 +31,9 @@ class ShopController extends Controller
         $this->validate($request, Shop::validationRules());
         $data = $request->all();
         $data['shop_name'] = $data['shop_name'];
-        $data['shop_address']=$data['shop_address'];
-        $data['shop_type']=$data['shop_type'];
-        $data['printer_type']=$data['printer_type'];
+        $data['shop_address'] = $data['shop_address'];
+        $data['shop_type'] = $data['shop_type'];
+        $data['printer_type'] = $data['printer_type'];
         return Shop::create($data);
     }
 
@@ -118,6 +118,11 @@ class ShopController extends Controller
     public function edit(Request $request, User $user)
     {
         abort(404);
+    }
+
+    public function allShops()
+    {
+        return Shop::all();
     }
 
 }
