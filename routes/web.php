@@ -46,6 +46,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('addProduct', 'ProductsController@store');
         Route::delete('deleteProduct/{product_id}', "ProductsController@destroy");
         Route::resource('edit', "ProductsController");
+        Route::post('/products/bulk-delete', "ProductsController@bulkDelete");
+        Route::post('/products/bulk-edit', "ProductsController@bulkEdit");
     });
 
     if (env('APP_ENV') == 'local') {

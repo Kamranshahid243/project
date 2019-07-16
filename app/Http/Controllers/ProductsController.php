@@ -50,6 +50,71 @@ class ProductsController extends Controller
         return Product::create($data);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Product $product, $product_id)
+    {
+        $product = Product::where('product_id', '=', $product_id);
+        if ($request->wantsJson()) {
+            $data = [$request->name => $request->value];
+            $validator = \Validator::make($data, Product::validationRules($request->name));
+            if ($validator->fails())
+                return response($validator->errors()->first($request->name), 403);
+
+            $product->update($data);
+            return "Product updated.";
+        }
+
+        $this->validate($request, Product::validationRules());
+        $product->update($request->all());
+        return redirect('/showProducts');
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        $items = $request->items;
+        if (!$items) {
+            abort(403, "Please select some items.");
+        }
+
+        if (!$ids = collect($items)->pluck('product_id')->all()) {
+            abort(403, "No IDs provided.");
+        }
+
+        Product::whereIn('product_id', $ids)->delete();
+        return response("Deleted");
+    }
+
+    public function bulkEdit(Request $request)
+    {
+        if (!$field = $request->field) {
+            abort(403, "Invalid request. Please provide a field.");
+        }
+
+        if (!$fieldName = array_get($field, 'name')) {
+            abort(403, "Invalid request. Please provide a field name.");
+        }
+
+        if (!in_array($fieldName, Product::$bulkEditableFields)) {
+            abort(403, "Bulk editing the {$fieldName} is not allowed.");
+        }
+
+        if (!$items = $request->items) {
+            abort(403, "Please select some items.");
+        }
+
+        if (!$ids = collect($items)->pluck('product_id')->all()) {
+            abort(403, "No ids provided.");
+        }
+
+        Product::whereIn('product_id', $ids)->update([$fieldName => array_get($field, 'value')]);
+        return response("Updated");
+    }
 
     /**
      * Display the specified resource.
@@ -71,29 +136,6 @@ class ProductsController extends Controller
     public function edit($id)
     {
         //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Product $product)
-    {
-        if ($request->wantsJson()) {
-            $data = [$request->name => $request->value];
-            $validator = \Validator::make($data, Product::validationRules($request->name));
-            if ($validator->fails())
-                return response($validator->errors()->first($request->name), 403);
-            $product->update($data);
-            return "Product updated.";
-        }
-
-        $this->validate($request, Product::validationRules());
-        $product->update($request->all());
-        return redirect('/showProducts');
     }
 
     /**
