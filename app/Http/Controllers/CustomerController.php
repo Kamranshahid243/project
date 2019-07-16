@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Shop;
+use App\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class ShopController extends Controller
+class CustomerController extends Controller
 {
-    public $viewDir = "shop";
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+//    public function index()
+//    {
+//        return view('customer.index');
+//    }
 
+    public $viewDir = "customer";
 
     public function profile(Request $request)
     {
@@ -21,42 +31,38 @@ class ShopController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            return Shop::findRequested();
+            return Customer::findRequested();
         }
         return $this->view("index");
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, Shop::validationRules());
+        $this->validate($request, Customer::validationRules());
         $data = $request->all();
-        $data['shop_name'] = $data['shop_name'];
-        $data['shop_address'] = $data['shop_address'];
-        $data['shop_type'] = $data['shop_type'];
-        $data['printer_type'] = $data['printer_type'];
-        return Shop::create($data);
+        return Customer::create($data);
     }
 
-    public function update(Request $request, Shop $shop)
+    public function update(Request $request, Customer $user)
     {
         if ($request->wantsJson()) {
             $data = [$request->name => $request->value];
-            $validator = \Validator::make($data, Shop::validationRules($request->name));
+            $validator = \Validator::make($data, Customer::validationRules($request->name));
             if ($validator->fails())
                 return response($validator->errors()->first($request->name), 403);
-            $shop->update($data);
-            return "Shop updated.";
+            $user->update($data);
+            return "User updated.";
         }
 
-        $this->validate($request, Shop::validationRules());
-        $shop->update($request->all());
-        return redirect('/shops');
+        $this->validate($request, User::validationRules());
+        $user->update($request->all());
+        return redirect('/user');
     }
 
-    public function destroy(Request $request, Shop $shop)
+    public function destroy(Request $request, User $user)
     {
-        $shop->delete();
-        return "Shop deleted";
+        $user->delete();
+        return "User deleted";
     }
 
     public function bulkDelete(Request $request)
@@ -66,11 +72,11 @@ class ShopController extends Controller
             abort(403, "Please select some items.");
         }
 
-        if (!$ids = collect($items)->pluck('shop_id')->all()) {
-            abort(403, "No IDs provided.");
+        if (!$ids = collect($items)->pluck('id')->all()) {
+            abort(403, "No ids provided.");
         }
 
-        Shop::whereIn('shop_id', $ids)->delete();
+        User::whereIn('id', $ids)->delete();
         return response("Deleted");
     }
 
@@ -84,7 +90,7 @@ class ShopController extends Controller
             abort(403, "Invalid request. Please provide a field name.");
         }
 
-        if (!in_array($fieldName, Shop::$bulkEditableFields)) {
+        if (!in_array($fieldName, User::$bulkEditableFields)) {
             abort(403, "Bulk editing the {$fieldName} is not allowed.");
         }
 
@@ -92,16 +98,20 @@ class ShopController extends Controller
             abort(403, "Please select some items.");
         }
 
-        if (!$ids = collect($items)->pluck('shop_id')->all()) {
+        if (!$ids = collect($items)->pluck('customer_id')->all()) {
             abort(403, "No ids provided.");
         }
 
-        Shop::whereIn('shop_id', $ids)->update([$fieldName => array_get($field, 'value')]);
+        User::whereIn('id', $ids)->update([$fieldName => array_get($field, 'value')]);
         return response("Updated");
     }
 
     protected function view($view, $data = [])
     {
+       $data['shop_name']= DB::table('customers')
+            ->join('shops', 'customers.shop_id', '=', 'shops.shop_id')
+            ->select('shops.shop_id','shops.shop_name')
+            ->get();
         return view($this->viewDir . "." . $view, $data);
     }
 
@@ -110,18 +120,13 @@ class ShopController extends Controller
         abort(404);
     }
 
-    public function show(Request $request, Shop $user)
+    public function show(Request $request, User $user)
     {
         abort(404);
     }
 
-    public function edit(Request $request, Shop $user)
+    public function edit(Request $request, User $user)
     {
         abort(404);
     }
-    public function allShops(){
-        return Shop::all();
-    }
-
-
 }

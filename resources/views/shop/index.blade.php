@@ -5,6 +5,7 @@
         <div class="col-sm-12">
             @include('shop.create')
             <div class="box">
+
                 <bulk-assigner target="shopsArray" url="/shops/bulk-edit">
                     <bulk-assigner-field field="bulkAssignerFields.shopType">
                         <select ng-options="item for item in ['Wholesale','Retail']" class="form-control"
@@ -110,8 +111,8 @@
                             </td>
                             <td>
                                 <n-editable type="text" name="shop_address"
-                                value="shop.shop_address"
-                                url="/shops/@{{shop.shop_id}}"
+                                            value="shop.shop_address"
+                                            url="/shops/@{{shop.shop_id}}"
                                 ></n-editable>
                             </td>
                             <td>
@@ -133,6 +134,7 @@
                                 ></n-editable>
                             </td>
                             <td>
+                                <a href="shop-details/@{{shop.shop_id}}"><i class="fa fa-folder"></i></a>
                                 <delete-btn action="/shops/@{{shop.shop_id}}" on-success="loadShops()">
                                     <i class="fa fa-trash"></i>
                                 </delete-btn>

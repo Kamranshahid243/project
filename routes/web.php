@@ -3,8 +3,12 @@
 Route::group(['middleware' => ['web']], function () {
     Auth::routes();
     Route::group(['middleware' => ['auth']], function () {
-        Route::get('/', function () { return view('dashboard.dashboard'); });
-        Route::get('/dashboard', function () { return view('dashboard.dashboard'); });
+        Route::get('/', function () {
+            return view('dashboard.dashboard');
+        });
+        Route::get('/dashboard', function () {
+            return view('dashboard.dashboard');
+        });
 
         Route::get('/nvd-dashboard/load-config', 'NvdDashboardController@loadConfig');
         Route::post('/nvd-dashboard/save-config', 'NvdDashboardController@saveConfig');
@@ -29,16 +33,20 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/online-users/load', 'OnlineUsersController@load');
 
         // shop
-//        Route::post('/user/change-password', 'UserController@changePassword');
-//        Route::get('/user/profile', 'UserController@profile');
         Route::resource('shops', 'ShopController');
-        Route::post('/shops/bulk-edit','ShopController@bulkEdit');
+        Route::post('/shops/bulk-edit', 'ShopController@bulkEdit');
         Route::post('/shops/bulk-delete', 'ShopController@bulkDelete');
+        Route::get('get-shops', 'ShopController@allShops');
 
+        Route::resource('/customers', 'CustomerController');
+        // Products
+        Route::get('showProducts', "ProductsController@index");
+        Route::post('addProduct', 'ProductsController@store');
+        Route::delete('deleteProduct/{product_id}', "ProductsController@destroy");
+        Route::resource('edit', "ProductsController");
     });
+
+    if (env('APP_ENV') == 'local') {
+        require_once __DIR__ . "/../tests/test-routes.php";
+    }
 });
-
-if (env('APP_ENV') == 'local') {
-    require_once __DIR__ . "/../tests/test-routes.php";
-};
-
