@@ -6,40 +6,34 @@
     <div class="row" ng-controller="ProductController">
         <div class="col-sm-12">
             @include('Products.create')
-            <div class="box">
-                {{--<bulk-assigner target="shopsArray" url="/shops/bulk-edit">--}}
-                {{--<bulk-assigner-field field="bulkAssignerFields.shopType">--}}
-                {{--<select ng-options="item for item in ['Wholesale','Retail']" class="form-control"--}}
-                {{--ng-model="bulkAssignerFields.shopType.value">--}}
-                {{--<option value="">Shop Type</option>--}}
-                {{--</select>--}}
-                {{--</bulk-assigner-field>--}}
-                {{--<bulk-assigner-field field="bulkAssignerFields.printerType">--}}
-                {{--<select ng-options="item for item in ['Thermal','laser']" class="form-control"--}}
-                {{--ng-model="bulkAssignerFields.printerType.value">--}}
-                {{--<option value="">Printer Type</option>--}}
-                {{--</select>--}}
-                {{--</bulk-assigner-field>--}}
-                {{--</bulk-assigner>--}}
-                {{--<div class="box-options">--}}
-                {{--<a href="javascript:void(0)" class="box-option"--}}
-                {{--ng-if="shopsArray.length">--}}
-                {{--<i to-csv="shopsArray"--}}
-                {{--csv-file-name="shopsArray.csv"--}}
-                {{--csv-fields="csvFields"--}}
-                {{--class="fa fa-download"--}}
-                {{--uib-tooltip="Download data as CSV"--}}
-                {{--tooltip-placement="left"></i>--}}
-                {{--</a>&nbsp;--}}
-                {{--<a href="javascript:void(0)" ng-click="loadShops()" class="box-option">--}}
-                {{--<i class="fa fa-sync-alt"--}}
-                {{--uib-tooltip="Reload records"--}}
-                {{--tooltip-placement="left"></i>--}}
-                {{--</a>&nbsp;--}}
-                {{--<bulk-assigner-delete-btn target="products"--}}
-                {{--url="/shops/bulk-delete"--}}
-                {{--></bulk-assigner-delete-btn>--}}
-                {{--</div>--}}
+            <div class="box" show-loader="state.loadingProducts">
+                <bulk-assigner target="products" url="/products/bulk-edit">
+                    <bulk-assigner-field field="bulkAssignerFields.AvailableQuantity">
+                        <input type="text" ng-model="bulkAssignerFields.AvailableQuantity.value">
+                    </bulk-assigner-field>
+                    <bulk-assigner-field field="bulkAssignerFields.UnitPrice">
+                        <input type="number" ng-model="bulkAssignerFields.UnitPrice.value">
+                    </bulk-assigner-field>
+                </bulk-assigner>
+                <div class="box-options">
+                    <a href="javascript:void(0)" class="box-option"
+                       ng-if="products.length">
+                        <i to-csv="products"
+                           csv-file-name="products.csv"
+                           csv-fields="csvFields"
+                           class="fa fa-download"
+                           uib-tooltip="Download data as CSV"
+                           tooltip-placement="left"></i>
+                    </a>&nbsp;
+                    <a href="javascript:void(0)" ng-click="loadProducts()" class="box-option">
+                        <i class="fa fa-sync-alt"
+                           uib-tooltip="Reload records"
+                           tooltip-placement="left"></i>
+                    </a>&nbsp;
+                    <bulk-assigner-delete-btn target="products"
+                                              url="/products/bulk-delete"
+                    ></bulk-assigner-delete-btn>
+                </div>
                 <div class="box-body">
                     <table class="table table-bordered table-hover grid-view-tbl">
                         <thead>
@@ -105,7 +99,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="product in products"
-                            ng-class="{'bg-aqua-active': shop.$selected}">
+                            ng-class="{'bg-aqua-active': product.$selected}">
                             <th>
                                 <bulk-assigner-checkbox target="product"></bulk-assigner-checkbox>
                             </th>

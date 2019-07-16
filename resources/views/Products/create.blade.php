@@ -7,7 +7,10 @@
                 </uib-accordion-heading>
                 <nvd-form model="form" action="/addProduct">
                     <nvd-form-element field="shop_id">
-                        <input class="form-control" ng-model="form.shop_id" placeholder="Shop Id"/>
+                        <select class="form-control" ng-model="form.shop_id"
+                                ng-options="s.shop_id as s.shop_name for s in shops">
+                            <option value="">All Shops</option>
+                        </select>
                     </nvd-form-element>
 
                     <nvd-form-element field="product_name">
@@ -33,16 +36,7 @@
                                placeholder="Unit Price">
                     </nvd-form-element>
 
-                    {{--<nvd-form-element field="printer_type">--}}
-                    {{--<remote-select--}}
-                    {{--url="/printer-type"--}}
-                    {{--ng-model="form.printer_type"--}}
-                    {{--label-field="role" value-field="id"--}}
-                    {{--placeholder="Printer Type"--}}
-                    {{--></remote-select>--}}
-                    {{--</nvd-form-element>--}}
-
-                    <button type="submit" class="btn btn-primary btn-flat">Create</button>
+                    <button type="submit" class="btn btn-primary btn-flat" ng-click="loadProducts()">Create</button>
                 </nvd-form>
             </uib-accordion-group>
         </uib-accordion>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     public $fillable = ['product_id', 'shop_id', 'product_name', 'product_code', 'product_description', 'available_quantity', 'unit_price'];
+    public static $bulkEditableFields = ['available_quantity', 'unit_price'];
 
     public static function validationRules($attributes = null)
     {
