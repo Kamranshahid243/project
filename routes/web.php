@@ -39,6 +39,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('get-shops', 'ShopController@allShops');
 
         Route::resource('/customers', 'CustomerController');
+        Route::post('//customers/bulk-edit', 'CustomerController@bulkEdit');
+        Route::post('/customers/bulk-delete', 'CustomerController@bulkDelete');
         // Products
         Route::get('showProducts', "ProductsController@index");
         Route::post('addProduct', 'ProductsController@store');

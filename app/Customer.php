@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     protected $table="customers";
+    protected $primaryKey="customer_id";
     protected $guarded = ["customer_id", "created_at", "updated_at"];
     protected $hidden = ['remember_token'];
     public static $bulkEditableFields = ['shop_id', 'customer_type'];
@@ -23,7 +24,7 @@ class Customer extends Model
 
     public static function findRequested()
     {
-        $query = Customer::query();
+        $query = Customer::with(['shop']);
 
         // search results based on user input
         if (request('customer_id')) $query->where('customer_id', request('customer_id'));
@@ -89,6 +90,10 @@ class Customer extends Model
         foreach ($attributes as $attr)
             $newRules[$attr] = $rules[$attr];
         return $newRules;
+    }
+
+    public function shop(){
+        return $this->belongsTo(Shop::class,'shop_id','shop_id');
     }
 
 }

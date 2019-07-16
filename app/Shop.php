@@ -76,6 +76,8 @@ class Shop extends Model
         return $newRules;
     }
 
-
+    public function Customers(){
+        return $this->hasMany(Customer::class);
+    }
 
 }

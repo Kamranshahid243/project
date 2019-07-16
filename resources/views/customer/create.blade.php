@@ -21,11 +21,12 @@
                         <input type="text" class="form-control" ng-model="form.customer_phone" placeholder="(e.g 03xxxxxxxxx)" maxlength="11"/>
                     </nvd-form-element>
 
-                    <nvd-form-element field="shop_id">
+                    <nvd-form-element field="shop_id" >
                         <select class="form-control"
-                                ng-model="form.shop_id">
-                            <option value="">--select shop--</option>
-                            <option value="1">Butt Brothers</option>
+                                ng-model="form.shop_id" >
+                            <option value="">Shop</option>
+                            <option value="@{{ x.shop_id }}" ng-repeat="x in allShops">@{{ x.shop_name }}</option>
+
                         </select>
                     </nvd-form-element>
 

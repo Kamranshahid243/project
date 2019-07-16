@@ -17,8 +17,8 @@
                     $http.get("/customers", {params: state.params})
                         .then(function (response) {
                             $scope.customers = response.data.data;
-                            console.
                             $scope.recordsInfo = response.data;
+                            console.log(response.data.data);
                         })
                         .catch(function (res) {
                             toaster.pop('error', 'Error while loading Customers', res.data);
@@ -52,7 +52,6 @@
                         url: 'get-shops',
                         mehtod: 'get'
                     }).then(function (response) {
-                        // console.log(response.data);
                         $scope.allShops = response.data;
                     });
                 }
