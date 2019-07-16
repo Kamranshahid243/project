@@ -39,18 +39,14 @@
                         <thead>
                         <tr class="search-row">
                             <form class="search-form form-material">
-                                <td><input class="form-control" ng-model="state.params.shop_name"/></td>
-                                <td><input class="form-control" ng-model="state.params.shop_address"/></td>
+                                <td><input class="form-control" placeholder="Search by Product Name"
+                                           ng-model="state.params.product_name"/></td>
+                                <td><input class="form-control" placeholder="Search by Price"
+                                           ng-model="state.params.unit_price"/></td>
                                 <td>
-                                    <select ng-options="item for item in ['Wholesale','Retail']" class="form-control"
-                                            ng-model="state.params.shop_type">
-                                        <option value="">Shop Type</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select ng-options="item for item in ['Thermal','Laser']" class="form-control"
-                                            ng-model="state.params.printer_type">
-                                        <option value="">Printer Type</option>
+                                    <select ng-options="item for item in ['active','inactive']" class="form-control"
+                                            ng-model="state.params.product_status">
+                                        <option value="">Sort status</option>
                                     </select>
                                 </td>
                             </form>
@@ -68,14 +64,14 @@
                             </th>
                             <th>
                                 <filter-btn
-                                        field-name="product-code"
+                                        field-name="product_code"
                                         field-label="Product Code"
                                         model="state.params"
                                 ></filter-btn>
                             </th>
                             <th>
                                 <filter-btn
-                                        field-name="product_discription"
+                                        field-name="product_description"
                                         field-label="Product Description"
                                         model="state.params"
                                 ></filter-btn>
@@ -91,6 +87,13 @@
                                 <filter-btn
                                         field-name="unit_price"
                                         field-label="Unit Price"
+                                        model="state.params"
+                                ></filter-btn>
+                            </th>
+                            <th>
+                                <filter-btn
+                                        field-name="product_status"
+                                        field-label="Product Status"
                                         model="state.params"
                                 ></filter-btn>
                             </th>
@@ -134,6 +137,15 @@
                                 ></n-editable>
                             </td>
                             <td>
+                                <n-editable type="select" name="product_status"
+                                            value="product.product_status"
+                                            url="/edit/@{{product.product_id}}"
+                                            dd-options="[{i:'active'},{i:'inactive'}]"
+                                            dd-label-field="i"
+                                            dd-value-field="i"
+                                ></n-editable>
+                            </td>
+                            <td>
                                 <delete-btn action="/deleteProduct/@{{product.product_id}}" on-success="loadProducts()">
                                     <i class="fa fa-trash"></i>
                                 </delete-btn>
@@ -146,7 +158,7 @@
                         </tbody>
                     </table>
                     <hr>
-                    {{--<pagination state="state" records-info="recordsInfo"></pagination>--}}
+                    <pagination state="state" records-info="recordsInfo"></pagination>
                 </div>
             </div>
         </div>
