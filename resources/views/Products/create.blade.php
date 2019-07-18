@@ -5,7 +5,7 @@
                 <uib-accordion-heading>
                     <i class="fa fa-plus"></i> Add a New Product
                 </uib-accordion-heading>
-                <nvd-form model="form" action="/addProduct">
+                <nvd-form model="form" on-success="loadProducts()" action="/addProduct">
                     <nvd-form-element field="shop_id">
                         <select class="form-control" ng-model="form.shop_id"
                                 ng-options="s.shop_id as s.shop_name for s in shops">

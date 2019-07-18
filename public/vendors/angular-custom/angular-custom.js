@@ -526,9 +526,14 @@
                 scope.deleting = false;
 
                 scope.selectedItems = function () {
-                    return scope.target.filter(function (item) {
-                        return item.$selected;
-                    });
+                    if (scope.target)
+                    {
+                        return scope.target.filter(function (item) {
+                            return item.$selected;
+                        });
+                    }
+                    return [];
+
                 };
 
                 scope.selectedItemsCount = function () {

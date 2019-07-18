@@ -95,6 +95,11 @@ class MenuController extends Controller
                 'title' => 'Products',
             ],
             [
+                'url' => 'vendor',
+                'class' => 'fas fa-paper-plane',
+                'title' => 'Vendors',
+            ],
+            [
                 'url' => 'orders',
                 'class' => 'fas fa-shopping-cart',
                 'title' => 'Orders',

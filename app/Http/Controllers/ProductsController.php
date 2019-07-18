@@ -59,10 +59,6 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $product_id)
     {
-        echo "<pre>";
-        print_r($request->all());
-        echo "<pre>";
-
         $product = Product::where('product_id', '=', $product_id);
         if ($request->wantsJson()) {
             $data = [$request->name => $request->value];
