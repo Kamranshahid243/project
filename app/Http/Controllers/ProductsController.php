@@ -15,7 +15,7 @@ class ProductsController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            return Product::all();
+            return Product::findRequested();
         }
         return view('Products.index');
 
@@ -57,7 +57,7 @@ class ProductsController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product, $product_id)
+    public function update(Request $request, $product_id)
     {
         $product = Product::where('product_id', '=', $product_id);
         if ($request->wantsJson()) {

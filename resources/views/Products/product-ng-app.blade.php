@@ -4,16 +4,17 @@
             angular.module("myApp").controller('ProductController', ProductController);
 
             function ProductController($http, $scope, toaster, PageState) {
+                $scope.products = [];
+                $scope.recordsInfo = {};
                 $scope.form = {};
                 var state = $scope.state = PageState;
                 state.loadingProducts = false;
                 state.params.sort = 'product_id';
-                state.params.sortType = 'desc';
-                $scope.products = [];
                 $scope.loadProducts = function () {
                     state.loadingProducts = true;
                     $http.get("showProducts", {params: state.params}).then(function (res) {
-                        $scope.products = res.data;
+                        $scope.products = res.data.data;
+                        $scope.recordsInfo = res.data;
                     }).catch(function (res) {
                         toaster.pop('error', 'Error while loading Products', res.data);
                     }).then(function (res) {
@@ -33,7 +34,8 @@
 
                 $scope.bulkAssignerFields = {
                     AvailableQuantity: {name: 'available_quantity', label: 'Quantity', value: 0},
-                    UnitPrice: {name: 'unit_price', label: 'Unit Price', value: 0}
+                    UnitPrice: {name: 'unit_price', label: 'Unit Price', value: 0},
+                    productStatus: {name: 'product_status', label: 'product Status', value: 0}
                 };
                 $scope.csvFields = [
                     {name: 'product_id', label: 'Id'},
