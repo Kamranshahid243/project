@@ -108,6 +108,13 @@
                                         model="state.params"
                                 ></filter-btn>
                             </th>
+                            <th>
+                                <filter-btn
+                                        field-name="status"
+                                        field-label="Status"
+                                        model="state.params"
+                                ></filter-btn>
+                            </th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -123,7 +130,14 @@
                                             url="/customers/@{{customer.customer_id}}"
                                 ></n-editable>
                             </td>
-                            <td>@{{ customer.shop_name }}
+                            <td>
+                                {{--<n-editable type="select" name="shop.shop_name"--}}
+                                            {{--value="customer.shop.shop_name"--}}
+                                            {{--url="/customers/@{{customer.shop_id}}"--}}
+                                            {{--dd-options-url="/shop-id"--}}
+                                            {{--dd-label-field="role"--}}
+                                            {{--dd-value-field="id"--}}
+                                {{--></n-editable>--}}
                                 <n-editable type="text" name="shop_name"
                                             value="customer.shop.shop_name"
                                             url="/customers/@{{customer.customer_id}}"
@@ -154,6 +168,24 @@
                                 <n-editable type="text" name="customer_phone"
                                             value="customer.customer_phone"
                                             url="/customers/@{{customer.customer_id}}"
+                                ></n-editable>
+                            </td>
+                            <td ng-if="customer.status=='Active'" style="color: green; font-weight: bold;">
+                                <n-editable type="select" name="status"
+                                            value="customer.status"
+                                            url="/customers/@{{customer.customer_id}}"
+                                            dd-options="[{o:'Active'},{o:'Inactive'}]"
+                                            dd-label-field="o"
+                                            dd-value-field="o"
+                                ></n-editable>
+                            </td>
+                            <td ng-if="customer.status=='Inactive'" style="color: red; font-weight: bold;">
+                                <n-editable type="select" name="status"
+                                            value="customer.status"
+                                            url="/customers/@{{customer.customer_id}}"
+                                            dd-options="[{o:'Active'},{o:'Inactive'}]"
+                                            dd-label-field="o"
+                                            dd-value-field="o"
                                 ></n-editable>
                             </td>
                             <td>

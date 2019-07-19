@@ -38,6 +38,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/shops/bulk-delete', 'ShopController@bulkDelete');
         Route::get('get-shops', 'ShopController@allShops');
 
+        //customer
         Route::resource('/customers', 'CustomerController');
         Route::post('//customers/bulk-edit', 'CustomerController@bulkEdit');
         Route::post('/customers/bulk-delete', 'CustomerController@bulkDelete');
@@ -48,6 +49,14 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('edit', "ProductsController");
         Route::post('/products/bulk-delete', "ProductsController@bulkDelete");
         Route::post('/products/bulk-edit', "ProductsController@bulkEdit");
+        Route::get('get-products', 'ProductsController@getProducts');
+
+        //orders
+        Route::resource('/orders', 'OrdersController');
+        Route::post('//orders/bulk-edit', 'OrdersController@bulkEdit');
+        Route::post('/orders/bulk-delete', 'OrdersController@bulkDelete');
+        Route::get('add-orders','OrdersController@addOrder');
+
     });
 
     if (env('APP_ENV') == 'local') {

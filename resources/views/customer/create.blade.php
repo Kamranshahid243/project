@@ -24,7 +24,7 @@
                     <nvd-form-element field="shop_id" >
                         <select class="form-control"
                                 ng-model="form.shop_id" >
-                            <option value="">Shop</option>
+                            <option value="">--Shop--</option>
                             <option value="@{{ x.shop_id }}" ng-repeat="x in allShops">@{{ x.shop_name }}</option>
 
                         </select>
@@ -33,7 +33,13 @@
                     <nvd-form-element field="customer_type">
                         <select ng-options="item for item in ['Shopkeeper','Consumer']" class="form-control"
                                 ng-model="form.customer_type">
-                            <option value="">Customer Type</option>
+                            <option value="">--Customer type--</option>
+                        </select>
+                    </nvd-form-element>
+                    <nvd-form-element field="status">
+                        <select ng-options="item for item in ['Active','Inactive']" class="form-control"
+                                ng-model="form.status">
+                            <option value="">--Customer status--</option>
                         </select>
                     </nvd-form-element>
 

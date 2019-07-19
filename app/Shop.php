@@ -8,7 +8,7 @@ class Shop extends Model
 {
     protected $primaryKey="shop_id";
     protected $guarded = ["shop_id", "created_at", "updated_at"];
-    public static $bulkEditableFields = ['shop_name', 'shop_address','shop_type','printer_type'];
+    public static $bulkEditableFields = ['shop_name', 'shop_address','shop_type','printer_type','shop_status'];
 
     public static function findRequested()
     {
@@ -22,7 +22,7 @@ class Shop extends Model
         if (request('updated_at')) $query->where('updated_at', request('updated_at'));
         if (request('shop_type')) $query->where('shop_type', 'like', '%' . request('shop_type') . '%');
         if (request('printer_type')) $query->where('printer_type', request('printer_type'));
-
+        if (request('shop_status')) $query->where('shop_status', request('shop_status'));
         // sort results
         if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
 
@@ -59,6 +59,7 @@ class Shop extends Model
             'shop_address' => 'required|string|max:191',
             'shop_type' => 'required|in:Wholesale,Retail',
             'printer_type' => 'required|in:Thermal,Laser',
+            'shop_status' => 'required',
         ];
 
         // no list is provided
@@ -78,6 +79,11 @@ class Shop extends Model
 
     public function Customers(){
         return $this->hasMany(Customer::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class,'shop_id');
     }
 
 }

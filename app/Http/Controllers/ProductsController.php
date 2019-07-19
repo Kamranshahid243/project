@@ -150,4 +150,13 @@ class ProductsController extends Controller
         return 'Deleted Succesfully';
     }
 
+    public function getProducts()
+    {
+        return Product::all();
+    }
+
+    public function addOrder()
+    {
+    }
+
 }

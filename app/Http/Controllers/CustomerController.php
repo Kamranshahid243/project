@@ -52,7 +52,7 @@ class CustomerController extends Controller
             if ($validator->fails())
                 return response($validator->errors()->first($request->name), 403);
             $customer->update($data);
-            return "User updated.";
+            return "Customer updated.";
         }
 
         $this->validate($request, Customer::validationRules());

@@ -18,7 +18,6 @@
                         .then(function (response) {
                             $scope.customers = response.data.data;
                             $scope.recordsInfo = response.data;
-                            console.log(response.data.data);
                         })
                         .catch(function (res) {
                             toaster.pop('error', 'Error while loading Customers', res.data);
@@ -56,6 +55,17 @@
                     });
                 }
                 $scope.getShops();
+                $scope.getProducts = function () {
+                    $http({
+                        url: 'get-products',
+                        mehtod: 'get'
+                    }).then(function (response) {
+                        console.log(response.data);
+                        $scope.allProducts = response.data;
+                    });
+                }
+                $scope.getProducts();
+
             }
         })();
     </script>

@@ -44,10 +44,10 @@
                     <table class="table table-bordered table-hover grid-view-tbl">
                         <thead>
                         <tr class="search-row">
-                            <td></td>
+                            <td><b>Search By:</b></td>
                             <form class="search-form form-material">
-                                <td><input class="form-control" ng-model="state.params.name"/></td>
-                                <td><input class="form-control" ng-model="state.params.email"/></td>
+                                <td><input class="form-control" ng-model="state.params.name" placeholder="User Name"/></td>
+                                <td><input class="form-control" ng-model="state.params.email" placeholder="Shop Email"/></td>
                                 <td>
                                     <select ng-options="item for item in ['Enabled','Disabled']" class="form-control"
                                             ng-model="state.params.status">
@@ -118,7 +118,16 @@
                                             {{--url="/user/@{{user.id}}"--}}
                                 {{--></n-editable>--}}
                             </td>
-                            <td>
+                            <td ng-if="user.status=='Enabled'" style="color: green; font-weight: bold;">
+                                <n-editable type="select" name="status"
+                                            value="user.status"
+                                            url="/user/@{{user.id}}"
+                                            dd-options="[{o:'Enabled'},{o:'Disabled'}]"
+                                            dd-label-field="o"
+                                            dd-value-field="o"
+                                ></n-editable>
+                            </td>
+                            <td ng-if="user.status=='Disabled'" style="color: red; font-weight: bold;">
                                 <n-editable type="select" name="status"
                                             value="user.status"
                                             url="/user/@{{user.id}}"

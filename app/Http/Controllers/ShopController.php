@@ -34,6 +34,7 @@ class ShopController extends Controller
         $data['shop_address'] = $data['shop_address'];
         $data['shop_type'] = $data['shop_type'];
         $data['printer_type'] = $data['printer_type'];
+        $data['shop_status'] = $data['shop_status'];
         return Shop::create($data);
     }
 
@@ -120,7 +121,7 @@ class ShopController extends Controller
         abort(404);
     }
     public function allShops(){
-        return Shop::all();
+        return Shop::get();
     }
 
 

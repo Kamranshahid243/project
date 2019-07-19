@@ -43,10 +43,11 @@
                     <table class="table table-bordered table-hover grid-view-tbl">
                         <thead>
                         <tr class="search-row">
-                            <td></td>
+                            <td><b>Seach By:</b></td>
                             <form class="search-form form-material">
-                                <td><input class="form-control" ng-model="state.params.shop_name"/></td>
-                                <td><input class="form-control" ng-model="state.params.shop_address"/></td>
+                                <td><input class="form-control" ng-model="state.params.shop_name" placeholder="Shop Name"/></td>
+                                <td><input class="form-control" ng-model="state.params.shop_address"
+                                           placeholder="Shop Address"/></td>
                                 <td>
                                     <select ng-options="item for item in ['Wholesale','Retail']" class="form-control"
                                             ng-model="state.params.shop_type">
@@ -59,7 +60,12 @@
                                         <option value="">Printer Type</option>
                                     </select>
                                 </td>
-                                <td></td>
+                                <td>
+                                    <select ng-options="item for item in ['Active','Inactive']" class="form-control"
+                                            ng-model="state.params.shop_status">
+                                        <option value="">Shop Status</option>
+                                    </select>
+                                </td>
                             </form>
                         </tr>
                         <tr class="header-row">
@@ -91,6 +97,13 @@
                                 <filter-btn
                                         field-name="printer_type"
                                         field-label="Printer Type"
+                                        model="state.params"
+                                ></filter-btn>
+                            </th>
+                            <th>
+                                <filter-btn
+                                        field-name="shop_type"
+                                        field-label="Shop Status"
                                         model="state.params"
                                 ></filter-btn>
                             </th>
@@ -133,12 +146,29 @@
                                             dd-value-field="o"
                                 ></n-editable>
                             </td>
-                            <td>
-                                <a href="shop-details/@{{shop.shop_id}}"><i class="fa fa-folder"></i></a>
+                            <td ng-if="shop.shop_status=='Active'" style="color: green; font-weight: bold;">
+                                <n-editable type="select" name="shop_status"
+                                            value="shop.shop_status"
+                                            url="/shops/@{{shop.shop_id}}"
+                                            dd-options="[{o:'Active'},{o:'Inactive'}]"
+                                            dd-label-field="o"
+                                            dd-value-field="o"
+                                ></n-editable>
+                            </td>
+                            <td ng-if="shop.shop_status=='Inactive'" style="color: red; font-weight: bold;">
+                                <n-editable type="select" name="shop_status"
+                                            value="shop.shop_status"
+                                            url="/shops/@{{shop.shop_id}}"
+                                            dd-options="[{o:'Active'},{o:'Inactive'}]"
+                                            dd-label-field="o"
+                                            dd-value-field="o"
+                                ></n-editable>
+                            </td>
+                            <th>
                                 <delete-btn action="/shops/@{{shop.shop_id}}" on-success="loadShops()">
                                     <i class="fa fa-trash"></i>
                                 </delete-btn>
-                            </td>
+                            </th>
                         </tr>
 
                         <tr class="alert alert-warning" ng-if="!shopsArray.length && !state.loadingShops">
