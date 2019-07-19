@@ -29,18 +29,16 @@
                     vendorStatus: {name: 'vendor_status', label: 'product Status', value: ''}
                 };
 
-                // $scope.csvFields = [
-                //     {name: 'product_id', label: 'Id'},
-                //     {name: 'shop_id', label: 'Shop Id'},
-                //     {name: 'product_name', label: 'product Name'},
-                //     {name: 'product_code', label: 'Product Code'},
-                //     {name: 'printer_type', label: 'Printer Type'},
-                //     {name: 'product_description', label: 'Product Description'},
-                //     {name: 'available_quantity', label: 'Available Quantity'},
-                //     {name: 'unit_price', label: 'Unit Price'},
-                //     {name: 'created_at', label: 'Created at'},
-                //     {name: 'updated_at', label: 'Updated at'},
-                // ];
+                $scope.csvFields = [
+                    {name: 'shop_id', label: 'Shop Id'},
+                    {name: 'vendor_name', label: 'Vendor Name'},
+                    {name: 'vendor_address', label: 'Vendor Address'},
+                    {name: 'vendor_phone', label: 'Vendor Phone'},
+                    {name: 'vendor_email', label: 'Vendor Email'},
+                    {name: 'vendor_status', label: 'Vendor Status'},
+                    {name: 'created_at', label: 'Created at'},
+                    {name: 'updated_at', label: 'Updated at'},
+                ];
             }
         })();
     </script>
