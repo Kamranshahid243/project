@@ -105,6 +105,11 @@ class MenuController extends Controller
                 'title' => 'Orders',
             ],
             [
+                'url' => 'expenses',
+                'class' => 'fas fa-coins',
+                'title' => 'Expenses',
+            ],
+            [
                 'class' => 'fa fa-cogs',
                 'title' => 'System',
                 'child' => $this->system()

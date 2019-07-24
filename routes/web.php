@@ -66,7 +66,16 @@ Route::group(['middleware' => ['web']], function () {
         Route::delete('/deleteVendor/{vendor_id}', 'VendorController@destroy');
         Route::post('/vendors/bulk-edit', 'VendorController@bulkEdit');
         Route::post('/vendors/bulk-delete', 'VendorController@bulkDelete');
+
+        //expenses
+        Route::resource('expenses', 'ExpenseController');
+        Route::post('/expenses/bulk-edit', 'ExpenseController@bulkEdit');
+        Route::post('/expenses/bulk-delete', 'ExpenseController@bulkDelete');
+        Route::get('get-shops', 'ShopController@allShops');
+
     });
+
+
 
     if (env('APP_ENV') == 'local') {
         require_once __DIR__ . "/../tests/test-routes.php";
