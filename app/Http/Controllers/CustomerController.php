@@ -9,16 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-//    public function index()
-//    {
-//        return view('customer.index');
-//    }
-
     public $viewDir = "customer";
 
     public function profile(Request $request)
@@ -29,7 +19,7 @@ class CustomerController extends Controller
         return $this->view("profile");
     }
 
-    public function index(Request $request,Customer $customer)
+    public function index(Request $request, Customer $customer)
     {
         if ($request->wantsJson()) {
             return $customer::findRequested();
@@ -107,11 +97,8 @@ class CustomerController extends Controller
         return response("Updated");
     }
 
-    protected function view($view, $data=[])
+    protected function view($view, $data = [])
     {
-
-
-//        dd($data);
         return view($this->viewDir . "." . $view, $data);
     }
 

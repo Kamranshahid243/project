@@ -1,10 +1,6 @@
 @extends("layouts.master")
 @section('title') Orders @stop
 @section('content')
-
-
-
-
     <div class="row" ng-controller="MainController" show-loader="state.loadingOrders">
        <div class="col-sm-12">
            <div align="right">

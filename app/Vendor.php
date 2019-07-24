@@ -47,7 +47,7 @@ class Vendor extends Model
         if (request('updated_at')) $query->where('updated_at', request('updated_at'));
         if (request('vendor_phone')) $query->where('vendor_phone', 'like', '%' . request('vendor_phone') . '%');
         if (request('vendor_email')) $query->where('vendor_email', 'like', '%' . request('vendor_email') . '%');
-        if (request('vendor_status')) $query->where('vendor_status', 'like', '%' . request('vendor_status') . '%');
+        if (request('vendor_status')) $query->where('vendor_status', request('vendor_status'));
 
         // sort results
         if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
