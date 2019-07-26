@@ -31,20 +31,15 @@ class ExpenseController extends Controller
     {
         $this->validate($request, Expense::validationRules());
         $data = $request->all();
-        return Expense::create($data);
-//        $expense=new Expense([
-//            'shop_id' => $request->shop_id,
-//            'rent' => $request->rent,
-//            'salaries' => $request->salaries,
-//            'refreshment' => $request->refreshment,
-//            'drawing' => $request->drawing,
-//            'loss' => $request->loss,
-//            'bills' => $request->bills,
-//            'others' => $request->others,
-//            'total' => ($request->rent + $request->salaries + $request->refreshment + $request->drawing + $request->loss + $request->bills + $request->others)
-//        ]);
-//        $expense->save();
-//        return "Created";
+//        return Expense::create($data);
+        $expense=new Expense([
+            'shop_id' => session('shop')->shop_id,
+            'category_id' => $request->category_id,
+            'cost' => $request->cost,
+            'date' => $request->date,
+        ]);
+        $expense->save();
+        return "Expense Added";
     }
 
     public function update($id,Request $request)

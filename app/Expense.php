@@ -53,7 +53,6 @@ class Expense extends Model
     public static function validationRules($attributes = null)
     {
         $rules = [
-            'shop_id' => 'required|integer',
             'category_id' => 'required|integer',
             'cost' => 'required|integer',
             'date' => 'required',

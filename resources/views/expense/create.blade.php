@@ -9,12 +9,6 @@
                     <nvd-form-element field="date">
                         <input type="date" class="form-control" ng-model="form.date">
                     </nvd-form-element>
-                    <nvd-form-element field="shop_id">
-                        <select class="form-control" ng-model="form.shop_id">
-                            <option value="">--select shop--</option>
-                            <option ng-show="shop.shop_status=='Active'" value="@{{ shop.shop_id }}" ng-repeat="shop in allShops">@{{ shop.shop_name }}</option>
-                        </select>
-                    </nvd-form-element>
                     <nvd-form-element field="category_id">
                         <select class="form-control" ng-model="form.category_id">
                             <option value="">--select Category--</option>
