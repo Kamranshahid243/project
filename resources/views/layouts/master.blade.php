@@ -9,9 +9,8 @@
     <link type="text/css" rel="stylesheet"
           href="{{URL::asset('assets/administrator/bootstrap/css/bootstrap.min.css')}}">
 
-    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
-            integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
-            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <script>FontAwesomeConfig = {autoReplaceSvg: 'nest'}</script>
 
     <link type="text/css" rel="stylesheet" href="{{URL::asset('assets/administrator/bootstrap/css/ionicons.min.css')}}">

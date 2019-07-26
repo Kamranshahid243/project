@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Expense;
 use App\ExpenseCategory;
 use Illuminate\Http\Request;
 
-class ExpenseController extends Controller
+class ExpenseCategoryController extends Controller
 {
-    public $viewDir = "expense";
+    public $viewDir = "expense_category";
 
 
     public function profile(Request $request)
@@ -22,52 +21,40 @@ class ExpenseController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            return Expense::findRequested();
+            return ExpenseCategory::findRequested();
         }
         return $this->view("index");
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, Expense::validationRules());
+        $this->validate($request, ExpenseCategory::validationRules());
         $data = $request->all();
-        return Expense::create($data);
-//        $expense=new Expense([
-//            'shop_id' => $request->shop_id,
-//            'rent' => $request->rent,
-//            'salaries' => $request->salaries,
-//            'refreshment' => $request->refreshment,
-//            'drawing' => $request->drawing,
-//            'loss' => $request->loss,
-//            'bills' => $request->bills,
-//            'others' => $request->others,
-//            'total' => ($request->rent + $request->salaries + $request->refreshment + $request->drawing + $request->loss + $request->bills + $request->others)
-//        ]);
-//        $expense->save();
-//        return "Created";
+        return ExpenseCategory::create($data);
     }
 
-    public function update($id,Request $request)
+    public function update($id, Request $request)
     {
-        $expense=Expense::where('expense_id',$id)->first();
+        $expense = ExpenseCategory::where('id', $id)->first();
         if ($request->wantsJson()) {
             $data = [$request->name => $request->value];
 //            $validator = \Validator::make($data, Expense::validationRules($request->name));
 //            if ($validator->fails())
 //                return response($validator->errors()->first($request->name), 403);
-             $expense->update($data);
+            $expense->update($data);
             return "Expense updated.";
         }
 
-        $this->validate($request, Expense::validationRules());
+        $this->validate($request, ExpenseCategory::validationRules());
         $expense->update($request->all());
         return redirect('/expenses');
     }
 
-    public function destroy(Request $request, Expense $expense)
+    public function destroy($expense_id)
     {
-        $expense->delete();
-        return "Expense deleted";
+ $category = ExpenseCategory::where('id', '=', $expense_id)->delete();
+
+        return "Expense Category deleted";
     }
 
     public function bulkDelete(Request $request)
@@ -77,11 +64,11 @@ class ExpenseController extends Controller
             abort(403, "Please select some items.");
         }
 
-        if (!$ids = collect($items)->pluck('expense_id')->all()) {
+        if (!$ids = collect($items)->pluck('id')->all()) {
             abort(403, "No IDs provided.");
         }
 
-        Expense::whereIn('expense_id', $ids)->delete();
+        ExpenseCategory::whereIn('id', $ids)->delete();
         return response("Deleted");
     }
 
@@ -95,7 +82,7 @@ class ExpenseController extends Controller
             abort(403, "Invalid request. Please provide a field name.");
         }
 
-        if (!in_array($fieldName, Expense::$bulkEditableFields)) {
+        if (!in_array($fieldName, ExpenseCategory::$bulkEditableFields)) {
             abort(403, "Bulk editing the {$fieldName} is not allowed.");
         }
 
@@ -103,11 +90,11 @@ class ExpenseController extends Controller
             abort(403, "Please select some items.");
         }
 
-        if (!$ids = collect($items)->pluck('expense_id')->all()) {
+        if (!$ids = collect($items)->pluck('id')->all()) {
             abort(403, "No ids provided.");
         }
 
-        Expense::whereIn('expense_id', $ids)->update([$fieldName => array_get($field, 'value')]);
+        ExpenseCategory::whereIn('id', $ids)->update([$fieldName => array_get($field, 'value')]);
         return response("Updated");
     }
 
@@ -121,12 +108,12 @@ class ExpenseController extends Controller
         abort(404);
     }
 
-    public function show(Request $request, Expense $expense)
+    public function show(Request $request, ExpenseCategory $expense)
     {
         abort(404);
     }
 
-    public function edit(Request $request, Expense $expense)
+    public function edit(Request $request, ExpenseCategory $expense)
     {
         abort(404);
     }
@@ -136,9 +123,5 @@ class ExpenseController extends Controller
         return Shop::get();
     }
 
-    public function allExpenseCategories()
-    {
-        return ExpenseCategory::get();
-    }
 
 }

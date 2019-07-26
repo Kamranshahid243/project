@@ -8,7 +8,6 @@
                 $scope.recordsInfo = {};
                 $scope.form = {};
                 var state = $scope.state = PageState;
-                state.params.sort = 'expense_id';
                 state.loadingExpenses = false;
 
                 $scope.loadExpenses= function () {
@@ -64,6 +63,16 @@
                 }
                 $scope.getShops();
 
+
+                $scope.getExpenseCategories = function () {
+                    $http({
+                        url: 'get-categories',
+                        mehtod: 'get'
+                    }).then(function (response) {
+                        $scope.allCategories = response.data;
+                    });
+                }
+                $scope.getExpenseCategories();
             }
         })();
     </script>

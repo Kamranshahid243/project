@@ -19,6 +19,30 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+                <!-- Notifications: style can be found in dropdown.less -->
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fas fa-store"></i> {{ session('shop')->shop_name }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">Select a shop from following</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                @foreach(\App\Shop::all() as $shop)
+                                    @if($shop->shop_status=='Active')
+                                <li>
+                                    <a href="shop-session/{{$shop->shop_id}}">
+                                        <i class="fas fa-store text-aqua"></i> {{ $shop->shop_name }}
+                                    </a>
+                                </li>
+                                    @endif
+                                    @endforeach
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="#">View all</a></li>
+                    </ul>
+                </li>
                 <!-- User Account Menu -->
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->

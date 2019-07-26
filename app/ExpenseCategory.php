@@ -4,23 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Expense extends Model
+class ExpenseCategory extends Model
 {
     protected $guarded = ["id", "created_at", "updated_at"];
-    public static $bulkEditableFields = ['shop_id','category_id','cost','date'];
+    public static $bulkEditableFields = ['cat_name','status'];
 
     public static function findRequested()
     {
-        $query = Expense::query();
+        $query = ExpenseCategory::query();
 
         // search results based on user input
-        if (request('shop_id')) $query->where('shop_id', request('shop_id'));
         if (request('id')) $query->where('id', 'like', '%' . request('id') . '%');
-        if (request('category_id')) $query->where('category_id', 'like', '%' . request('category_id') . '%');
+        if (request('cat_name')) $query->where('cat_name', 'like', '%' . request('cat_name') . '%');
         if (request('created_at')) $query->where('created_at', request('created_at'));
         if (request('updated_at')) $query->where('updated_at', request('updated_at'));
-        if (request('cost')) $query->where('cost', 'like', '%' . request('cost') . '%');
-        if (request('date')) $query->where('date', request('date'));
+        if (request('status')) $query->where('status', '=', request('status'));
         // sort results
         if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
 
@@ -32,7 +30,7 @@ class Expense extends Model
 
     public function dashboardSettings()
     {
-        $settings = ExpenseDashboardSettings::where('id', $this->id)->first();
+        $settings = ExpenseCategoryDashboardSettings::where('id', $this->id)->first();
         if ($settings) {
             return json_decode($settings->settings, true);
         }
@@ -41,9 +39,9 @@ class Expense extends Model
 
     public function saveDashboardSettings($settings)
     {
-        $settingsModel = ExpenseDashboardSettings::where('id', $this->id)->first();
+        $settingsModel = ExpenseCategoryDashboardSettings::where('id', $this->id)->first();
         if (!$settingsModel) {
-            $settingsModel = new ExpenseDashboardSettings();
+            $settingsModel = new ExpenseCategoryDashboardSettings();
         }
         $settingsModel->settings = json_encode($settings);
         $settingsModel->id = $this->id;
@@ -53,10 +51,8 @@ class Expense extends Model
     public static function validationRules($attributes = null)
     {
         $rules = [
-            'shop_id' => 'required|integer',
-            'category_id' => 'required|integer',
-            'cost' => 'required|integer',
-            'date' => 'required',
+            'cat_name' => 'required|string',
+            'status' => 'required',
         ];
 
         // no list is provided
@@ -74,13 +70,9 @@ class Expense extends Model
         return $newRules;
     }
 
-    public function shop()
+    public function expense()
     {
-        return $this->hasMany(Shop::class, 'shop_id');
+        return $this->hasOne(Expense::class);
     }
 
-    public function expenseCategory()
-    {
-        return $this->belongsTo(ExpenseCategory::class);
-    }
 }

@@ -105,9 +105,9 @@ class MenuController extends Controller
                 'title' => 'Orders',
             ],
             [
-                'url' => 'expenses',
                 'class' => 'fas fa-coins',
-                'title' => 'Expenses',
+                'title' => 'Manage Expenses',
+                'child' => $this->manageExpenses(),
             ],
             [
                 'class' => 'fa fa-cogs',
@@ -141,6 +141,21 @@ class MenuController extends Controller
                 'url' => 'user-role',
                 'class' => 'fa fa-universal-access',
                 'title' => 'User Roles Management'
+            ],
+        ];
+        return collect($array);
+    }
+    private function manageExpenses(){
+        $array = [
+            [
+                'url' => 'expenses',
+                'class' => 'fas fa-coins',
+                'title' => 'Expenses'
+            ],
+            [
+                'url' => 'expense-category',
+                'class' => 'fa fa-universal-access',
+                'title' => 'Expense Category Management'
             ],
         ];
         return collect($array);
