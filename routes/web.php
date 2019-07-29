@@ -81,6 +81,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/expense-category/bulk-edit', 'ExpenseCategoryController@bulkEdit');
         Route::post('/expense-category/bulk-delete', 'ExpenseCategoryController@bulkDelete');
 //        Route::get('get-shops', 'ShopController@allShops');
+
+
+        //income-expense reports
+        Route::resource('income-expense', 'IncomeExpenseController');
+        Route::post('show-report', 'IncomeExpenseController@incomeExpenseReport');
+
     });
 
 

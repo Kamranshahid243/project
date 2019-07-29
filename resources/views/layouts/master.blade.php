@@ -30,9 +30,7 @@
     <script src="{{URL::asset('assets/administrator/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets/administrator/dist/js/app.min.js')}}"></script>
     <script src="{{URL::asset('assets/administrator/bootstrap/js/jquery.dataTables.min.js')}}"></script>
-
     <script src="/vendors/momentjs/moment.min.js"></script>
-
     {{--angular assets--}}
     <script src="/assets/js/angular.min.js"></script>
 

@@ -8,7 +8,12 @@ class Expense extends Model
 {
     protected $guarded = ["id", "created_at", "updated_at"];
     public static $bulkEditableFields = ['shop_id','category_id','cost','date'];
-
+//    public $appends=['total'];
+//
+//    public function getTotalAttribute()
+//    {
+//        return $this->shop;
+//    }
     public static function findRequested()
     {
         $query = Expense::query();
@@ -75,11 +80,11 @@ class Expense extends Model
 
     public function shop()
     {
-        return $this->hasMany(Shop::class, 'shop_id');
+        return $this->belongsTo(Shop::class, 'shop_id', 'shop_id');
     }
 
     public function expenseCategory()
     {
-        return $this->belongsTo(ExpenseCategory::class);
+        return $this->belongsTo(ExpenseCategory::class,'category_id');
     }
 }

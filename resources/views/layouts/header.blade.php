@@ -21,9 +21,15 @@
             <ul class="nav navbar-nav">
                 <!-- Notifications: style can be found in dropdown.less -->
                 <li class="dropdown notifications-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fas fa-store"></i> {{ session('shop')->shop_name }}
-                    </a>
+                    @if(Session::has('shop'))
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fas fa-store"></i> {{ session('shop')->shop_name }}
+                        </a>
+                    @else
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fas fa-store"></i> --Select Shop--
+                        </a>
+                    @endif
                     <ul class="dropdown-menu">
                         <li class="header">Select a shop from following</li>
                         <li>
