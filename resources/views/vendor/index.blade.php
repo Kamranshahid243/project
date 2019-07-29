@@ -139,11 +139,20 @@
                                             url="/edit/@{{vendor.vendor_id}}"
                                 ></n-editable>
                             </td>
-                            <td>
+                            <td ng-show="vendor.vendor_status=='Enabled'" style="color: green; font-family: bold;">
                                 <n-editable type="select" name="vendor_status"
                                             value="vendor.vendor_status"
                                             url="/edit/@{{vendor.vendor_id}}"
-                                            dd-options="[{i:'active'},{i:'inactive'}]"
+                                            dd-options="[{i:'Enabled'},{i:'Disabled'}]"
+                                            dd-label-field="i"
+                                            dd-value-field="i"
+                                ></n-editable>
+                            </td>
+                            <td ng-show="vendor.vendor_status=='Disabled'" style="color: red; font-family: bold;">
+                                <n-editable type="select" name="vendor_status"
+                                            value="vendor.vendor_status"
+                                            url="/edit/@{{vendor.vendor_id}}"
+                                            dd-options="[{i:'Enabled'},{i:'Disabled'}]"
                                             dd-label-field="i"
                                             dd-value-field="i"
                                 ></n-editable>
