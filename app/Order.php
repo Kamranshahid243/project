@@ -10,9 +10,8 @@ class Order extends Model
 
     protected $table = "orders";
     protected $primaryKey = "order_id";
-    protected $guarded = ["shop_type", 'shop_id', "created_at", "updated_at"];
-    protected $hidden = ['remember_token'];
-    public static $bulkEditableFields = ['shop_id', 'customer_type'];
+    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'bill_id', "created_at", "updated_at"];
+
 
     public static function findRequested()
     {
@@ -87,7 +86,7 @@ class Order extends Model
 
     public function shop()
     {
-        return $this->belongsTo(Shop::class,'shop_id');
+        return $this->belongsTo(Shop::class, 'shop_id');
     }
 
     public function customer()

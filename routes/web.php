@@ -50,14 +50,14 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('editProducts', "ProductsController");
         Route::post('/products/bulk-delete', "ProductsController@bulkDelete");
         Route::post('/products/bulk-edit', "ProductsController@bulkEdit");
-        Route::get('get-products', 'ProductsController@getProducts');
+//        Route::get('get-products', 'ProductsController@getProducts');
 
         //orders
         Route::resource('/orders', 'OrdersController');
         Route::post('//orders/bulk-edit', 'OrdersController@bulkEdit');
         Route::post('/orders/bulk-delete', 'OrdersController@bulkDelete');
-        Route::get('add-orders','OrdersController@addOrder');
-
+        Route::get('add-orders', 'OrdersController@addOrder');
+        Route::post('addOrder', 'BillController@store');
 
         //Vandors Routes
         Route::get('vendor', 'VendorController@index');

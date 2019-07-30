@@ -17,8 +17,8 @@
                     $scope.loadProducts = function () {
                         state.loadingProducts = true;
                         $http.get("editProducts")
-                            .then(function (response) {
-                                $scope.products = response.data;
+                            .then(function (res) {
+                                $scope.products = res.data;
                             })
                             .catch(function (res) {
                                 toaster.pop('error', 'Error while loading Orders', res.data);
@@ -28,6 +28,38 @@
                             });
                     };
                     $scope.loadProducts();
+
+                    $scope.Customers = function () {
+                        $http.get("customers")
+                            .then(function (res) {
+                                $scope.customers = res.data;
+                            }).catch(function (res) {
+                            toaster.pop('error', 'Error while loading Customers', res.data);
+                        })
+                    };
+                    $scope.Customers();
+
+                    $scope.Shops = function () {
+                        $http.get('shops')
+                            .then(function (res) {
+                                $scope.shops = res.data;
+                            }).catch(function (res) {
+                            toaster.pop('error', 'Error while loading Shops', res.data)
+                        })
+                    };
+                    $scope.Shops();
+
+                    $scope.SaleOrder = function (order, customer, shop) {
+                        $http({
+                            url: 'addOrder',
+                            method: 'post',
+                            data: {order: order, customer_id: customer, shop: shop}
+                        }).then(function (res) {
+                            toaster.pop('success', 'Saved Bill')
+                        }).catch(function (res) {
+                            toaster.pop('error', 'Field is missing');
+                        })
+                    }
 
                     $scope.loadOrders = function () {
                         $scope.orders = [];
@@ -50,14 +82,22 @@
 
                     $scope.bill = [];
                     $scope.addOrder = function (product) {
-                        product.available_quantity = product.available_quantity - 1;
+                        if (product.available_quantity >= 0) {
+                            product.available_quantity = product.available_quantity - 1;
+                        }
 
+                        if (product.available_quantity < 0) {
+                            product.available_quantity = 0;
+                            return;
+                        }
                         // if already exist
                         var existing = $scope.bill.findOne(function (item) {
                             return item.product_id == product.product_id;
                         });
                         if (existing) {
-                            return existing.available_quantity++;
+                            if (product.available_quantity >= 0) {
+                                return existing.available_quantity++;
+                            }
                         }
 
                         // if record does not exist
@@ -66,7 +106,6 @@
                         $scope.bill.push(duplicateRecord);
                         $scope.OrderProducts.push(product);
                     }
-
                     $scope.totalBill = function () {
                         var total = 0;
                         for (i = 0; i < $scope.bill.length; i++) {
@@ -111,23 +150,24 @@
                         return order;
                     }
                     $scope.clearitems = function () {
-                        state.loadingProducts = true;
-
                         if ($scope.bill) {
                             $scope.bill = [];
+                            $scope.OrderProducts = [];
                         }
                         $scope.loadProducts();
                     }
 
-                    $scope.lessItem = function (order) {
+                    $scope.deleteItem = function (order) {
                         var existed = $scope.bill.findOne(function (item) {
                             return item.product_id == order.product_id;
                         })
                         $scope.bill.remove(existed);
+                        $scope.loadProducts();
                     }
                 }
             }
 
         )();
+
     </script>
 @endpush
