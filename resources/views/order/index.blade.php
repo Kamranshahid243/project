@@ -13,15 +13,12 @@
                        uib-tooltip="Download data as CSV"
                        tooltip-placement="left"></i>
                 </a>&nbsp;
-                <a href="javascript:void(0)" ng-click="loadOrders()" class="box-option">
+                <a href="javascript:void(0)" ng-click="Orders()" class="box-option">
                     <i class="fa fa-sync-alt"
                        uib-tooltip="Reload records"
                        tooltip-placement="left"></i>
                 </a>&nbsp;
             </div>
-            {{--<div class="box-options">--}}
-            {{--@include('order.create')--}}
-            {{--<div class="box">--}}
             <div class="row" style="background: darkslategray; margin: 0px">
                 <div class="col-md-11 col-sm-10" style="padding: 1%;">
                     <input class="form-control" ng-model="state.params.name" placeholder="Search orders"
@@ -31,52 +28,34 @@
                     <a href="add-orders">
                         <button class="btn btn-success" name="new_order">New order</button>
                     </a>
-
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-sm-12" style="margin: 0px;">
                     <table class="table table-striped">
                         <tr style="background: slategray; color: white; width: 100% !important;">
-                            <th></th>
                             <th>Status</th>
                             <th>Order</th>
-                            <th>Customer</th>
+                            <th>Customer Id</th>
                             <th>Date</th>
                             <th>Total</th>
+                            <th>Bill ID</th>
+                            <th>Qty</th>
                             <th>Actions</th>
-                            <th></th>
-                            <th></th>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td style="color: cornflowerblue; font-size: 20px;"><i class="far fa-check-circle"></i></td>
-                            <td>70242</td>
-                            <td>Kamran</td>
-                            <td>08 Jul 1996 02:00pm</td>
-                            <td>Rs 2000</td>
-                            <td><input type="submit" value="View" class="btn btn-success btn-sm"></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="color: sandybrown; font-size: 20px;"><i
-                                        class="far fa-clock"></i></td>
-                            <td>70242</td>
-                            <td>Kamran</td>
-                            <td>08 Jul 1996 02:00pm</td>
-                            <td>Rs 2000</td>
-                            <td><input type="submit" value="View" class="btn btn-success btn-sm"></td>
-                            <td></td>
-                            <td></td>
+                        <tr ng-repeat="order in orders">
+                            <td>@{{ order.order_status }}</td>
+                            <td>@{{ order.id }}</td>
+                            <td>@{{ order.customer_id }}</td>
+                            <td>@{{ order.created_at }}</td>
+                            <td>@{{ order.price }}</td>
+                            <td>@{{ order.bill_id }}</td>
+                            <td>@{{ order.qty }}</td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
-
     </div>
 
     {{--<div class="col-sm-12">--}}

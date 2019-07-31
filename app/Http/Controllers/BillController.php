@@ -38,26 +38,25 @@ class BillController extends Controller
     public function store(Request $request)
     {
         $shop = json_decode($request->shop, true);
-
         $this->validate($request, Bill::validationRules());
         $bill = new Bill([
             'customer_id' => $request->customer_id,
             'date' => date('Y-m-d H:i:s'),
         ]);
         $bill->save();
-
         $items = \request('order');
         foreach ($items as $billitem) {
             $item = Product::where('product_id', $billitem['product_id'])->first();
             $oldNumber = $item->available_quantity - $billitem['available_quantity'];
             $data = ['available_quantity' => $oldNumber];
             $item->update($data);
-
             $order = new Order([
                 'shop_type' => $shop['shop_type'],
                 'shop_id' => $shop['shop_id'],
                 'customer_id' => $request->customer_id,
-                'bill_id' => $bill->id
+                'bill_id' => $bill->id,
+                'price' => $item->unit_price * $billitem['available_quantity'],
+                'qty' => $billitem['available_quantity']
             ]);
             $order->save();
         }

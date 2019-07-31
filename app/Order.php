@@ -10,7 +10,7 @@ class Order extends Model
 
     protected $table = "orders";
     protected $primaryKey = "order_id";
-    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'bill_id', "created_at", "updated_at"];
+    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'bill_id', 'order_status', 'price', 'qty', "created_at", "updated_at"];
 
 
     public static function findRequested()

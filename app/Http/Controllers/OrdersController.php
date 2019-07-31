@@ -18,8 +18,6 @@ class OrdersController extends Controller
             return $order::findRequested();
         }
         return $this->view("index");
-        $shop = new Shop();
-        dd($shop->where('shop_id', '=', 2)->first()->orders()->get());
     }
 
     public function store(Request $request)

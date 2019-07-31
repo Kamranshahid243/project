@@ -3,11 +3,7 @@
 @section('content')
     <div class="box" ng-controller="MainController">
         <div class="row">
-            @if(request('debug'))
-                <pre>
-                    @{{ customers | json }}
-                </pre>
-            @endif
+
             <div class="col-md-6 products">
                 <table class="table table-striped" show-loader="state.loadingProducts">
                     <tr>
