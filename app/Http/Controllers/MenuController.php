@@ -105,6 +105,16 @@ class MenuController extends Controller
                 'title' => 'Orders',
             ],
             [
+                'class' => 'fas fa-chart-line',
+                'title' => 'Reports',
+                'child' => $this->manageReports()
+            ],
+            [
+                'class' => 'fas fa-coins',
+                'title' => 'Manage Expenses',
+                'child' => $this->manageExpenses(),
+            ],
+            [
                 'class' => 'fa fa-cogs',
                 'title' => 'System',
                 'child' => $this->system()
@@ -136,6 +146,33 @@ class MenuController extends Controller
                 'url' => 'user-role',
                 'class' => 'fa fa-universal-access',
                 'title' => 'User Roles Management'
+            ],
+        ];
+        return collect($array);
+    }
+    private function manageExpenses(){
+        $array = [
+            [
+                'url' => 'expenses',
+                'class' => 'fas fa-coins',
+                'title' => 'Expenses'
+            ],
+            [
+                'url' => 'expense-category',
+                'class' => 'fa fa-universal-access',
+                'title' => 'Expense Category Management'
+            ],
+        ];
+        return collect($array);
+    }
+
+    private function manageReports()
+    {
+        $array = [
+            [
+                'url' => 'income-expense',
+                'class' => 'fas fa-chart-line',
+                'title' => 'Income-Expense Report'
             ],
         ];
         return collect($array);

@@ -11,6 +11,7 @@
                     $scope.products = [];
                     $scope.OrderProducts = [];
                     var state = $scope.state = PageState;
+                    state.params.sort = 'order_id';
                     state.loadingOrders = false;
                     state.loadingProducts = false;
 

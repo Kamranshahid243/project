@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function shopSession(Request $request, $id)
+    {
+        $shop = Shop::where('shop_id', '=', $id)->first();
+        session(['shop' => $shop]);
+        return redirect()->back();
+    }
     public $viewDir = "user";
 
     public function changePassword(Request $request)

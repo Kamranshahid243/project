@@ -20,8 +20,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('user', 'UserController');
         Route::post('/user/bulk-edit', 'UserController@bulkEdit');
         Route::post('/user/bulk-delete', 'UserController@bulkDelete');
-
+        Route::get('shop-session/{id}', 'UserController@shopSession');
         // user roles
+
+
         Route::resource('user-role', 'UserRoleController');
         Route::post('/user-role/bulk-edit', 'UserRoleController@bulkEdit');
         Route::post('/user-role/bulk-delete', 'UserRoleController@bulkDelete');
@@ -66,7 +68,28 @@ Route::group(['middleware' => ['web']], function () {
         Route::delete('/deleteVendor/{vendor_id}', 'VendorController@destroy');
         Route::post('/vendors/bulk-edit', 'VendorController@bulkEdit');
         Route::post('/vendors/bulk-delete', 'VendorController@bulkDelete');
+
+        //expenses
+        Route::resource('expenses', 'ExpenseController');
+        Route::post('/expenses/bulk-edit', 'ExpenseController@bulkEdit');
+        Route::post('/expenses/bulk-delete', 'ExpenseController@bulkDelete');
+        Route::get('get-shops', 'ShopController@allShops');
+        Route::get('get-categories','ExpenseController@allExpenseCategories');
+
+        //expense categories
+        Route::resource('expense-category', 'ExpenseCategoryController');
+        Route::post('/expense-category/bulk-edit', 'ExpenseCategoryController@bulkEdit');
+        Route::post('/expense-category/bulk-delete', 'ExpenseCategoryController@bulkDelete');
+//        Route::get('get-shops', 'ShopController@allShops');
+
+
+        //income-expense reports
+        Route::resource('income-expense', 'IncomeExpenseController');
+        Route::post('show-report', 'IncomeExpenseController@incomeExpenseReport');
+
     });
+
+
 
     if (env('APP_ENV') == 'local') {
         require_once __DIR__ . "/../tests/test-routes.php";

@@ -12,12 +12,11 @@ class Vendor extends Model
     public static function validationRules($attributes = null)
     {
         $rules = [
-            'shop_id' => 'required',
             'vendor_name' => 'required',
             'vendor_address' => 'required',
             'vendor_phone' => 'required',
-            'vendor_email' => 'required',
-            'vendor_status' => 'nullable',
+            'vendor_email' => 'required|email',
+            'vendor_status' => 'required',
         ];
 
         // no list is provided

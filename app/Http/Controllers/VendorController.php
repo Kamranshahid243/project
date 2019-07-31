@@ -41,11 +41,12 @@ class VendorController extends Controller
         $this->validate($request, Vendor::validationRules());
         $data = $request->all();
 
-        $data['shop_id'] = $data['shop_id'];
+        $data['shop_id'] = session('shop')->shop_id;
         $data['vendor_name'] = $data['vendor_name'];
         $data['vendor_address'] = $data['vendor_address'];
         $data['vendor_phone'] = $data['vendor_phone'];
         $data['vendor_email'] = $data['vendor_email'];
+        $data['vendor_status'] = $data['vendor_status'];
         return Vendor::create($data);
     }
 

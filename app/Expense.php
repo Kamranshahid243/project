@@ -4,25 +4,28 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Shop extends Model
+class Expense extends Model
 {
-    protected $primaryKey="shop_id";
-    protected $guarded = ["shop_id", "created_at", "updated_at"];
-    public static $bulkEditableFields = ['shop_name', 'shop_address','shop_type','printer_type','shop_status'];
-
+    protected $guarded = ["id", "created_at", "updated_at"];
+    public static $bulkEditableFields = ['shop_id','category_id','cost','date'];
+//    public $appends=['total'];
+//
+//    public function getTotalAttribute()
+//    {
+//        return $this->shop;
+//    }
     public static function findRequested()
     {
-        $query = Shop::query();
+        $query = Expense::query();
 
         // search results based on user input
         if (request('shop_id')) $query->where('shop_id', request('shop_id'));
-        if (request('shop_name')) $query->where('shop_name', 'like', '%' . request('shop_name') . '%');
-        if (request('shop_address')) $query->where('shop_address', 'like', '%' . request('shop_address') . '%');
+        if (request('id')) $query->where('id', 'like', '%' . request('id') . '%');
+        if (request('category_id')) $query->where('category_id', 'like', '%' . request('category_id') . '%');
         if (request('created_at')) $query->where('created_at', request('created_at'));
         if (request('updated_at')) $query->where('updated_at', request('updated_at'));
-        if (request('shop_type')) $query->where('shop_type', 'like', '%' . request('shop_type') . '%');
-        if (request('printer_type')) $query->where('printer_type', request('printer_type'));
-        if (request('shop_status')) $query->where('shop_status', request('shop_status'));
+        if (request('cost')) $query->where('cost', 'like', '%' . request('cost') . '%');
+        if (request('date')) $query->where('date', request('date'));
         // sort results
         if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
 
@@ -34,7 +37,7 @@ class Shop extends Model
 
     public function dashboardSettings()
     {
-        $settings =ShopDashboardSetting::where('shop_id', $this->id)->first();
+        $settings = ExpenseDashboardSettings::where('id', $this->id)->first();
         if ($settings) {
             return json_decode($settings->settings, true);
         }
@@ -43,23 +46,21 @@ class Shop extends Model
 
     public function saveDashboardSettings($settings)
     {
-        $settingsModel = ShopDashboardSetting::where('shop_id', $this->id)->first();
+        $settingsModel = ExpenseDashboardSettings::where('id', $this->id)->first();
         if (!$settingsModel) {
-            $settingsModel = new ShopDashboardSetting();
+            $settingsModel = new ExpenseDashboardSettings();
         }
         $settingsModel->settings = json_encode($settings);
-        $settingsModel->shop_id = $this->id;
+        $settingsModel->id = $this->id;
         return $settingsModel->save();
     }
 
     public static function validationRules($attributes = null)
     {
         $rules = [
-            'shop_name' => 'required|string|max:191',
-            'shop_address' => 'required|string|max:191',
-            'shop_type' => 'required|in:Wholesale,Retail',
-            'printer_type' => 'required|in:Thermal,Laser',
-            'shop_status' => 'required',
+            'category_id' => 'required|integer',
+            'cost' => 'required|integer',
+            'date' => 'required',
         ];
 
         // no list is provided
@@ -77,17 +78,13 @@ class Shop extends Model
         return $newRules;
     }
 
-    public function Customers(){
-        return $this->hasMany(Customer::class);
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class, 'shop_id', 'shop_id');
     }
 
-    public function orders()
+    public function expenseCategory()
     {
-        return $this->hasMany(Order::class,'shop_id');
-    }
-
-    public function expenses()
-    {
-        return $this->belongsTo(Expense::class, 'shop_id');
+        return $this->belongsTo(ExpenseCategory::class,'category_id');
     }
 }
