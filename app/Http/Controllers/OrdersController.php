@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Product;
+use App\Shop;
+use App\Customer;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -16,8 +18,6 @@ class OrdersController extends Controller
             return $order::findRequested();
         }
         return $this->view("index");
-        $shop = new \App\Shop();
-        dd($shop->where('shop_id', '=', 2)->first()->orders()->get());
     }
 
     public function store(Request $request)
@@ -115,7 +115,7 @@ class OrdersController extends Controller
 
     public function addOrder()
     {
-        return view('order.addOrderPage')->with('products',Product::all());
+        return view('order.addOrderPage');
     }
 
 }
