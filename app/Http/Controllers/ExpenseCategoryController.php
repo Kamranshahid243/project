@@ -30,7 +30,11 @@ class ExpenseCategoryController extends Controller
     {
         $this->validate($request, ExpenseCategory::validationRules());
         $data = $request->all();
-        return ExpenseCategory::create($data);
+        return ExpenseCategory::create([
+            'cat_name' => $request->cat_name,
+            'shop_id' => session('shop')->shop_id,
+            'status' => $request->status,
+        ]);
     }
 
     public function update($id, Request $request)

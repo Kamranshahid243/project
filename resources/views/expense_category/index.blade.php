@@ -63,6 +63,13 @@
                             </th>
                             <th>
                                 <filter-btn
+                                        field-name="shop_id"
+                                        field-label="Shop"
+                                        model="state.params"
+                                ></filter-btn>
+                            </th>
+                            <th>
+                                <filter-btn
                                         field-name="status"
                                         field-label="Status"
                                         model="state.params"
@@ -82,6 +89,9 @@
                                             value="expenseCategory.cat_name"
                                             url="/expense-category/@{{expenseCategory.id}}"
                                 ></n-editable>
+                            </td>
+                            <td>
+                                @{{ expenseCategory.shop.shop_name }}
                             </td>
                             <td ng-show="expenseCategory.status=='Active'" style="color: green; font-weight: bold;">
                                 <n-editable type="select" name="status"

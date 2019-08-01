@@ -13,9 +13,11 @@ class CreateExpenseCategoriesTable extends Migration
      */
     public function up()
     {
+//        Schema::drop('expense_categories');
         Schema::create('expense_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('cat_name');
+            $table->integer('shop_id');
             $table->string('status');
             $table->rememberToken();
             $table->timestamps();
