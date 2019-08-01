@@ -10,15 +10,6 @@ class ExpenseController extends Controller
 {
     public $viewDir = "expense";
 
-
-    public function profile(Request $request)
-    {
-        if ($request->wantsJson()) {
-            return \Auth::user();
-        }
-        return $this->view("profile");
-    }
-
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
@@ -36,7 +27,7 @@ class ExpenseController extends Controller
             'shop_id' => session('shop')->shop_id,
             'category_id' => $request->category_id,
             'cost' => $request->cost,
-            'date' => $request->date,
+            'date' => date('Y-m-d', strtotime($request->date)),
         ]);
         $expense->save();
         return "Expense Added";
@@ -44,7 +35,7 @@ class ExpenseController extends Controller
 
     public function update($id,Request $request)
     {
-        $expense=Expense::where('expense_id',$id)->first();
+        $expense=Expense::where('id',$id)->first();
         if ($request->wantsJson()) {
             $data = [$request->name => $request->value];
 //            $validator = \Validator::make($data, Expense::validationRules($request->name));
@@ -72,11 +63,11 @@ class ExpenseController extends Controller
             abort(403, "Please select some items.");
         }
 
-        if (!$ids = collect($items)->pluck('expense_id')->all()) {
+        if (!$ids = collect($items)->pluck('id')->all()) {
             abort(403, "No IDs provided.");
         }
 
-        Expense::whereIn('expense_id', $ids)->delete();
+        Expense::whereIn('id', $ids)->delete();
         return response("Deleted");
     }
 
@@ -98,11 +89,11 @@ class ExpenseController extends Controller
             abort(403, "Please select some items.");
         }
 
-        if (!$ids = collect($items)->pluck('expense_id')->all()) {
+        if (!$ids = collect($items)->pluck('id')->all()) {
             abort(403, "No ids provided.");
         }
 
-        Expense::whereIn('expense_id', $ids)->update([$fieldName => array_get($field, 'value')]);
+        Expense::whereIn('id', $ids)->update([$fieldName => array_get($field, 'value')]);
         return response("Updated");
     }
 
@@ -133,8 +124,8 @@ class ExpenseController extends Controller
 
     public function allExpenseCategories()
     {
-        return ExpenseCategory::get();
-    }
+        return ExpenseCategory::all();
+}
 
 //    ...................................................................
 

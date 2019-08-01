@@ -4,7 +4,15 @@
     <div class="row" ng-controller="MainController" show-loader="state.loadingExpenses">
         <div class="col-sm-12">
             @include('expense.create')
-            <div muna-drag class="box">
+            <div class="box">
+                <bulk-assigner target="expenses" url="/expenses/bulk-edit">
+                    <bulk-assigner-field field="bulkAssignerFields.category_id">
+                        <input type="text" ng-model="bulkAssignerFields.category_id.value">
+                    </bulk-assigner-field>
+                    <bulk-assigner-field field="bulkAssignerFields.cost">
+                        <input type="number" ng-model="bulkAssignerFields.cost.value">
+                    </bulk-assigner-field>
+                </bulk-assigner>
                 <div class="box-options">
                     <a href="javascript:void(0)" class="box-option"
                        ng-if="expenses.length">
@@ -25,102 +33,87 @@
                     ></bulk-assigner-delete-btn>
                 </div>
                 <div class="box-body">
-                    <div class="row">
-                        <form class="search-form form-material">
-                            <div class="col-sm-5">
-                                <label>Quick Date Selector</label><br>
-                                <input type="radio" name="dateSelector" ng-change="updateDate()" ng-model="dateSelector"
-                                       value="thisMonth" selected><b>This Month</b>&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="dateSelector" ng-change="updateDate()" ng-model="dateSelector"
-                                       value="lastMonth"><b>Last Month</b>&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="dateSelector" ng-change="updateDate()" ng-model="dateSelector"
-                                       value="currentYear"><b>Current Year</b>
-                            </div>
-                            <div class="col-sm-7">
-                                <table class="table table-bordered table-hover grid-view-tbl">
-                                    <thead>
-                                    <tr class="search-row">
+                    <table class="table table-bordered table-hover grid-view-tbl">
+                        <thead>
+                        <tr class="search-row">
+                            <form class="search-form form-material">
+                                <td><input class="form-control" placeholder="Search by Product Name"
+                                           ng-model="state.params.product_name"/></td>
+                                <td><input class="form-control" placeholder="Search by Price"
+                                           ng-model="state.params.unit_price"/></td>
+                                <td>
+                                    <select ng-options="item for item in ['active','inactive']" class="form-control"
+                                            ng-model="state.params.product_status">
+                                        <option value="">Sort status</option>
+                                    </select>
+                                </td>
+                            </form>
+                        </tr>
+                        <tr class="header-row">
+                            <th>
+                                <bulk-assigner-toggle-all target="products"></bulk-assigner-toggle-all>
+                            </th>
+                            <th>
+                                <filter-btn
+                                        field-name="cat_name"
+                                        field-label="Expense"
+                                        model="state.params"
+                                ></filter-btn>
+                            </th>
+                            <th>
+                                <filter-btn
+                                        field-name="cost"
+                                        field-label="Cost"
+                                        model="state.params"
+                                ></filter-btn>
+                            </th>
+                            <th>
+                                <filter-btn
+                                        field-name="date"
+                                        field-label="Date"
+                                        model="state.params"
+                                ></filter-btn>
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                                        <td>
-                                            <label>Shop</label>
-                                            <select class="form-control"
-                                                    ng-model="state.params.shop_id">
-                                                <option value="">Shop</option>
-                                                <option value="@{{ shop.shop_id }}" ng-repeat="shop in allShops"
-                                                        ng-show="shop.shop_status=='Active'">@{{ shop.shop_name }}
-                                                </option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <label>Start Date</label>
-                                            <input ng-model="startDate" class="form-control" moment-picker="start"
-                                                   format="YYYY-MM-DD" min-view="month" max-view="month">
-                                        </td>
-                                        <td>
-                                            <label>End Date</label>
-                                            <input ng-model="endDate" class="form-control"
-                                                   moment-picker="end" format="YYYY-MM-DD"></td>
-                                        <td>
-                                            <label style="color:white;">just for leveling td</label>
-                                            <button class="btn btn-primary" ng-click="showReport(startDate,endDate)">
-                                                Generate Report
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                        <tr ng-repeat="expense in expenses"
+                            ng-class="{'bg-aqua-active': expense.$selected}">
+                            <th>
+                                <bulk-assigner-checkbox target="expense"></bulk-assigner-checkbox>
+                            </th>
+                            <td>@{{ expense.expense_category.cat_name }}</td>
+                            <td>
+                                <n-editable type="text" name="cost"
+                                            value="expense.cost"
+                                            url="/expenses/@{{expense.id}}"
+                                ></n-editable>
+                            </td>
+                            <td>
+                                <n-editable type="date" name="date"
+                                            value="expense.date|date:'yyyy-MM-dd'"
+                                            url="/expenses/@{{expense.id}}"
+                                ></n-editable>
+                            </td>
+                            <td>
+                                <delete-btn action="/expenses/@{{expense.id}}" on-success="loadExpenses()">
+                                    <i class="fa fa-trash"></i>
+                                </delete-btn>
+                            </td>
+                        </tr>
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </form>
-                    </div>
+                        <tr class="alert alert-warning" ng-if="!expenses.length && !state.loadingExpenses">
+                            <td colspan="8">No records found.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                    <pagination state="state" records-info="recordsInfo"></pagination>
                 </div>
             </div>
-            <div class="box" show-loader="state.loadingReport">
-                <div class="box-body" ng-show="reports">
-                    <div class="row">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th colspan="2" style="text-align: center">Expense</th>
-                                <th colspan="2" style="text-align: center">Income</th>
-                            </tr>
-                            <tr>
-                                <th>Category</th>
-                                <th>Amount</th>
-                                <th>Category</th>
-                                <th>Amount</th>
-                            </tr>
-                            <tr ng-repeat="report in reports.expenses">
-                                <td>@{{ report.expense_category.cat_name }}</td>
-                                <td>@{{ report.cost |currency:'PKR '}}</td>
-                                <td>@{{ reports.income[$index].name }}</td>
-                                <td>@{{ reports.income[$index].cost|currency:'PKR ' }}</td>
-                            </tr>
-                            <tr ng-if="reports.expenses && reports.income.length">
-                                <th>Total</th>
-                                <th>@{{ reports.expenses[0].total }}</th>
-                                <th>Total</th>
-                                <th>@{{ reports.income[0].total }}</th>
-                            </tr>
-                            <tr ng-if="reports.expenses && reports.income.length">
-                                <th
-                                        colspan="4"
-                                        class="text-center"
-                                        ng-class="{'text-danger':(reports.income[0].total -reports.expenses[0].total)<0}"
-                                >
-                                    Net Profit :
-                                    PKR @{{ reports.income[0].total -reports.expenses[0].total}}
-                                </th>
-                            </tr>
-                            <tr class="alert alert-warning" ng-if="!reports.expenses.length && !state.loadingReport">
-                                <td colspan="8">No records found.</td>
-                            </tr>
-                        </table>
-                    </div>
 
-                </div>
-            </div>
         </div>
         <toaster-container></toaster-container>
     </div>

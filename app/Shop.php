@@ -90,4 +90,9 @@ class Shop extends Model
     {
         return $this->belongsTo(Expense::class, 'shop_id');
     }
+
+    public function Purchases()
+    {
+        return $this->belongsTo(Purchase::class, 'shop_id');
+    }
 }

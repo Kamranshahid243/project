@@ -32,9 +32,8 @@
                             <label>End Date</label>
                             <input ng-model="endDate" class="form-control"
                                    moment-picker="end" format="YYYY-MM-DD"></td>
-                        <td>
-                            <label style="color:white;">just for leveling td</label>
-                            <button class="btn btn-primary" ng-click="showReport(startDate,endDate)">
+                        <td style="padding-top: 33px">
+                            <button class="btn btn-primary btn-flat" ng-click="showReport(startDate,endDate)">
                                 Generate Report
                             </button>
                         </td>
