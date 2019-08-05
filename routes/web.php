@@ -90,6 +90,7 @@ Route::group(['middleware' => ['web']], function () {
 
         //vendor categories
         Route::resource('vendor-category', 'VendorCategoryController');
+        Route::get('vendor-category-status','VendorCategoryController@updateStatus');
         Route::post('/vendor-category/bulk-edit', 'VendorCategoryController@bulkEdit');
         Route::post('/vendor-category/bulk-delete', 'VendorCategoryController@bulkDelete');
 

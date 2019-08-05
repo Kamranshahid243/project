@@ -62,22 +62,6 @@
 
     <script src="/vendors/angular-custom/angular-custom.js"></script>
 
-
-    {{--<script src="https://js.stripe.com/v2/"></script>--}}
-    {{--<script type="text/javascript">Stripe.setPublishableKey("pk_test_e9dLaGiSxCXfl4xJdWMOAKr6");</script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.radio/1.0.2/backbone.radio.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.marionette/2.4.3/backbone.marionette.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.3/handlebars.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/idbwrapper/1.6.0/idbstore.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-color/2.1.2/jquery.color.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>--}}
-    {{--<script src="https://demo.wcpos.com/wp-content/plugins/woocommerce-pos/assets/js/vendor/jquery.scrollIntoView.min.js?ver=0.4.23"></script>--}}
-    {{--<script src="https://demo.wcpos.com/wp-content/plugins/woocommerce-pos/assets/js/app.min.js?ver=0.4.23"></script>--}}
-    {{--<script src="https://demo.wcpos.com/wp-content/plugins/woocommerce-pos-pro/assets/js/app.min.js?ver=0.4.18"></script>--}}
     @include('layouts.master-ng-app')
 
     @stack('head-scripts')

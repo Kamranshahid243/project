@@ -2,63 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\VendorCategory;
 use Illuminate\Http\Request;
 
 class VendorCategoryController extends Controller
 {
-    public $viewDir = "expense_category";
-
-
-    public function profile(Request $request)
-    {
-        if ($request->wantsJson()) {
-            return \Auth::user();
-        }
-        return $this->view("profile");
-    }
+    public $viewDir = "vendor_category";
 
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            return ExpenseCategory::findRequested();
+            return VendorCategory::findRequested();
         }
         return $this->view("index");
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, ExpenseCategory::validationRules());
+        $this->validate($request, VendorCategory::validationRules());
         $data = $request->all();
-        ExpenseCategory::create([
+        VendorCategory::create([
             'cat_name' => $request->cat_name,
             'shop_id' => session('shop')->shop_id,
             'status' => $request->status,
         ]);
-        return "Expense Category Added";
+        return "Vendor Category Added";
     }
 
     public function update($id, Request $request)
     {
-        $expense = ExpenseCategory::where('id', $id)->first();
+        $category = VendorCategory::where('id', $id)->first();
         if ($request->wantsJson()) {
             $data = [$request->name => $request->value];
-//            $validator = \Validator::make($data, Expense::validationRules($request->name));
-//            if ($validator->fails())
-//                return response($validator->errors()->first($request->name), 403);
-            $expense->update($data);
-            return "Expense updated.";
+            $validator = \Validator::make($data, VendorCategory::validationRules($request->name));
+            if ($validator->fails())
+                return response($validator->errors()->first($request->name), 403);
+            $category->update($data);
+            return "Vendor Category updated.";
         }
 
-        $this->validate($request, ExpenseCategory::validationRules());
-        $expense->update($request->all());
-        return redirect('/expenses');
+        $this->validate($request, VendorCategory::validationRules());
+        $category->update($request->all());
+        return redirect('/vendor-category');
     }
 
-    public function destroy($expense_id)
-    {
-        $category = ExpenseCategory::where('id', '=', $expense_id)->delete();
+    public function updateStatus(Request $request){
+        $id=VendorCategory::all()->where('id',$request->id)->first();
+        if($id->status==1){
+            $id->update([
+                'status' => '0',
+            ]);
+        }
+        else{
+            $id->update([
+                'status' => '1',
+            ]);
+        }
 
-        return "Expense Category deleted";
+    }
+
+    public function destroy($id)
+    {
+        $category = VendorCategory::where('id', '=', $id)->delete();
+
+        return "Vendor Category deleted";
     }
 
     public function bulkDelete(Request $request)
@@ -72,7 +79,7 @@ class VendorCategoryController extends Controller
             abort(403, "No IDs provided.");
         }
 
-        ExpenseCategory::whereIn('id', $ids)->delete();
+        VendorCategory::whereIn('id', $ids)->delete();
         return response("Deleted");
     }
 
@@ -86,7 +93,7 @@ class VendorCategoryController extends Controller
             abort(403, "Invalid request. Please provide a field name.");
         }
 
-        if (!in_array($fieldName, ExpenseCategory::$bulkEditableFields)) {
+        if (!in_array($fieldName, VendorCategory::$bulkEditableFields)) {
             abort(403, "Bulk editing the {$fieldName} is not allowed.");
         }
 
@@ -98,7 +105,7 @@ class VendorCategoryController extends Controller
             abort(403, "No ids provided.");
         }
 
-        ExpenseCategory::whereIn('id', $ids)->update([$fieldName => array_get($field, 'value')]);
+        VendorCategory::whereIn('id', $ids)->update([$fieldName => array_get($field, 'value')]);
         return response("Updated");
     }
 

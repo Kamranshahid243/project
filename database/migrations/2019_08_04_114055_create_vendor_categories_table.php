@@ -13,9 +13,10 @@ class CreateVendorCategoriesTable extends Migration
      */
     public function up()
     {
+        Schema::drop('vendor_categories');
         Schema::create('vendor_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('category_name');
+            $table->string('cat_name');
             $table->integer('status');
             $table->integer('shop_id');
             $table->rememberToken();

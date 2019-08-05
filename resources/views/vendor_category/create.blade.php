@@ -6,8 +6,8 @@
                     <i class="fa fa-plus"></i> Add a New Vendor Category
                 </uib-accordion-heading>
                 <nvd-form model="form" on-success="loadVendorCategories()" action="/vendor-category">
-                     <nvd-form-element field="category_name">
-                         <input type="text" class="form-control" ng-model="form.category_name" placeholder="Enter Category Name"/>
+                     <nvd-form-element field="cat_name">
+                         <input type="text" class="form-control" ng-model="form.cat_name" placeholder="Enter Category Name"/>
                      </nvd-form-element>
                      <nvd-form-element field="status">
                             <select class="form-control"

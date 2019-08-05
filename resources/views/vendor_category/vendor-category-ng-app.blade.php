@@ -10,7 +10,7 @@
                 var state = $scope.state = PageState;
                 state.loadingVendorCategories = false;
 
-                $scope.loadExpenseCategories= function () {
+                $scope.loadVendorCategories= function () {
                     $scope.vendorCategories = [];
                     state.loadingVendorCategories = true;
                     $http.get("/vendor-category", {params: state.params})
@@ -25,6 +25,17 @@
                             state.loadingVendorCategories = false;
                         });
                 };
+                $scope.vendorCatStatus=function(id){
+                    $http({
+                        method:'get',
+                        url:'vendor-category-status',
+                        params:{id:id}
+                    }).catch(function (res) {
+                        toaster.pop('error','Error while Updating Status',res.data);
+                    }).then(function () {
+                        $scope.loadVendorCategories();
+                    });
+                }
 
                 $scope.$watch('state.params', $scope.loadVendorCategories, true);
 

@@ -232,6 +232,7 @@ text-align: left;
     float: right;
     color: #000;
 }
+
 @media(max-width: 767px){
     .btn-lg {
         display: block;

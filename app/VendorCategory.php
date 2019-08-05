@@ -11,7 +11,7 @@ class VendorCategory extends Model
 
     public static function findRequested()
     {
-        $query = ExpenseCategory::where('shop_id', session('shop')->shop_id)->with('Shop');
+        $query = VendorCategory::where('shop_id',session('shop')->shop_id);
 
         // search results based on user input
         if (request('id')) $query->where('id', 'like', '%' . request('id') . '%');
@@ -31,7 +31,7 @@ class VendorCategory extends Model
 
     public function dashboardSettings()
     {
-        $settings = ExpenseCategoryDashboardSettings::where('id', $this->id)->first();
+        $settings = VendorCategoryDashboardSettings::where('id', $this->id)->first();
         if ($settings) {
             return json_decode($settings->settings, true);
         }
@@ -40,9 +40,9 @@ class VendorCategory extends Model
 
     public function saveDashboardSettings($settings)
     {
-        $settingsModel = ExpenseCategoryDashboardSettings::where('id', $this->id)->first();
+        $settingsModel = VendorCategoryDashboardSettings::where('id', $this->id)->first();
         if (!$settingsModel) {
-            $settingsModel = new ExpenseCategoryDashboardSettings();
+            $settingsModel = new VendorCategoryDashboardSettings();
         }
         $settingsModel->settings = json_encode($settings);
         $settingsModel->id = $this->id;
