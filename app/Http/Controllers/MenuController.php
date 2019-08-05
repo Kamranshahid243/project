@@ -110,14 +110,19 @@ class MenuController extends Controller
                 'title' => 'Orders',
             ],
             [
+                'class' => 'fa fa-list-alt',
+                'title' => 'Categories',
+                'child' => $this->categories(),
+            ],
+            [
                 'class' => 'fas fa-chart-line',
                 'title' => 'Reports',
                 'child' => $this->manageReports()
             ],
             [
                 'class' => 'fas fa-coins',
-                'title' => 'Manage Expenses',
-                'child' => $this->manageExpenses(),
+                'title' => 'Expenses',
+                'url' => 'expenses',
             ],
             [
                 'class' => 'fa fa-cogs',
@@ -155,22 +160,6 @@ class MenuController extends Controller
         ];
         return collect($array);
     }
-    private function manageExpenses(){
-        $array = [
-            [
-                'url' => 'expenses',
-                'class' => 'fas fa-coins',
-                'title' => 'Expenses'
-            ],
-            [
-                'url' => 'expense-category',
-                'class' => 'fa fa-universal-access',
-                'title' => 'Expense Category Management'
-            ],
-        ];
-        return collect($array);
-    }
-
     private function manageReports()
     {
         $array = [
@@ -178,6 +167,21 @@ class MenuController extends Controller
                 'url' => 'income-expense',
                 'class' => 'fas fa-chart-line',
                 'title' => 'Income-Expense Report'
+            ],
+        ];
+        return collect($array);
+    }
+    private function categories(){
+        $array = [
+            [
+                'url' => 'vendor-category',
+                'class' => 'fas fa-truck-moving',
+                'title' => 'Vendor Categories'
+            ],
+            [
+                'url' => 'expense-category',
+                'class' => 'fa fa-universal-access',
+                'title' => 'Expense Category Management'
             ],
         ];
         return collect($array);

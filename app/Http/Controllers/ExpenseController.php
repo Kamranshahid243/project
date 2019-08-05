@@ -21,8 +21,7 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, Expense::validationRules());
-        $data = $request->all();
-//        return Expense::create($data);
+//        $data = $request->all();
         $expense=new Expense([
             'shop_id' => session('shop')->shop_id,
             'category_id' => $request->category_id,
@@ -93,7 +92,7 @@ class ExpenseController extends Controller
             abort(403, "No ids provided.");
         }
 
-        Expense::whereIn('id', $ids)->update([$fieldName => array_get($field, 'value')]);
+        Expense::whereIn('id', $ids)->update([$fieldName => date('Y-m-d', strtotime(array_get($field, 'value')))]);
         return response("Updated");
     }
 

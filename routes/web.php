@@ -87,8 +87,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('expense-category', 'ExpenseCategoryController');
         Route::post('/expense-category/bulk-edit', 'ExpenseCategoryController@bulkEdit');
         Route::post('/expense-category/bulk-delete', 'ExpenseCategoryController@bulkDelete');
-//        Route::get('get-shops', 'ShopController@allShops');
 
+        //vendor categories
+        Route::resource('vendor-category', 'VendorCategoryController');
+        Route::post('/vendor-category/bulk-edit', 'VendorCategoryController@bulkEdit');
+        Route::post('/vendor-category/bulk-delete', 'VendorCategoryController@bulkDelete');
 
         //income-expense reports
         Route::resource('income-expense', 'IncomeExpenseController');

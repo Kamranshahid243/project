@@ -45,7 +45,7 @@
                         </tr>
                         <tr ng-repeat="order in orders">
                             <td>@{{ order.order_status }}</td>
-                            <td>@{{ order.id }}</td>
+                            <td>@{{ order.order_id }}</td>
                             <td>@{{ order.customer_id }}</td>
                             <td>@{{ order.created_at }}</td>
                             <td>@{{ order.price }}</td>

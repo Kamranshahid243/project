@@ -34,20 +34,6 @@
                 <div class="box-body">
                     <table class="table table-bordered grid-view-tbl">
                         <thead>
-                        <tr class="search-row">
-                            <td><label>Search By:</label></td>
-                            <form class="search-form form-material">
-                                <td>
-                                    <select class="form-control"
-                                            ng-model="state.params.vendor_id">
-                                        <option value="@{{ vendor.vendor_id }}" ng-repeat="vendor in vendors" ng-show="vendor.vendor_status=='Enabled'">@{{ vendor.vendor_name }}</option>
-                                        <option value="">Vendor Name</option>
-                                    </select>
-                                </td>
-                                <td><input class="form-control" placeholder="Product Name"
-                                           ng-model="state.params.product_name"/></td>
-                            </form>
-                        </tr>
                         <tr class="header-row">
                             <th>
                                 <bulk-assigner-toggle-all target="purchases"></bulk-assigner-toggle-all>
@@ -57,6 +43,9 @@
                                         field-name="vendor_id"
                                         field-label="Vendor"
                                         model="state.params"
+                                        options="vendors"
+                                        option-label-field="vendor_name"
+                                        option-value-field="vendor_id"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -64,6 +53,7 @@
                                         field-name="product_name"
                                         field-label="Product"
                                         model="state.params"
+                                        search_field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -92,6 +82,7 @@
                                         field-name="date"
                                         field-label="Date"
                                         model="state.params"
+                                        is-date-filter="true"
                                 ></filter-btn>
                             </th>
                             <th>Action</th>

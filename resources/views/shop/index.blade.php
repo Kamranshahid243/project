@@ -42,32 +42,6 @@
                 <div class="box-body">
                     <table class="table table-bordered table-hover grid-view-tbl">
                         <thead>
-                        <tr class="search-row">
-                            <td><b>Seach By:</b></td>
-                            <form class="search-form form-material">
-                                <td><input class="form-control" ng-model="state.params.shop_name" placeholder="Shop Name"/></td>
-                                <td><input class="form-control" ng-model="state.params.shop_address"
-                                           placeholder="Shop Address"/></td>
-                                <td>
-                                    <select ng-options="item for item in ['Wholesale','Retail']" class="form-control"
-                                            ng-model="state.params.shop_type">
-                                        <option value="">Shop Type</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select ng-options="item for item in ['Thermal','Laser']" class="form-control"
-                                            ng-model="state.params.printer_type">
-                                        <option value="">Printer Type</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select ng-options="item for item in ['Active','Inactive']" class="form-control"
-                                            ng-model="state.params.shop_status">
-                                        <option value="">Shop Status</option>
-                                    </select>
-                                </td>
-                            </form>
-                        </tr>
                         <tr class="header-row">
                             <th>
                                 <bulk-assigner-toggle-all target="shopsArray"></bulk-assigner-toggle-all>
@@ -77,6 +51,7 @@
                                         field-name="shop_name"
                                         field-label="Shop Name"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -84,6 +59,7 @@
                                         field-name="shop_address"
                                         field-label="Shop Address"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -91,6 +67,7 @@
                                         field-name="shop_type"
                                         field-label="Shop Type"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -98,6 +75,7 @@
                                         field-name="printer_type"
                                         field-label="Printer Type"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -105,6 +83,7 @@
                                         field-name="shop_type"
                                         field-label="Shop Status"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>Action</th>

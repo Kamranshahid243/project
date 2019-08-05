@@ -30,14 +30,7 @@
                 $scope.$watch('state.params', $scope.loadExpenses, true);
 
                 $scope.bulkAssignerFields = {
-                    shop_id: {name: 'shop_id', label: 'Shop'},
-                    rent: {name: 'rent', label: 'Rent'},
-                    salaries: {name: 'salaries', label: 'Salaries'},
-                    refreshment: {name: 'refreshment', label: 'Refreshment'},
-                    drawing: {name: 'drawing', label: 'Drawing'},
-                    loss: {name: 'loss', label: 'Loss'},
-                    bills: {name: 'bills', label: 'Bills'},
-                    others: {name: 'others', label: 'Others'}
+                    date: {name: 'date', label: 'Date'}
                 };
 
                 $scope.csvFields = [

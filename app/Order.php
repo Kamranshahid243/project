@@ -15,7 +15,7 @@ class Order extends Model
 
     public static function findRequested()
     {
-        $query = Order::with(['shop']);
+        $query = Order::with('shop')->with('customer');
 
         // search results based on user input
         if (request('customer_id')) $query->where('customer_id', request('customer_id'));

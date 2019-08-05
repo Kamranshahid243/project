@@ -9,11 +9,11 @@
                 $scope.form = {};
                 var state = $scope.state = PageState;
                 state.params.sort = 'customer_id';
-                state.loadingOrders = false;
+                state.loadingCustomers = false;
 
                 $scope.loadCustomers = function () {
                     $scope.customers = [];
-                    state.loadingOrders = true;
+                    state.loadingCustomers = true;
                     $http.get("/customers", {params: state.params})
                         .then(function (response) {
                             $scope.customers = response.data.data;
@@ -23,20 +23,20 @@
                             toaster.pop('error', 'Error while loading Customers', res.data);
                         })
                         .then(function () {
-                            state.loadingOrders = false;
+                            state.loadingCustomers = false;
                         });
                 };
 
 
                 $scope.Orders = function () {
-                    state.loadingOrders = true;
+                    state.loadingCustomers = true;
                     $http.get('orders')
                         .then(function (res) {
                             $scope.orders = res.data;
                         }).catch(function (res) {
                         toaster.pop('error', 'Error while loading orders', res.data)
                     }).then(function () {
-                        $scope.loadingOrders = false;
+                        $scope.loadingCustomers = false;
                     });
                 };
                 $scope.Orders();
