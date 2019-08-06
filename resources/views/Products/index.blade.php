@@ -39,10 +39,6 @@
                         <thead>
                         <tr class="search-row">
                             <form class="search-form form-material">
-                                <td><input class="form-control" placeholder="Search by Product Name"
-                                           ng-model="state.params.product_name"/></td>
-                                <td><input class="form-control" placeholder="Search by Price"
-                                           ng-model="state.params.unit_price"/></td>
                                 <td>
                                     <select ng-options="item for item in ['active','inactive']" class="form-control"
                                             ng-model="state.params.product_status">
@@ -60,6 +56,7 @@
                                         field-name="product_name"
                                         field-label="Product Name"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -67,6 +64,7 @@
                                         field-name="product_code"
                                         field-label="Product Code"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -74,6 +72,7 @@
                                         field-name="product_description"
                                         field-label="Product Description"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -103,7 +102,7 @@
                         <tbody>
 
                         <tr ng-repeat="product in products"
-                            ng-class="{'bg-aqua-active': product.$selected}">
+                            ng-class="{'bg-aqua-active': product.$selected,'bg-danger text-bold':product.available_quantity<=10}">
                             <th>
                                 <bulk-assigner-checkbox target="product"></bulk-assigner-checkbox>
                             </th>
@@ -125,23 +124,18 @@
                                             url="/editProducts/@{{product.product_id}}"
                                 ></n-editable>
                             </td>
-                            <td>
-                                <n-editable type="text" name="available_quantity"
-                                            value="product.available_quantity"
-                                            url="/editProducts/@{{product.product_id}}"
-                                ></n-editable>
-                            </td>
-                            <td>
+                            <td>@{{ product.available_quantity }}</td>
+                            <td>PKR
                                 <n-editable type="text" name="unit_price"
                                             value="product.unit_price"
                                             url="/editProducts/@{{product.product_id}}"
                                 ></n-editable>
                             </td>
-                            <td>
+                            <td ng-class="{'text-danger text-bold':product.product_status=='Available','text-success text-bold':product.product_status=='Unavailable'}">
                                 <n-editable type="select" name="product_status"
                                             value="product.product_status"
                                             url="/editProducts/@{{product.product_id}}"
-                                            dd-options="[{i:'active'},{i:'inactive'}]"
+                                            dd-options="[{i:'Available'},{i:'Unavailable'}]"
                                             dd-label-field="i"
                                             dd-value-field="i"
                                 ></n-editable>

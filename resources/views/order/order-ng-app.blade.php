@@ -11,7 +11,6 @@
                     $scope.products = [];
                     $scope.OrderProducts = [];
                     var state = $scope.state = PageState;
-                    state.params.sort = 'order_id';
                     state.loadingOrders = false;
                     state.loadingProducts = false;
 
@@ -54,9 +53,9 @@
                         $http({
                             url: 'addOrder',
                             method: 'post',
-                            data: {order: order, customer_id: customer, shop: shop}
+                            data: {order: order, customer: customer, shop: shop}
                         }).then(function (res) {
-                            toaster.pop('success', 'Saved Bill')
+                            toaster.pop('success', 'Bill saved')
                         }).catch(function (res) {
                             toaster.pop('error', 'Field is missing');
                         })

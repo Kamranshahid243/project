@@ -42,7 +42,7 @@ Route::group(['middleware' => ['web']], function () {
 
         //customers
         Route::resource('/customers', 'CustomerController');
-        Route::post('//customers/bulk-edit', 'CustomerController@bulkEdit');
+        Route::post('/customers/bulk-edit', 'CustomerController@bulkEdit');
         Route::post('/customers/bulk-delete', 'CustomerController@bulkDelete');
 
         // Products
@@ -58,12 +58,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('purchases', 'PurchasesController');
         Route::post('/purchases/bulk-edit', 'PurchasesController@bulkEdit');
         Route::post('/purchases/bulk-delete', 'PurchasesController@bulkDelete');
-        Route::get('get-vendors','PurchasesController@vendors');
+        Route::get('get-vendors', 'PurchasesController@vendors');
 //        Route::get('get-shops', 'ShopController@allShops');
 
         //orders
         Route::resource('/orders', 'OrdersController');
-        Route::post('//orders/bulk-edit', 'OrdersController@bulkEdit');
+        Route::post('/orders/bulk-edit', 'OrdersController@bulkEdit');
         Route::post('/orders/bulk-delete', 'OrdersController@bulkDelete');
         Route::get('add-orders', 'OrdersController@addOrder');
         Route::post('addOrder', 'BillController@store');
@@ -81,21 +81,25 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/expenses/bulk-edit', 'ExpenseController@bulkEdit');
         Route::post('/expenses/bulk-delete', 'ExpenseController@bulkDelete');
         Route::get('get-shops', 'ShopController@allShops');
-        Route::get('get-categories','ExpenseController@allExpenseCategories');
+        Route::get('get-categories', 'ExpenseController@allExpenseCategories');
 
         //expense categories
         Route::resource('expense-category', 'ExpenseCategoryController');
         Route::post('/expense-category/bulk-edit', 'ExpenseCategoryController@bulkEdit');
         Route::post('/expense-category/bulk-delete', 'ExpenseCategoryController@bulkDelete');
-//        Route::get('get-shops', 'ShopController@allShops');
 
+        //vendor categories
+        Route::resource('vendor-category', 'VendorCategoryController');
+        Route::get('vendor-category-status','VendorCategoryController@updateStatus');
+        Route::post('/vendor-category/bulk-edit', 'VendorCategoryController@bulkEdit');
+        Route::post('/vendor-category/bulk-delete', 'VendorCategoryController@bulkDelete');
 
         //income-expense reports
         Route::resource('income-expense', 'IncomeExpenseController');
         Route::post('show-report', 'IncomeExpenseController@incomeExpenseReport');
 
+        Route::resource('income', 'incomeController');
     });
-
 
 
     if (env('APP_ENV') == 'local') {

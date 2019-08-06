@@ -21,7 +21,7 @@ class Bill extends Model
     public static function validationRules($attributes = null)
     {
         $rules = [
-            'customer_id' => 'required',
+            'customer' => 'required',
         ];
 
         // no list is provided

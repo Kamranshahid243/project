@@ -42,10 +42,6 @@
                         <thead>
                         <tr class="search-row">
                             <form class="search-form form-material">
-                                <td><input class="form-control" placeholder="Search by Name"
-                                           ng-model="state.params.vendor_name"/></td>
-                                <td><input class="form-control" placeholder="Search by Email"
-                                           ng-model="state.params.vendor_email"/></td>
                                 <td>
                                     <select ng-options="item for item in ['active','inactive']" class="form-control"
                                             ng-model="state.params.vendor_status">
@@ -60,16 +56,10 @@
                             </th>
                             <th>
                                 <filter-btn
-                                        field-name="shop_id"
-                                        field-label="Shop id"
-                                        model="state.params"
-                                ></filter-btn>
-                            </th>
-                            <th>
-                                <filter-btn
                                         field-name="vendor_name"
                                         field-label="Vendor Name"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -77,6 +67,7 @@
                                         field-name="vendor_address"
                                         field-label="Vendor Address"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -84,6 +75,7 @@
                                         field-name="vendor_phone"
                                         field-label="Vendor Phone"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -91,6 +83,7 @@
                                         field-name="vendor_email"
                                         field-label="Vendor Email"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -109,12 +102,6 @@
                             <th>
                                 <bulk-assigner-checkbox target="vendor"></bulk-assigner-checkbox>
                             </th>
-                            <td>
-                                <n-editable type="text" name="shop_id"
-                                            value="vendor.shop_id"
-                                            url="/edit/@{{vendor.vendor_id}}"
-                                ></n-editable>
-                            </td>
                             <td>
                                 <n-editable type="text" name="vendor_name"
                                             value="vendor.vendor_name"

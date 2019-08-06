@@ -62,56 +62,6 @@ class ExpenseSeeder extends Seeder
                     ],
                 ],
             ],
-            [
-                'title' => 'Expense Category Management',
-                'url' => 'expense-category',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-                'actions' => [
-                    [
-                        'title' => 'View',
-                        'route' => 'expense-category',
-                        'method' => 'GET',
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s'),
-                    ],
-                    [
-                        'title' => 'Create new expense category',
-                        'route' => 'expense-category',
-                        'method' => 'POST',
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s'),
-                    ],
-                    [
-                        'title' => 'Edit expense category',
-                        'route' => 'expense-category/{expense}',
-                        'method' => 'PUT',
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s'),
-                    ],
-                    [
-                        'title' => 'Edit expense category in bulk',
-                        'route' => 'expense-category/bulk-edit',
-                        'method' => 'POST',
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s'),
-                    ],
-                    [
-                        'title' => 'Delete expense category',
-                        'route' => 'expense-category/{expense}',
-                        'method' => 'DELETE',
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s'),
-                    ],
-                    [
-                        'title' => 'Delete expense category in bulk',
-                        'route' => 'expense-category/bulk-delete',
-                        'method' => 'POST',
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s'),
-                    ],
-                ],
-            ],
         ];
 
         // insert in pages and page_actions tables

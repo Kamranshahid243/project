@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Bill;
 use App\Order;
 use App\Product;
+use App\IncomeModel;
 use Illuminate\Http\Request;
 
 class BillController extends Controller
@@ -38,9 +39,11 @@ class BillController extends Controller
     public function store(Request $request)
     {
         $shop = json_decode($request->shop, true);
+        $customer = json_decode($request->customer, true);
+
         $this->validate($request, Bill::validationRules());
         $bill = new Bill([
-            'customer_id' => $request->customer_id,
+            'customer_id' => $customer['customer_id'],
             'date' => date('Y-m-d H:i:s'),
         ]);
         $bill->save();
@@ -51,14 +54,25 @@ class BillController extends Controller
             $data = ['available_quantity' => $oldNumber];
             $item->update($data);
             $order = new Order([
-                'shop_type' => $shop['shop_type'],
-                'shop_id' => $shop['shop_id'],
-                'customer_id' => $request->customer_id,
+                'shop_type' => session('shop')->shop_type,
+                'shop_id' => session('shop')->shop_id,
+                'customer_id' => $customer['customer_id'],
+                'customer_name' => $customer['customer_name'],
                 'bill_id' => $bill->id,
                 'price' => $item->unit_price * $billitem['available_quantity'],
                 'qty' => $billitem['available_quantity']
             ]);
             $order->save();
+        }
+
+        $orders = $request->order;
+        foreach ($orders as $order) {
+            $income = new IncomeModel([
+                'product_name' => $order['product_name'],
+                'price' => $order['unit_price'] * $order['available_quantity'],
+                'date' => date('Y-m-d H:i:s')
+            ]);
+            $income->save();
         }
     }
 

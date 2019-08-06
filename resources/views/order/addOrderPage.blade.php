@@ -66,22 +66,8 @@
                             <select class="form-control" ng-model="Addcustomers" style="margin-top: 8px;" id="">
                                 <option selected value="">Please Select</option>
                                 <option ng-repeat="x in customers"
-                                        value="@{{ x.customer_id }}">
-                                    @{{ x.customer_name }}
-                                </option>
-                            </select>
-                        </th>
-                    </tr>
-                    <tr ng-show="bill && bill != 0">
-                        <th colspan="3" class="text-center">
-                            <h4>Add Shop</h4>
-                        </th>
-                        <th colspan="4" class="text-center">
-                            <select class="form-control" ng-model="Addshop" style="margin-top: 8px;" id="">
-                                <option selected value="">Please Select</option>
-                                <option ng-repeat="x in shops"
                                         value="@{{ x }}">
-                                    @{{ x.shop_name }}
+                                    @{{ x.customer_name }}
                                 </option>
                             </select>
                         </th>
@@ -94,7 +80,7 @@
                     </tr>
                     <tr ng-show="bill && bill != 0">
                         <th colspan="7" class="text-center">
-                            <a style="margin-left: 300px;" href ng-click="SaleOrder(bill, Addcustomers,Addshop)"
+                            <a style="margin-left: 300px;" href ng-click="SaleOrder(bill, Addcustomers, Addshop)"
                                class="btn btn-success">Continue</a>
                         </th>
                     </tr>

@@ -43,23 +43,13 @@
                     <table class="table table-bordered table-hover grid-view-tbl">
                         <thead>
                         <tr class="search-row">
-                            <td></td>
                             <form class="search-form form-material">
-                                <td><input class="form-control" ng-model="state.params.customer_name"/></td>
-                                <td><input class="form-control" ng-model="state.params.customer_email"/></td>
-                                <td>
-                                    <select ng-options="item for item in ['Enabled','Disabled']" class="form-control"
-                                            ng-model="state.params.status">
-                                        <option value="">Shop</option>
-                                    </select>
-                                </td>
                                 <td>
                                     <select ng-options="item for item in ['Shopkeeper','Consumer']" class="form-control"
                                             ng-model="state.params.customer_type">
                                         <option value="">Customer Type</option>
                                     </select>
                                 </td>
-                                <td></td>
                             </form>
                         </tr>
                         <tr class="header-row">
@@ -71,13 +61,17 @@
                                         field-name="customer_name"
                                         field-label="Customer"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
                                 <filter-btn
-                                        field-name="shop_name"
+                                        field-name="shop_id"
                                         field-label="Shop"
                                         model="state.params"
+                                        options="allShops"
+                                        option-label-field="shop_name"
+                                        option-value-field="shop_id"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -85,6 +79,7 @@
                                         field-name="customer_email"
                                         field-label="Email"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -99,6 +94,7 @@
                                         field-name="customer_address"
                                         field-label="Address"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>
@@ -106,6 +102,7 @@
                                         field-name="customer_phone"
                                         field-label="Phone"
                                         model="state.params"
+                                        search-field="true"
                                 ></filter-btn>
                             </th>
                             <th>

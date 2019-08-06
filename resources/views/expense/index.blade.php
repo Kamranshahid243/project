@@ -6,11 +6,8 @@
             @include('expense.create')
             <div class="box">
                 <bulk-assigner target="expenses" url="/expenses/bulk-edit">
-                    <bulk-assigner-field field="bulkAssignerFields.category_id">
-                        <input type="text" ng-model="bulkAssignerFields.category_id.value">
-                    </bulk-assigner-field>
-                    <bulk-assigner-field field="bulkAssignerFields.cost">
-                        <input type="number" ng-model="bulkAssignerFields.cost.value">
+                    <bulk-assigner-field field="bulkAssignerFields.date">
+                        <input type="date" ng-model="bulkAssignerFields.date.value">
                     </bulk-assigner-field>
                 </bulk-assigner>
                 <div class="box-options">
@@ -35,28 +32,17 @@
                 <div class="box-body">
                     <table class="table table-bordered table-hover grid-view-tbl">
                         <thead>
-                        <tr class="search-row">
-                            <form class="search-form form-material">
-                                <td><input class="form-control" placeholder="Search by Product Name"
-                                           ng-model="state.params.product_name"/></td>
-                                <td><input class="form-control" placeholder="Search by Price"
-                                           ng-model="state.params.unit_price"/></td>
-                                <td>
-                                    <select ng-options="item for item in ['active','inactive']" class="form-control"
-                                            ng-model="state.params.product_status">
-                                        <option value="">Sort status</option>
-                                    </select>
-                                </td>
-                            </form>
-                        </tr>
                         <tr class="header-row">
                             <th>
-                                <bulk-assigner-toggle-all target="products"></bulk-assigner-toggle-all>
+                                <bulk-assigner-toggle-all target="expenses"></bulk-assigner-toggle-all>
                             </th>
                             <th>
                                 <filter-btn
-                                        field-name="cat_name"
+                                        field-name="category_id"
                                         field-label="Expense"
+                                        options="allCategories"
+                                        option-label-field="cat_name"
+                                        option-value-field="id"
                                         model="state.params"
                                 ></filter-btn>
                             </th>

@@ -1,8 +1,8 @@
 <span uib-dropdown dropdown-append-to-body="true">
     <a href="javascript:void(0)" uib-dropdown-toggle>
-        <i class="fa fa-filter" ng-if="model[fieldName]"></i>
-        <i class="fa fa-sort-amount-up" ng-if="getSortDir() == 'asc'"></i>
-        <i class="fa fa-sort-amount-down" ng-if="getSortDir() == 'desc'"></i>
+        <i class="fa fa-sort-alpha-asc" ng-if="getSortDir() == 'asc'"></i>
+        <i class="fa fa-sort-alpha-desc" ng-if="getSortDir() == 'desc'"></i>
+        <i class="fa fa-filter" ng-if="filterApplied()"></i>
         {{ fieldLabel }}
         <i class="fa fa-caret-down"></i>
     </a>
@@ -20,23 +20,41 @@
             </a>
         </li>
 
-        <li class="divider" ng-if="model[fieldName]"></li>
-        <li ng-if="model[fieldName]">
-            <a ng-click="setFilter('')" href>
-                <i class="fa fa-check" ng-if="!model || !model[fieldName]"></i>
+        <li class="divider" ng-if="filterApplied()"></li>
+        <li ng-if="filterApplied() || (isDateFilter && selectedDateFilter)">
+            <a ng-click="resetFilter()" href>
                 <i class="fa fa-times"></i> Clear filter from "{{fieldLabel}}"
             </a>
         </li>
 
         <li class="divider"></li>
+        <li ng-if="isDateFilter">
+            <a href ng-repeat="option in dateFilterOptions track by $index"
+               ng-click="handleDateFilter(option, $event)">
+                    <i class="fa fa-check" ng-if="selectedDateFilter === option"></i>
+                    {{option}}
+            </a>
+            <span ng-if="selectedDateFilter =='Custom Date Range'">
+                <input type="date"
+                       class="form-control"
+                       placeholder="Start Date"
+                       ng-model="selectedDateValues.startDate"
+                       ng-click="$event.stopPropagation()">
+                <input type="date" class="form-control"
+                       placeholder="End Date"
+                       ng-model="selectedDateValues.endDate"
+                       ng-click="$event.stopPropagation()">
+            </span>
+        </li>
         <li>
             <a href ng-repeat="option in options" ng-click="setFilter(option[optionValueField])">
                 <i class="fa fa-check" ng-if="model && model[fieldName] === option[optionValueField]"></i>
                 {{option[optionLabelField]}}
             </a>
         </li>
-        <li ng-if="searchField">
-            <input type="text" class="form-control" ng-click="$event.stopPropagation()" ng-model="model[fieldName]">
+        <li ng-if="searchField && !isDateFilter">
+            <input type="text" class="form-control" ng-click="$event.stopPropagation()" ng-model="model[fieldName]"
+                   placeholder="Search...">
         </li>
         <li ng-transclude></li>
 

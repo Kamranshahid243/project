@@ -36,7 +36,7 @@ class Vendor extends Model
 
     public static function findRequested()
     {
-        $query = Vendor::query();
+        $query = Vendor::where('shop_id','=',session('shop')->shop_id)->with('shop');
 
 //         search results based on user input
         if (request('shop_id')) $query->where('shop_id', request('shop_id'));
@@ -55,6 +55,11 @@ class Vendor extends Model
         if ($resPerPage = request("perPage"))
             return $query->paginate($resPerPage);
         return $query->get();
+    }
+
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class,'shop_id');
     }
 
 }

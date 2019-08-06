@@ -317,21 +317,82 @@
         return {
             restrict: 'E',
             transclude: true,
-            templateUrl: '/vendors/angular-custom/filter-btn.html',
+            templateUrl: '/vendors/angular-custom/filter-btn.html?v=2019.05.23',
             scope: {
                 fieldLabel: '@', // label to be displayed
                 fieldName: '@', // name to be sent to onChange() (to the server e.g.)
                 optionsUrl: '@', // url to fetch options from
                 optionLabelField: '@', // field to be displayed for an option
                 optionValueField: '@', // field whose value is to be set for the selected option
-                searchField:'=?',  //Show search field (passing true will show text field)
-                options:'=options', //will be preferred over optionsUrl
+                isDateFilter: '=?', //Enable to show date range filter
+                searchField: '=?',  //Show search field (passing true will show text field)
+                options: '=options', //will be preferred over optionsUrl
                 model: '=model'
             },
-            controller: function ($scope, $element, $attrs) {
+            controller: function ($scope, $element, $attrs, $filter) {
                 $scope.searchField = angular.isDefined($scope.searchField) ? $scope.searchField : false;
+
+                $scope.selectedDateFilter = '';
+                $scope.selectedDateValues = {startDate: null, endDate: null};
+                $scope.dateFilterOptions = [
+                    'Today', 'This Week', 'Last 2 Weeks', 'This Month', 'Last 1 Month', 'Custom Date Range',
+                ];
+                $scope.handleDateFilter = function (filter, $event) {
+                    $scope.selectedDateFilter = filter;
+                    var startDate = new Date();
+                    var endDate = new Date();
+                    switch (filter) {
+                        case 'Today':
+                            break;
+                        case 'This Week':
+                            startDate.setDate(startDate.getDate() - 7);
+                            break;
+                        case 'Last 2 Weeks':
+                            startDate.setDate(startDate.getDate() - 14);
+                            break;
+                        case 'This Month':
+                            startDate.setDate(1);
+                            break;
+                        case 'Last 1 Month':
+                            startDate.setMonth(startDate.getMonth() - 1);
+                            break;
+                        case 'Custom Date Range':
+                            $event.stopPropagation();
+                            return;
+                            break;
+                        default:
+                            return;
+                    }
+                    $scope.selectedDateValues = {
+                        startDate: startDate,
+                        endDate: endDate,
+                    };
+                };
+                $scope.$watch('selectedDateValues', function () {
+                    if (!$scope.model) {
+                        $scope.model = {};
+                    }
+                    if ($scope.selectedDateValues.startDate || $scope.selectedDateValues.endDate) {
+                        $scope.model[$scope.fieldName] = {
+                            startDate: $scope.selectedDateValues.startDate ? $filter('date')($scope.selectedDateValues.startDate, 'yyyy-MM-dd') : '',
+                            endDate: $scope.selectedDateValues.endDate ? $filter('date')($scope.selectedDateValues.endDate, 'yyyy-MM-dd') : '',
+                        };
+                        return;
+                    }
+                    $scope.model[$scope.fieldName] = null;
+                }, true);
             },
             link: function (scope, elem, attrs) {
+                scope.filterApplied = function () {
+                    return scope.model[scope.fieldName] !== '' && scope.model[scope.fieldName] !== null
+                };
+                scope.resetFilter = function () {
+                    scope.setFilter('');
+                    if (scope.isDateFilter) {
+                        scope.selectedDateFilter = null;
+                        scope.selectedDateValues = {startDate: null, endDate: null};
+                    }
+                };
                 scope.setFilter = function (value) {
                     if (!scope.model) {
                         scope.model = {};

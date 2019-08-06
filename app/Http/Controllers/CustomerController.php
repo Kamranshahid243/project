@@ -71,6 +71,13 @@ class CustomerController extends Controller
         return response("Deleted");
     }
 
+    public function editCustomer(Request $request)
+    {
+        echo "<pre>";
+        print_r($request->all());
+        echo "<pre>";
+    }
+
     public function bulkEdit(Request $request)
     {
         if (!$field = $request->field) {

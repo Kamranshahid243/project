@@ -29,6 +29,12 @@ class OrdersController extends Controller
 
     public function update(Request $request, Order $order)
     {
+//        if ($request->value) {
+////            $order = Order::where('customer_id', '=', $request->name);
+//            $data = [$request->name => $request->value];
+//            $order->update($data);
+//        }
+
         if ($request->wantsJson()) {
             $data = [$request->name => $request->value];
             $validator = \Validator::make($data, Order::validationRules($request->name));
@@ -92,9 +98,6 @@ class OrdersController extends Controller
 
     protected function view($view, $data = [])
     {
-
-
-//        dd($data);
         return view($this->viewDir . "." . $view, $data);
     }
 
@@ -117,5 +120,4 @@ class OrdersController extends Controller
     {
         return view('order.addOrderPage');
     }
-
 }

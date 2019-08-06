@@ -31,7 +31,8 @@
                         <td>
                             <label>End Date</label>
                             <input ng-model="endDate" class="form-control"
-                                   moment-picker="end" format="YYYY-MM-DD"></td>
+                                   moment-picker="end" format="YYYY-MM-DD">
+                        </td>
                         <td style="padding-top: 33px">
                             <button class="btn btn-primary btn-flat" ng-click="showReport(startDate,endDate)">
                                 Generate Report

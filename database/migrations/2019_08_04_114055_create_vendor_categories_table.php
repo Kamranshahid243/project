@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePurchasesTable extends Migration
+class CreateVendorCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,12 @@ class CreatePurchasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchases', function (Blueprint $table) {
+        Schema::drop('vendor_categories');
+        Schema::create('vendor_categories', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('cat_name');
+            $table->integer('status');
             $table->integer('shop_id');
-            $table->integer('vendor_id');
-            $table->string('product_name');
-            $table->integer('quantity');
-            $table->integer('original_cost');
-            $table->integer('purchase_cost');
-            $table->integer('customer_cost');
-            $table->integer('paid');
-            $table->integer('payable');
-            $table->integer('total');
-            $table->date('date');
             $table->rememberToken();
             $table->timestamps();
         });

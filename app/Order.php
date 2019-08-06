@@ -9,13 +9,13 @@ class Order extends Model
 //
 
     protected $table = "orders";
-    protected $primaryKey = "order_id";
+    protected $primaryKey = "id";
     protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'bill_id', 'order_status', 'price', 'qty', "created_at", "updated_at"];
 
 
     public static function findRequested()
     {
-        $query = Order::with(['shop']);
+        $query = Order::with('shop')->with('customer');
 
         // search results based on user input
         if (request('customer_id')) $query->where('customer_id', request('customer_id'));
@@ -56,6 +56,7 @@ class Order extends Model
     {
         $rules = [
             'customer_name' => 'required|string|max:191',
+            'customer_id' => 'required',
             'shop_type' => 'required',
             'customer_phone' => 'required',
             'customer_email' => 'required|email|unique:customers,customer_email',
