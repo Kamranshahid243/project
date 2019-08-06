@@ -145,7 +145,7 @@
                                             url="/editProducts/@{{product.product_id}}"
                                 ></n-editable>
                             </td>
-                            <td ng-class="{'text-danger text-bold':product.product_status=='Available','text-success text-bold':product.product_status=='Unavailable'}">
+                            <td ng-class="{'text-success text-bold':product.product_status=='Available','text-danger text-bold':product.product_status=='Unavailable'}">
                                 <n-editable type="select" name="product_status"
                                             value="product.product_status"
                                             url="/editProducts/@{{product.product_id}}"

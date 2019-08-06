@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Purchase extends Model
 {
-    protected $fillable = ['shop_id', 'vendor_id', 'product_name', 'quantity', 'original_cost', 'purchase_cost', 'customer_cost', 'paid', 'payable', 'total', 'date',];
+    protected $fillable = ['shop_id','v_cat_id', 'vendor_id', 'product_name', 'quantity', 'original_cost', 'purchase_cost', 'customer_cost', 'paid','payable','total','date',];
     public static $bulkEditableFields = ['quantity', 'unit_price'];
 
     public static function validationRules($attributes = null)
@@ -23,7 +23,7 @@ class Purchase extends Model
             'customer_cost' => 'required|integer',
             'paid' => 'required|integer',
             'product_status' => 'required',
-            'date' => 'required|date',
+            'date' => 'required',
         ];
 
 

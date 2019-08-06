@@ -39,6 +39,13 @@
                     {name: 'created_at', label: 'Created at'},
                     {name: 'updated_at', label: 'Updated at'},
                 ];
+                $scope.loadVendorCategories = function () {
+                    $http.get('get-vendor-categories').then(function (res) {
+                        // console.log(res.data);
+                        $scope.categories = res.data;
+                    });
+                }
+                $scope.loadVendorCategories();
             }
         })();
     </script>

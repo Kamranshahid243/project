@@ -6,6 +6,7 @@ use App\Product;
 use App\Purchase;
 use App\Shop;
 use App\Vendor;
+use App\VendorCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

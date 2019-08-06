@@ -80,34 +80,9 @@ class MenuController extends Controller
                 'title' => 'Dashboard'
             ],
             [
-                'url' => 'shops',
-                'class' => 'fas fa-store',
-                'title' => 'Shops'
-            ],
-            [
-                'url' => 'customers',
-                'class' => 'fas fa-store',
-                'title' => 'Customers'
-            ],
-            [
-                'url' => 'showProducts',
-                'class' => 'fab fa-product-hunt',
-                'title' => 'Products',
-            ],
-            [
-                'url' => 'purchases',
-                'class' => 'fas fa-shopping-cart',
-                'title' => 'Purchases',
-            ],
-            [
-                'url' => 'vendor',
-                'class' => 'fas fa-truck-moving',
-                'title' => 'Vendors',
-            ],
-            [
-                'url' => 'orders',
-                'class' => 'fas fa-shopping-cart',
-                'title' => 'Orders',
+                'class' => 'fas fa-database',
+                'title' => 'Data',
+                'child' => $this->data()
             ],
             [
                 'class' => 'fa fa-list-alt',
@@ -119,11 +94,7 @@ class MenuController extends Controller
                 'title' => 'Reports',
                 'child' => $this->manageReports()
             ],
-            [
-                'class' => 'fas fa-coins',
-                'title' => 'Expenses',
-                'url' => 'expenses',
-            ],
+
             [
                 'class' => 'fa fa-cogs',
                 'title' => 'System',
@@ -144,6 +115,48 @@ class MenuController extends Controller
         return collect($array);
     }
 
+    private function data()
+    {
+        $array = [
+            [
+                'url' => 'shops',
+                'class' => 'fas fa-store',
+                'title' => 'Shops'
+            ],
+            [
+                'url' => 'showProducts',
+                'class' => 'fab fa-product-hunt',
+                'title' => 'Products',
+            ],
+            [
+                'url' => 'customers',
+                'class' => 'fas fa-store',
+                'title' => 'Customers'
+            ],
+            [
+                'url' => 'purchases',
+                'class' => 'fas fa-shopping-cart',
+                'title' => 'Purchases',
+            ],
+            [
+                'class' => 'fas fa-coins',
+                'title' => 'Expenses',
+                'url' => 'expenses',
+            ],
+            [
+                'url' => 'orders',
+                'class' => 'fas fa-shopping-cart',
+                'title' => 'Orders',
+            ],
+            [
+                'url' => 'vendor',
+                'class' => 'fas fa-truck-moving',
+                'title' => 'Vendors',
+            ],
+
+        ];
+        return collect($array);
+    }
     private function system()
     {
         $array = [
@@ -181,7 +194,7 @@ class MenuController extends Controller
             [
                 'url' => 'expense-category',
                 'class' => 'fa fa-universal-access',
-                'title' => 'Expense Category Management'
+                'title' => 'Expense Categories'
             ],
         ];
         return collect($array);
