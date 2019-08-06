@@ -23,6 +23,7 @@ class ExpenseController extends Controller
         $this->validate($request, Expense::validationRules());
         $data = $request->all();
 //        return Expense::create($data);
+//        $data = $request->all();
         $expense = new Expense([
             'shop_id' => session('shop')->shop_id,
             'category_id' => $request->category_id,
@@ -134,8 +135,6 @@ class ExpenseController extends Controller
     {
         return ExpenseCategory::all();
     }
-
-//    ...................................................................
 
 
 }

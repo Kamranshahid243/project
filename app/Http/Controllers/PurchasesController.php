@@ -25,23 +25,23 @@ class PurchasesController extends Controller
     {
         $this->validate($request, Purchase::validationRules());
         $data = $request->all();
-        if($request->paid <0 && $request->paid > ($request->quantity * $request->purchase_cost)){
+        if ($request->paid < 0 && $request->paid > ($request->quantity * $request->purchase_cost)) {
             return "Paid Amount is greater lesser than Total Amount";
         }
-        if(!Product::where('shop_id', session('shop')->shop_id)->where('product_name', $request->product_name)->first()) {
+        if (!Product::where('shop_id', session('shop')->shop_id)->where('product_name', $request->product_name)->first()) {
             Product::create([
                 'shop_id' => session('shop')->shop_id,
                 'product_name' => $request->product_name,
                 'product_code' => $request->product_code,
+                'product_category' => $request->category_id,
                 'product_description' => $request->product_description,
                 'available_quantity' => $request->quantity,
                 'unit_price' => $request->customer_cost,
                 'product_status' => $request->product_status,
 
             ]);
-        }
-        else{
-            $qty= Product::where('shop_id', session('shop')->shop_id)->where('product_name', $request->product_name)->first()->available_quantity;
+        } else {
+            $qty = Product::where('shop_id', session('shop')->shop_id)->where('product_name', $request->product_name)->first()->available_quantity;
 
             Product::where('shop_id', session('shop')->shop_id)->where('product_name', $request->product_name)->update([
                 'product_code' => $request->product_code,
@@ -60,7 +60,7 @@ class PurchasesController extends Controller
             'purchase_cost' => $request->purchase_cost,
             'customer_cost' => $request->customer_cost,
             'paid' => $request->paid,
-            'payable' => ($request->quantity * $request->purchase_cost)-$request->paid,
+            'payable' => ($request->quantity * $request->purchase_cost) - $request->paid,
             'total' => ($request->quantity * $request->purchase_cost),
             'date' => date('Y-m-d', strtotime($request->date)),
         ]);
@@ -69,11 +69,10 @@ class PurchasesController extends Controller
     public function update(Request $request, Purchase $purchase)
     {
         if ($request->wantsJson()) {
-            if($request->name == 'paid') {
+            if ($request->name == 'paid') {
                 $data = [$request->name => $request->value,
                     'payable' => $purchase->total - $request->value];
-            }
-            else{
+            } else {
                 $data = [$request->name => $request->value];
             }
             $validator = \Validator::make($data, Purchase::validationRules($request->name));
@@ -157,6 +156,6 @@ class PurchasesController extends Controller
 
     public function vendors(Request $request)
     {
-        return Vendor::where('shop_id',session('shop')->shop_id)->get();
+        return Vendor::where('shop_id', session('shop')->shop_id)->get();
     }
 }

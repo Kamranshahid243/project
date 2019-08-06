@@ -9,15 +9,6 @@ class ExpenseCategoryController extends Controller
 {
     public $viewDir = "expense_category";
 
-
-    public function profile(Request $request)
-    {
-        if ($request->wantsJson()) {
-            return \Auth::user();
-        }
-        return $this->view("profile");
-    }
-
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
@@ -57,7 +48,7 @@ class ExpenseCategoryController extends Controller
 
     public function destroy($expense_id)
     {
- $category = ExpenseCategory::where('id', '=', $expense_id)->delete();
+        $category = ExpenseCategory::where('id', '=', $expense_id)->delete();
 
         return "Expense Category deleted";
     }

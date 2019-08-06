@@ -21,6 +21,15 @@
                         <input class="form-control" type="text" ng-model="form.product_code" placeholder="Product Code">
                     </nvd-form-element>
 
+                    <nvd-form-element field="category_id">
+                        <select class="form-control" ng-model="form.category_id">
+                            <option value="">--select Category--</option>
+                            <option ng-show="category.status=='1'" value="@{{ category.id }}"
+                                    ng-repeat="category in categories">@{{ category.category_name }}
+                            </option>
+                        </select>
+                    </nvd-form-element>
+
                     <nvd-form-element field="product_description">
                         <input class="form-control" type="text" ng-model="form.product_description"
                                placeholder="Product description">

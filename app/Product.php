@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $primaryKey = 'product_id';
-    public $fillable = ['product_id', 'shop_id', 'product_name', 'product_code', 'product_description', 'available_quantity', 'unit_price', 'product_status'];
+    public $fillable = ['product_id', 'shop_id', 'product_name', 'product_code', 'product_category', 'product_description', 'available_quantity', 'unit_price', 'product_status'];
     public static $bulkEditableFields = ['available_quantity', 'unit_price'];
 
     public static function validationRules($attributes = null)
@@ -16,6 +16,7 @@ class Product extends Model
             'shop_id' => 'required',
             'product_name' => 'required',
             'product_code' => 'required',
+            'product_category' => 'required',
             'product_description' => 'required',
             'available_quantity' => 'required',
             'unit_price' => 'required',
@@ -41,7 +42,7 @@ class Product extends Model
 
     public static function findRequested()
     {
-        $query = Product::query();
+        $query = Product::with(['category']);
 
         // search results based on user input
         if (request('product_name')) $query->where('product_name', 'like', "%" . request('product_name') . "%");
@@ -60,5 +61,10 @@ class Product extends Model
         if ($resPerPage = request("perPage"))
             return $query->paginate($resPerPage);
         return $query->get();
+    }
+
+    public function category()
+    {
+        return $this->hasOne(ProductCategory::Class, 'id');
     }
 }

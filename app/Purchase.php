@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Purchase extends Model
 {
-    protected $fillable = ['shop_id', 'vendor_id', 'product_name', 'quantity', 'original_cost', 'purchase_cost', 'customer_cost', 'paid','payable','total','date',];
+    protected $fillable = ['shop_id', 'vendor_id', 'product_name', 'quantity', 'original_cost', 'purchase_cost', 'customer_cost', 'paid', 'payable', 'total', 'date',];
     public static $bulkEditableFields = ['quantity', 'unit_price'];
 
     public static function validationRules($attributes = null)
@@ -15,6 +15,7 @@ class Purchase extends Model
             'vendor_id' => 'required|integer',
             'product_name' => 'required|string',
             'product_code' => 'required|string',
+            'category_id' => 'required|string',
             'product_description' => 'required|string',
             'quantity' => 'required|integer',
             'original_cost' => 'required|integer',
@@ -44,7 +45,7 @@ class Purchase extends Model
 
     public static function findRequested()
     {
-        $query = Purchase::where('shop_id',session('shop')->shop_id)->with('Shop')->with('Vendor');
+        $query = Purchase::where('shop_id', session('shop')->shop_id)->with('Shop')->with('Vendor');
         // search results based on user input
         if (request('vendor_id')) $query->where('vendor_id', 'like', "%" . request('vendor_id') . "%");
         if (request('product_name')) $query->where('product_name', 'like', "%" . request('product_name') . "%");
@@ -69,11 +70,11 @@ class Purchase extends Model
 
     public function Shop()
     {
-        return $this->belongsTo(Shop::class,'shop_id','shop_id');
+        return $this->belongsTo(Shop::class, 'shop_id', 'shop_id');
     }
 
     public function Vendor()
     {
-        return $this->belongsTo(Vendor::class, 'vendor_id','vendor_id');
+        return $this->belongsTo(Vendor::class, 'vendor_id', 'vendor_id');
     }
 }

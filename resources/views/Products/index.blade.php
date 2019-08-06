@@ -69,6 +69,14 @@
                             </th>
                             <th>
                                 <filter-btn
+                                        field-name="product_category"
+                                        field-label="Product Category"
+                                        model="state.params"
+                                        search-field="true"
+                                ></filter-btn>
+                            </th>
+                            <th>
+                                <filter-btn
                                         field-name="product_description"
                                         field-label="Product Description"
                                         model="state.params"
@@ -115,6 +123,12 @@
                             <td>
                                 <n-editable type="text" name="product_code"
                                             value="product.product_code"
+                                            url="/editProducts/@{{product.product_id}}"
+                                ></n-editable>
+                            </td>
+                            <td>
+                                <n-editable type="text" name="product_category"
+                                            value="product.category.category_name"
                                             url="/editProducts/@{{product.product_id}}"
                                 ></n-editable>
                             </td>

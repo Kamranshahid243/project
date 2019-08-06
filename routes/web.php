@@ -21,17 +21,14 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/user/bulk-edit', 'UserController@bulkEdit');
         Route::post('/user/bulk-delete', 'UserController@bulkDelete');
         Route::get('shop-session/{id}', 'UserController@shopSession');
+
         // user roles
-
-
         Route::resource('user-role', 'UserRoleController');
         Route::post('/user-role/bulk-edit', 'UserRoleController@bulkEdit');
         Route::post('/user-role/bulk-delete', 'UserRoleController@bulkDelete');
         Route::post('/user-role/save-actions', 'UserRoleController@saveRoleActions');
         Route::get('page', 'PageController@index');
-
         Route::get('load-menu', 'MenuController@load');
-
         Route::get('/online-users/load', 'OnlineUsersController@load');
 
         // shop
@@ -93,6 +90,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('vendor-category-status','VendorCategoryController@updateStatus');
         Route::post('/vendor-category/bulk-edit', 'VendorCategoryController@bulkEdit');
         Route::post('/vendor-category/bulk-delete', 'VendorCategoryController@bulkDelete');
+
+        //Product Category
+        Route::resource('product-category', 'ProductCategoriesController');
+        Route::post('changestatus', 'ProductCategoriesController@status');
+        Route::get('shopid', 'ProductCategoriesController@getShopId');
 
         //income-expense reports
         Route::resource('income-expense', 'IncomeExpenseController');

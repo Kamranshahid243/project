@@ -3,7 +3,7 @@
         (function () {
             angular.module("myApp").controller('MainController', MainController);
 
-            function MainController($uibModal,$http, $scope, toaster, PageState) {
+            function MainController($uibModal, $http, $scope, toaster, PageState) {
                 $scope.purchases = [];
                 $scope.recordsInfo = {};
                 $scope.form = {};
@@ -20,6 +20,17 @@
                         state.loadingPurchases = false;
                     });
                 };
+
+                $scope.loadproductcategory = function () {
+                    $http.get('/shopid')
+                        .then(function (res) {
+                            $scope.categories = res.data;
+                        }).catch(function (res) {
+                        toaster.pop('error', 'Error while loading Category')
+                    })
+                }
+                $scope.loadproductcategory();
+
 
                 $scope.loadShops = function () {
                     $http.get("shops").then(function (res) {
@@ -56,16 +67,16 @@
                 };
                 $scope.loadVendors();
 
-            // modal
+                // modal
                 $scope.purchaseModal = function (item) {
                     var modal = $uibModal.open({
                         animation: true,
                         // ariaLabelledBy: 'modal-title',
                         // ariaDescribedBy: 'modal-body',
                         templateUrl: 'myModalContent.html',
-                        controller: function($scope){
-                            $scope.item=item;
-                            $scope.modal=modal;
+                        controller: function ($scope) {
+                            $scope.item = item;
+                            $scope.modal = modal;
                             $scope.ok = function () {
                                 $uibModal.close();
                             };
@@ -78,7 +89,6 @@
                     modal.result.then(function () {
                         $scope.loadPurchases();
                     });
-
 
 
                 };
