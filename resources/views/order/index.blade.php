@@ -35,7 +35,7 @@
                     <table class="table table-striped">
                         <tr style="background: slategray; color: white; width: 100% !important;">
                             <th>Status</th>
-                            <th>Order</th>
+                            <th>Order Id</th>
                             <th>Customer Name</th>
                             <th>Date</th>
                             <th>Total</th>
@@ -57,9 +57,6 @@
                                             dd-value-field="customer_id"
                                 ></n-editable>
                             </td>
-                            <td>@{{ order.order_status }}</td>
-                            <td>@{{ order.order_id }}</td>
-                            <td>@{{ order.customer_id }}</td>
                             <td>@{{ order.created_at }}</td>
                             <td>@{{ order.price }}</td>
                             <td>@{{ order.bill_id }}</td>

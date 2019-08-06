@@ -197,7 +197,7 @@ class MenuController extends Controller
             ],
             [
                 'url' => 'product-category',
-                'class' => 'fas fa-truck-moving',
+                'class' => 'fab fa-product-hunt',
                 'title' => 'Product Categories'
             ],
             [

@@ -13,8 +13,8 @@
                 $scope.loadProducts = function () {
                     state.loadingProducts = true;
                     $http.get("showProducts", {params: state.params}).then(function (res) {
+                        console.log(res.data);
                         $scope.products = res.data.data;
-                        console.log($scope.products);
                         $scope.recordsInfo = res.data;
                     }).catch(function (res) {
                         toaster.pop('error', 'Error while loading Products', res.data);
