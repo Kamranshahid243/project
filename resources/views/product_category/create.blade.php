@@ -5,7 +5,7 @@
                 <uib-accordion-heading>
                     <i class="fa fa-plus"></i> Add a New Product Category
                 </uib-accordion-heading>
-                <nvd-form model="form" on-success="loadproductCategories()" action="/product_category">
+                <nvd-form model="form" on-success="loadproductCategories()" action="/product-category">
                     <nvd-form-element field="category_name">
                         <input type="text" class="form-control" ng-model="form.category_name"
                                placeholder="Enter Category Name"/>

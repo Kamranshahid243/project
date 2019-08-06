@@ -43,7 +43,7 @@
                     }).catch(function (res) {
 
                     }).then(function () {
-                        state.loadingCategories = false;
+                        $scope.loadproductCategories()
                     })
                 }
 

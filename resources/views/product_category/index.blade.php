@@ -7,8 +7,9 @@
             @include('product_category.create')
             <div class="box">
                 <div class="box-body">
-                    <div class="category-div" ng-repeat="category in productCategories">
-                        <n-editable ng-show="category.status == 1" type="text" name="category_name"
+                    <div class="category-div" ng-repeat="category in productCategories"
+                         ng-class="{'text-danger text-bold':category.status=='0'}">
+                        <n-editable uib-tooltip="@{{ category.status }}" type="text" name="category_name"
                                     value="category.category_name"
                                     url="/product-category/@{{category.id}}"
                         ></n-editable>
@@ -18,7 +19,7 @@
                         </delete-btn>
                         <a href="" class="pull-right" uib-tooltip="Change status"
                            ng-click="changeStatus(category)"><i
-                                    class="fa fa-sync-alt"></i>&nbsp;</a>
+                                    class="fa fa-sync-alt"></i>&nbsp</a>
                     </div>
                 </div>
             </div>

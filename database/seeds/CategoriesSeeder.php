@@ -13,6 +13,41 @@ class CategoriesSeeder extends Seeder
     {
         {
             $pages = [
+                ['title' => 'Product Categories',
+                    'url' => 'product-category',
+                    'created_at' => date('y-m-d h:i:s'),
+                    'updated_at' => date('y-m-d h:i:s'),
+                    'actions' => [
+                        [
+                            'title' => 'view',
+                            'route' => 'product-category',
+                            'method' => 'GET',
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s'),
+                        ],
+                        [
+                            'title' => 'Create new Product category',
+                            'route' => 'product-category',
+                            'method' => 'POST',
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s'),
+                        ],
+                        [
+                            'title' => 'Create new product category',
+                            'route' => 'product-category',
+                            'method' => 'PUT',
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s'),
+                        ],
+                        [
+                            'title' => 'Delete product category',
+                            'route' => 'product-category/{vendor}',
+                            'method' => 'DELETE',
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s'),
+                        ],
+                    ]
+                ],
                 [
                     'title' => 'Vendor Categories',
                     'url' => 'vendor-category',
