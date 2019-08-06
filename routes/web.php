@@ -59,6 +59,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/purchases/bulk-edit', 'PurchasesController@bulkEdit');
         Route::post('/purchases/bulk-delete', 'PurchasesController@bulkDelete');
         Route::get('get-vendors','PurchasesController@vendors');
+
 //        Route::get('get-shops', 'ShopController@allShops');
 
         //orders
@@ -75,7 +76,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::delete('/deleteVendor/{vendor_id}', 'VendorController@destroy');
         Route::post('/vendors/bulk-edit', 'VendorController@bulkEdit');
         Route::post('/vendors/bulk-delete', 'VendorController@bulkDelete');
-
+        Route::get('get-vendor-categories', 'VendorController@vendorCategories');
         //expenses
         Route::resource('expenses', 'ExpenseController');
         Route::post('/expenses/bulk-edit', 'ExpenseController@bulkEdit');

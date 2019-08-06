@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Vendor;
+use App\VendorCategory;
 use Illuminate\Http\Request;
 
 class VendorController extends Controller
@@ -39,15 +40,16 @@ class VendorController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, Vendor::validationRules());
-        $data = $request->all();
-
-        $data['shop_id'] = session('shop')->shop_id;
-        $data['vendor_name'] = $data['vendor_name'];
-        $data['vendor_address'] = $data['vendor_address'];
-        $data['vendor_phone'] = $data['vendor_phone'];
-        $data['vendor_email'] = $data['vendor_email'];
-        $data['vendor_status'] = $data['vendor_status'];
-        return Vendor::create($data);
+        Vendor::create([
+            'shop_id' => session('shop')->shop_id,
+            'v_cat_id' => $request->v_cat_id,
+            'vendor_name' => $request->vendor_name,
+            'vendor_address' => $request->vendor_address,
+            'vendor_phone' => $request->vendor_phone,
+            'vendor_email' => $request->vendor_email,
+            'vendor_status' => $request->vendor_status,
+        ]);
+        return "Vendor Added Successfully";
     }
 
     /**
@@ -148,5 +150,10 @@ class VendorController extends Controller
 
         Vendor::whereIn('vendor_id', $ids)->delete();
         return response("Deleted");
+    }
+
+    public function vendorCategories()
+    {
+        return VendorCategory::where('shop_id', session('shop')->shop_id)->get();
     }
 }

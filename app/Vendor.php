@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vendor extends Model
 {
-    public $fillable = ['vendor_id', 'shop_id', 'vendor_name', 'vendor_address', 'vendor_phone', 'vendor_email', 'vendor_status'];
+    public $fillable = ['vendor_id','v_cat_id', 'shop_id', 'vendor_name', 'vendor_address', 'vendor_phone', 'vendor_email', 'vendor_status'];
     public static $bulkEditableFields = ['vendor_name', 'vendor_status'];
 
     public static function validationRules($attributes = null)
     {
         $rules = [
+            'v_cat_id' => 'required',
             'vendor_name' => 'required',
             'vendor_address' => 'required',
             'vendor_phone' => 'required',
@@ -36,7 +37,7 @@ class Vendor extends Model
 
     public static function findRequested()
     {
-        $query = Vendor::where('shop_id','=',session('shop')->shop_id)->with('shop');
+        $query = Vendor::with('vendorCategory')->where('shop_id','=',session('shop')->shop_id)->with('shop');
 
 //         search results based on user input
         if (request('shop_id')) $query->where('shop_id', request('shop_id'));
@@ -60,6 +61,11 @@ class Vendor extends Model
     public function shop()
     {
         return $this->belongsTo(Shop::class,'shop_id');
+    }
+
+    public function vendorCategory()
+    {
+        return $this->hasOne(VendorCategory::class,'id','v_cat_id');
     }
 
 }

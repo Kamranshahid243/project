@@ -64,6 +64,14 @@
                             </th>
                             <th>
                                 <filter-btn
+                                        field-name="v_cat_id"
+                                        field-label="Category"
+                                        model="state.params"
+                                        {{--options=""--}}
+                                ></filter-btn>
+                            </th>
+                            <th>
+                                <filter-btn
                                         field-name="vendor_address"
                                         field-label="Vendor Address"
                                         model="state.params"
@@ -106,6 +114,17 @@
                                 <n-editable type="text" name="vendor_name"
                                             value="vendor.vendor_name"
                                             url="/edit/@{{vendor.vendor_id}}"
+                                ></n-editable>
+                            </td>
+                            <td>
+                                {{--@{{ categories }}--}}
+                                {{--@{{ vendor.vendor_category.cat_name }}--}}
+                                <n-editable type="select" name="v_cat_id"
+                                            value="vendor.v_cat_id"
+                                            url="/edit/@{{vendor.vendor_id}}"
+                                            dd-options="categories"
+                                            dd-label-field="cat_name"
+                                            dd-value-field="id"
                                 ></n-editable>
                             </td>
                             <td>

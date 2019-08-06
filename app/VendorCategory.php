@@ -15,6 +15,7 @@ class VendorCategory extends Model
 
         // search results based on user input
         if (request('id')) $query->where('id', 'like', '%' . request('id') . '%');
+
         if (request('cat_name')) $query->where('cat_name', 'like', '%' . request('cat_name') . '%');
         if (request('shop_id')) $query->where('shop_id', '=', request('shop_id'));
         if (request('created_at')) $query->where('created_at', request('created_at'));

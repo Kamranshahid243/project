@@ -29,10 +29,16 @@
                     })
                 };
                 $scope.loadShops();
+                $scope.loadVendors=function(){
+                    $http.get('get-vendors').then(function(res){
+                        $scope.vendors = res.data;
+                    });
+                }
+                $scope.loadVendors();
                 $scope.$watch('state.params', $scope.loadPurchases, true);
 
                 $scope.bulkAssignerFields = {
-                    date: {name: 'date', label: 'Date', value: 0},
+                    date: {name: 'date', label: 'Date'}
                 };
                 $scope.csvFields = [
                     {name: 'product_id', label: 'Id'},
@@ -54,7 +60,6 @@
                         toaster.pop('error', 'Error while loading Products', res.data);
                     })
                 };
-                $scope.loadVendors();
 
             // modal
                 $scope.purchaseModal = function (item) {
@@ -78,8 +83,6 @@
                     modal.result.then(function () {
                         $scope.loadPurchases();
                     });
-
-
 
                 };
             }
