@@ -9,8 +9,7 @@ class Order extends Model
 //
 
     protected $table = "orders";
-    protected $primaryKey = "id";
-    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'bill_id', 'order_status', 'price', 'qty', "created_at", "updated_at"];
+    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'bill_id', 'order_status', 'price', 'qty', "created_at", "updated_at",'date'];
 
 
     public static function findRequested()
@@ -19,7 +18,7 @@ class Order extends Model
 
         // search results based on user input
         if (request('customer_id')) $query->where('customer_id', request('customer_id'));
-        if (request('order_id')) $query->where('order_id', 'like', '%' . request('order_id') . '%');
+        if (request('id')) $query->where('id', 'like', '%' . request('id') . '%');
         if (request('shop_id')) $query->where('shop_id', 'like', '%' . request('shop_id') . '%');
         if (request('shop_type')) $query->where('shop_type', 'like', '%' . request('shop_type') . '%');
 
@@ -93,5 +92,10 @@ class Order extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function productCategory()
+    {
+        return $this->belongsTo(ProductCategory::class);
     }
 }

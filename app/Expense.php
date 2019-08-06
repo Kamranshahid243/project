@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Expense extends Model
 {
     protected $guarded = ["id", "created_at", "updated_at"];
-    public static $bulkEditableFields = ['shop_id','category_id','cost','date'];
+    public static $bulkEditableFields = ['shop_id', 'category_id', 'cost', 'date'];
 //    public $appends=['total'];
 //
 //    public function getTotalAttribute()
@@ -16,7 +16,7 @@ class Expense extends Model
 //    }
     public static function findRequested()
     {
-        $query = Expense::query()->with('expenseCategory');
+        $query = Expense::query();
 
         // search results based on user input
         if (request('shop_id')) $query->where('shop_id', request('shop_id'));
@@ -85,6 +85,6 @@ class Expense extends Model
 
     public function expenseCategory()
     {
-        return $this->belongsTo(ExpenseCategory::class,'category_id');
+        return $this->belongsTo(ExpenseCategory::class, 'category_id');
     }
 }

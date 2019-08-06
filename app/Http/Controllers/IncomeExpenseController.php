@@ -48,7 +48,7 @@ class IncomeExpenseController extends Controller
                 'total' => 1
             ]
         ];
-        $total= Expense::with('expenseCategory')->where('date', '>=', $request->startDate)->where('date', '<=', $request->endDate)->where('shop_id', session('shop')->shop_id)->sum('cost');
+        $total = Expense::with('expenseCategory')->where('date', '>=', $request->startDate)->where('date', '<=', $request->endDate)->where('shop_id', session('shop')->shop_id)->sum('cost');
         $diff = abs(count($expense) - count($income));
         for ($i = 0; $i <= $diff; $i++) {
             if (count($expense) > count($income)) {

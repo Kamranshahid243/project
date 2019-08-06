@@ -9,20 +9,41 @@
                     <div class="row">
                         <table class="table table-bordered">
                             <tr>
-                                <th colspan="3" class="text-center">
-                                    Income
-                                </th>
-                                <th colspan="3" class="text-center">Expenses</th>
+                                <th colspan="2" style="text-align: center">Expense</th>
+                                <th colspan="2" style="text-align: center">Income</th>
                             </tr>
                             <tr>
-                                <th class="text-center">Product Name</th>
-                                <th class="text-center">Price</th>
-                                <th class="text-center">Date</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Category</th>
+                                <th>Amount</th>
                             </tr>
-                            <tr ng-repeat="income in incomes">
-                                <td class="text-center">@{{ income.product_name }}</td>
-                                <td class="text-center">@{{ income.price }}</td>
-                                <td class="text-center">@{{ income.date }}</td>
+                            @{{ reports }}
+                            <tr ng-repeat="report in reports.expenses">
+
+                                <td>@{{ report.expense_category.cat_name }}</td>
+                                <td>@{{ report.cost |currency:'PKR '}}</td>
+                                <td>@{{ reports.income[$index].name }}</td>
+                                <td>@{{ reports.income[$index].cost|currency:'PKR ' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Total</th>
+                                <th>@{{ reports.totalCost|currency:'PKR ' }}</th>
+                                <th>Total</th>
+                                <th>@{{ reports.income[0].total|currency:'PKR ' }}</th>
+                            </tr>
+                            <tr ng-if="reports.expenses && reports.income.length">
+                                <th
+                                        colspan="4"
+                                        class="text-center"
+                                        ng-class="{'text-danger':(reports.income[0].total -reports.totalCost)<0}"
+                                >
+                                    Net Profit :
+                                    @{{ reports.income[0].total -reports.totalCost|currency:'PKR '}}
+                                </th>
+                            </tr>
+                            <tr class="alert alert-warning" ng-if="!reports.expenses.length && !state.loadingReport">
+                                <td colspan="8">No records found.</td>
                             </tr>
                         </table>
                     </div>
