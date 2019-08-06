@@ -13,7 +13,8 @@ class CategoriesSeeder extends Seeder
     {
         {
             $pages = [
-                ['title' => 'Product Categories',
+                [
+                    'title' => 'Product Categories',
                     'url' => 'product-category',
                     'created_at' => date('y-m-d h:i:s'),
                     'updated_at' => date('y-m-d h:i:s'),

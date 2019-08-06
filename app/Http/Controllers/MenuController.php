@@ -157,6 +157,7 @@ class MenuController extends Controller
         ];
         return collect($array);
     }
+
     private function system()
     {
         $array = [
@@ -173,6 +174,7 @@ class MenuController extends Controller
         ];
         return collect($array);
     }
+
     private function manageReports()
     {
         $array = [
@@ -184,12 +186,19 @@ class MenuController extends Controller
         ];
         return collect($array);
     }
-    private function categories(){
+
+    private function categories()
+    {
         $array = [
             [
                 'url' => 'vendor-category',
                 'class' => 'fas fa-truck-moving',
                 'title' => 'Vendor Categories'
+            ],
+            [
+                'url' => 'product-category',
+                'class' => 'fas fa-truck-moving',
+                'title' => 'Product Categories'
             ],
             [
                 'url' => 'expense-category',
