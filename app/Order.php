@@ -10,7 +10,7 @@ class Order extends Model
 
     protected $table = "orders";
     protected $primaryKey = "id";
-    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'bill_id', 'order_status', 'price', 'qty', "created_at", "updated_at"];
+    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'product_category', 'bill_id', 'order_status', 'price', 'qty', 'date', "created_at", "updated_at"];
 
 
     public static function findRequested()
@@ -58,6 +58,7 @@ class Order extends Model
             'customer_name' => 'required|string|max:191',
             'customer_id' => 'required',
             'shop_type' => 'required',
+            'product_category' => 'required',
             'customer_phone' => 'required',
             'customer_email' => 'required|email|unique:customers,customer_email',
             'shop_id' => 'required|integer',

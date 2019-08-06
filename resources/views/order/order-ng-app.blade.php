@@ -18,6 +18,8 @@
                         state.loadingProducts = true;
                         $http.get("editProducts")
                             .then(function (res) {
+                                console.log(res.data);
+
                                 $scope.products = res.data;
                             })
                             .catch(function (res) {
@@ -106,6 +108,7 @@
                         $scope.bill.push(duplicateRecord);
                         $scope.OrderProducts.push(product);
                     }
+
                     $scope.totalBill = function () {
                         var total = 0;
                         for (i = 0; i < $scope.bill.length; i++) {

@@ -49,6 +49,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('editProducts', "ProductsController");
         Route::post('/products/bulk-delete', "ProductsController@bulkDelete");
         Route::post('/products/bulk-edit', "ProductsController@bulkEdit");
+        Route::get('statusCheck', "ProductsController@editStatus");
 //        Route::get('get-products', 'ProductsController@getProducts');
 
         //purchases

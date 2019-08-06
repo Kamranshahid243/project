@@ -20,6 +20,7 @@
                             <h4>@{{ product.product_name }}</h4>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-muted">@{{ product.available_quantity }} in stock</span>
                         </td>
+                        <td><span class="text-muted">Cate Name : @{{ product.category.category_name }}</span></td>
                         <td>Rs @{{ product.unit_price}}</td>
                         <td><a href="" ng-click="addOrder(product)">
                                 <i class="fas fa-plus-circle" style="color:mediumseagreen; font-size: 30px;"></i>

@@ -29,12 +29,6 @@ class OrdersController extends Controller
 
     public function update(Request $request, Order $order)
     {
-//        if ($request->value) {
-////            $order = Order::where('customer_id', '=', $request->name);
-//            $data = [$request->name => $request->value];
-//            $order->update($data);
-//        }
-
         if ($request->wantsJson()) {
             $data = [$request->name => $request->value];
             $validator = \Validator::make($data, Order::validationRules($request->name));
@@ -43,7 +37,6 @@ class OrdersController extends Controller
             $order->update($data);
             return "Order updated.";
         }
-
         $this->validate($request, Order::validationRules());
         $order->update($request->all());
         return redirect('/orders');

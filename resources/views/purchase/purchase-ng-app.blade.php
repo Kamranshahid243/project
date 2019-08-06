@@ -40,8 +40,8 @@
                     })
                 };
                 $scope.loadShops();
-                $scope.loadVendors=function(){
-                    $http.get('get-vendors').then(function(res){
+                $scope.loadVendors = function () {
+                    $http.get('get-vendors').then(function (res) {
                         $scope.vendors = res.data;
                     });
                 }

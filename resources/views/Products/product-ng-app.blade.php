@@ -13,7 +13,6 @@
                 $scope.loadProducts = function () {
                     state.loadingProducts = true;
                     $http.get("showProducts", {params: state.params}).then(function (res) {
-                        console.log(res.data);
                         $scope.products = res.data.data;
                         $scope.recordsInfo = res.data;
                     }).catch(function (res) {
