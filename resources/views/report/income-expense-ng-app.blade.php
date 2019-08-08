@@ -8,8 +8,10 @@
                 var states = $scope.states = {
                     loadingReport: false
                 }
+                $scope.dateSelector='thisMonth';
                 $scope.start = moment().startOf('month');
                 $scope.end = moment().endOf('month');
+                $scope.lastmonth = moment().add(-1, 'month').startOf('month');
                 $scope.updateDate = function () {
                     if ($scope.dateSelector == 'thisMonth') {
                         $scope.start = moment().startOf('month');

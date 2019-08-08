@@ -6,6 +6,7 @@ use App\Bill;
 use App\Order;
 use App\Product;
 use App\IncomeModel;
+use function Composer\Autoload\includeFile;
 use Illuminate\Http\Request;
 
 class BillController extends Controller
@@ -59,8 +60,10 @@ class BillController extends Controller
                 'customer_id' => $customer['customer_id'],
                 'customer_name' => $customer['customer_name'],
                 'bill_id' => $bill->id,
+                'product_category' => $billitem['product_category'],
                 'price' => $item->unit_price * $billitem['available_quantity'],
-                'qty' => $billitem['available_quantity']
+                'qty' => $billitem['available_quantity'],
+                'date' => date('Y-m-d'),
             ]);
             $order->save();
         }

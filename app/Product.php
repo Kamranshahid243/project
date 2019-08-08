@@ -60,6 +60,7 @@ class Product extends Model
         // paginate results
         if ($resPerPage = request("perPage"))
             return $query->paginate($resPerPage);
+
         return $query->get();
     }
 

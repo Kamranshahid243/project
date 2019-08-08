@@ -57,6 +57,7 @@ class Order extends Model
             'customer_name' => 'required|string|max:191',
             'customer_id' => 'required',
             'shop_type' => 'required',
+            'product_category' => 'required',
             'customer_phone' => 'required',
             'customer_email' => 'required|email|unique:customers,customer_email',
             'shop_id' => 'required|integer',

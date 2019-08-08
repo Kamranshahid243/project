@@ -3,7 +3,7 @@
         <div class="col-sm-4 col-md-4">
             <label>Quick Date Selector</label><br>
             <input type="radio" name="dateSelector" ng-change="updateDate()" ng-model="dateSelector"
-                   value="thisMonth" selected><b>This Month</b>&nbsp;&nbsp;&nbsp;
+                   value="thisMonth" ><b>This Month</b>&nbsp;&nbsp;&nbsp;
             <input type="radio" name="dateSelector" ng-change="updateDate()" ng-model="dateSelector"
                    value="lastMonth"><b>Last Month</b>&nbsp;&nbsp;&nbsp;
             <input type="radio" name="dateSelector" ng-change="updateDate()" ng-model="dateSelector"
