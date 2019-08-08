@@ -71,15 +71,15 @@
                 }
                 $scope.getShops();
 
-                $scope.getProducts = function () {
-                    $http({
-                        url: 'get-products',
-                        mehtod: 'get'
-                    }).then(function (response) {
-                        $scope.allProducts = response.data;
-                    });
-                }
-                $scope.getProducts();
+                // $scope.getProducts = function () {
+                //     $http({
+                //         url: 'get-products',
+                //         mehtod: 'get'
+                //     }).then(function (response) {
+                //         $scope.allProducts = response.data;
+                //     });
+                // }
+                // $scope.getProducts();
             }
         })();
     </script>

@@ -15,16 +15,22 @@ class Order extends Model
 
     public static function findRequested()
     {
-        $query = Order::with('shop')->with('customer');
+        $query = Order::with(['shop', 'customer']);
 
         // search results based on user input
         if (request('customer_id')) $query->where('customer_id', request('customer_id'));
-        if (request('order_id')) $query->where('order_id', 'like', '%' . request('order_id') . '%');
-        if (request('shop_id')) $query->where('shop_id', 'like', '%' . request('shop_id') . '%');
-        if (request('shop_type')) $query->where('shop_type', 'like', '%' . request('shop_type') . '%');
+        if (request('order_id')) $query->where('order_id', 'like', ' % ' . request('order_id') . ' % ');
+        if (request('shop_id')) $query->where('shop_id', 'like', ' % ' . request('shop_id') . ' % ');
+        if (request('shop_type')) $query->where('shop_type', 'like', ' % ' . request('shop_type') . ' % ');
+
+        if ($customerName = request('customer_name')) {
+            $query->whereHas('customer', function ($query) use ($customerName) {
+                $query->where('customer_name', "like", "%{$customerName}%");
+            });
+        }
 
         // sort results
-        if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
+//        if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
 
         // paginate results
         if ($resPerPage = request("perPage"))
@@ -55,14 +61,14 @@ class Order extends Model
     public static function validationRules($attributes = null)
     {
         $rules = [
-            'customer_name' => 'required|string|max:191',
+            'customer_name' => 'required | string | max:191',
             'customer_id' => 'required',
             'shop_type' => 'required',
             'product_category' => 'required',
             'customer_phone' => 'required',
-            'customer_email' => 'required|email|unique:customers,customer_email',
-            'shop_id' => 'required|integer',
-            'customer_type' => 'required|in:Shopkeeper,Consumer',
+            'customer_email' => 'required | email | unique:customers,customer_email',
+            'shop_id' => 'required | integer',
+            'customer_type' => 'required | in:Shopkeeper,Consumer',
             'shop_type' => 'required',
         ];
 
@@ -80,11 +86,6 @@ class Order extends Model
             $newRules[$attr] = $rules[$attr];
         return $newRules;
     }
-
-//    public function shop()
-//    {
-//        return $this->belongsTo(Shop::class, 'shop_id', 'shop_id');
-//    }
 
     public function shop()
     {

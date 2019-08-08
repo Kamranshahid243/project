@@ -14,12 +14,28 @@
                     state.loadingOrders = false;
                     state.loadingProducts = false;
 
+                    $scope.loadOrders = function () {
+                        $scope.orders = [];
+                        state.loadingOrders = true;
+                        $http.get("/orders", {params: state.params})
+                            .then(function (res) {
+                                $scope.orders = res.data.data;
+                                $scope.recordsInfo = res.data;
+                            })
+                            .catch(function (res) {
+                                toaster.pop('error', 'Error while loading Orders', res.data);
+                            })
+                            .then(function () {
+                                state.loadingOrders = false;
+                            });
+                    };
+                    $scope.$watch('state.params', $scope.loadOrders, true);
+
+
                     $scope.loadProducts = function () {
                         state.loadingProducts = true;
                         $http.get("editProducts")
                             .then(function (res) {
-                                console.log(res.data);
-
                                 $scope.products = res.data;
                             })
                             .catch(function (res) {
@@ -41,16 +57,6 @@
                     };
                     $scope.Customers();
 
-                    $scope.Shops = function () {
-                        $http.get('shops')
-                            .then(function (res) {
-                                $scope.shops = res.data;
-                            }).catch(function (res) {
-                            toaster.pop('error', 'Error while loading Shops', res.data)
-                        })
-                    };
-                    $scope.Shops();
-
                     $scope.SaleOrder = function (order, customer, shop) {
                         $http({
                             url: 'addOrder',
@@ -62,25 +68,6 @@
                             toaster.pop('error', 'Field is missing');
                         })
                     }
-
-                    $scope.loadOrders = function () {
-                        $scope.orders = [];
-
-                        state.loadingOrders = true;
-                        $http.get("/orders", {params: state.params})
-                            .then(function (response) {
-                                $scope.orders = response.data.data;
-                                $scope.recordsInfo = response.data;
-                            })
-                            .catch(function (res) {
-                                toaster.pop('error', 'Error while loading Orders', res.data);
-                            })
-                            .then(function () {
-                                state.loadingOrders = false;
-                            });
-                    };
-
-                    $scope.$watch('state.params', $scope.loadOrders, true);
 
                     $scope.bill = [];
                     $scope.addOrder = function (product) {
@@ -166,6 +153,17 @@
                         })
                         $scope.bill.remove(existed);
                         $scope.loadProducts();
+                    }
+
+                    $scope.SearchOrder = function (id) {
+                        $http({
+                            url: 'searchorder',
+                            method: 'post',
+                            data: {id: id}
+                        }).then(function (res) {
+                            $scope.orders = res.data;
+                        })
+
                     }
                 }
             }

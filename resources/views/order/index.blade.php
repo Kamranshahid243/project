@@ -19,10 +19,11 @@
                        tooltip-placement="left"></i>
                 </a>&nbsp;
             </div>
-            <div class="row" style="background: darkslategray; margin: 0px">
+            <div class="row" style="background: darkslategray; margin: 0px; padding-right: 10px;">
                 <div class="col-md-11 col-sm-10" style="padding: 1%;">
-                    <input class="form-control" ng-model="state.params.name" placeholder="Search orders"
-                           style="border-radius: 5px;"/>
+                    <input type="text" class="form-control" placeholder="Search Order"
+                           ng-model="state.params.customer_name">
+                    {{--<a href class="btn btn-success" style="margin-top:10px" ng-click="SearchOrder(orders.customer_name)">Search</a>--}}
                 </div>
                 <div class="col-md-1 col-sm-2" style="padding: 1% 0%;">
                     <a href="add-orders">
@@ -64,10 +65,11 @@
                         </tr>
                     </table>
                 </div>
+                <pagination state="state" records-info="recordsInfo"></pagination>
+
             </div>
         </div>
     </div>
     <toaster-container></toaster-container>
 @endsection
 @include('order.order-ng-app')
-@include('customer.customer-ng-app')
