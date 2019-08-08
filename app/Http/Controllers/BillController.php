@@ -39,6 +39,8 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $shop = json_decode($request->shop, true);
         $customer = json_decode($request->customer, true);
 
@@ -61,12 +63,15 @@ class BillController extends Controller
                 'shop_type' => session('shop')->shop_type,
                 'shop_id' => session('shop')->shop_id,
                 'customer_id' => $customer['customer_id'],
+                'product_id' => $billitem['product_id'],
                 'customer_name' => $customer['customer_name'],
                 'bill_id' => $bill->id,
                 'product_category' => $billitem['product_category'],
                 'price' => $item->unit_price * $billitem['available_quantity'],
+                'payable' => (($item->unit_price * $billitem['available_quantity']) - \request('paid')),
                 'qty' => $billitem['available_quantity'],
                 'date' => date('Y-m-d'),
+                'order_status' => (($item->unit_price * $billitem['available_quantity']) > \request('paid')) ? 'Pending' : 'Paid',
             ]);
             $order->save();
         }

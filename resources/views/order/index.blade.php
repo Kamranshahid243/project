@@ -23,7 +23,6 @@
                 <div class="col-md-11 col-sm-10" style="padding: 1%;">
                     <input type="text" class="form-control" placeholder="Search Order"
                            ng-model="state.params.customer_name">
-                    {{--<a href class="btn btn-success" style="margin-top:10px" ng-click="SearchOrder(orders.customer_name)">Search</a>--}}
                 </div>
                 <div class="col-md-1 col-sm-2" style="padding: 1% 0%;">
                     <a href="add-orders">
@@ -36,19 +35,21 @@
                     <table class="table table-striped">
                         <tr style="background: slategray; color: white; width: 100% !important;">
                             <th>Status</th>
-                            <th>Order Id</th>
                             <th>Customer Name</th>
-                            <th>Date</th>
                             <th>Total</th>
-                            <th>Bill ID</th>
+                            <th>Paid</th>
+                            <th>Pending Amount</th>
                             <th>Qty</th>
+                            <th>Date</th>
                             <th>Actions</th>
                         </tr>
+                        {{--<pre>@{{ orders | json }}</pre>--}}
                         <tr ng-repeat="order in orders">
-                            <td>
-                                @{{ order.order_status }}
+                            <td style="color: orange" ng-show="order.order_status == 'Pending'">
+                                <i class="far fa-clock"></i>
                             </td>
-                            <td>@{{ order.id }}</td>
+                            <td style="color: blue" ng-show="order.order_status == 'Paid'">
+                                <i class="far fa-check-circle"></i></td>
                             <td>
                                 <n-editable type="select" name="customer_id"
                                             value="order.customer_id"
@@ -58,10 +59,12 @@
                                             dd-value-field="customer_id"
                                 ></n-editable>
                             </td>
-                            <td>@{{ order.created_at }}</td>
-                            <td>@{{ order.price }}</td>
-                            <td>@{{ order.bill_id }}</td>
+                            <td>PKR: @{{ order.price }}</td>
+                            <td>PKR: @{{ order.price - order.payable }}</td>
+                            <td>PKR: @{{ order.payable }}</td>
                             <td>@{{ order.qty }}</td>
+                            <td>@{{ order.date| nvdDate:"mediumDate" }}</td>
+                            <td><a type="submit" class="btn btn-success">View Bill</a></td>
                         </tr>
                     </table>
                 </div>

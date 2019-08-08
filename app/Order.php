@@ -9,12 +9,13 @@ class Order extends Model
 //
 
     protected $table = "orders";
-    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'bill_id', 'order_status', 'price', 'qty', "created_at", "updated_at",'date'];
+    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'product_id', 'product_category', 'bill_id', 'order_status', 'price', 'payable', 'qty', 'order_status', "created_at", "updated_at", 'date'];
 
 
     public static function findRequested()
     {
         $query = Order::with(['shop', 'customer']);
+
 
         // search results based on user input
         if (request('customer_id')) $query->where('customer_id', request('customer_id'));
@@ -23,8 +24,8 @@ class Order extends Model
         if (request('shop_type')) $query->where('shop_type', 'like', ' % ' . request('shop_type') . ' % ');
 
         if ($customerName = request('customer_name')) {
-            $query->whereHas('customer', function ($query) use ($customerName) {
-                $query->where('customer_name', "like", "%{$customerName}%");
+            $query->whereHas('customer', function ($item) use ($customerName) {
+                $item->where('customer_name', "like", "%{$customerName}%");
             });
         }
 
@@ -68,6 +69,7 @@ class Order extends Model
             'customer_email' => 'required | email | unique:customers,customer_email',
             'shop_id' => 'required | integer',
             'customer_type' => 'required | in:Shopkeeper,Consumer',
+            'paid' => 'required',
             'shop_type' => 'required',
         ];
 

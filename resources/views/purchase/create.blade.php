@@ -52,7 +52,8 @@
                         <input class="form-control" type="number" ng-model="form.customer_cost"
                                placeholder="Product Selling Price" min="1">
                     </nvd-form-element>
-                    <span ng-show="form.quantity!=NULL && form.purchase_cost!=NULL" style="color: red;">@{{ "*Total Payable Amount (PKR 0-" + (form.purchase_cost * form.quantity ) + ")" }}</span>
+                    <span ng-show="form.quantity!=NULL && form.purchase_cost!=NULL" style="color: red;">
+                        @{{ "*Total Payable Amount (PKR 0-" + (form.purchase_cost * form.quantity ) + ")" }}</span>
                     <nvd-form-element field="paid">
                         <input class="form-control" type="number" ng-model="form.paid"
                                placeholder="Paid Amount" min="0" max="@{{ form.purchase_cost * form.quantity }}">

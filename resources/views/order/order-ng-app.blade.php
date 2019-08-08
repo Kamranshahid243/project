@@ -30,8 +30,7 @@
                             });
                     };
                     $scope.$watch('state.params', $scope.loadOrders, true);
-
-
+                    
                     $scope.loadProducts = function () {
                         state.loadingProducts = true;
                         $http.get("editProducts")
@@ -57,11 +56,11 @@
                     };
                     $scope.Customers();
 
-                    $scope.SaleOrder = function (order, customer, shop) {
+                    $scope.SaleOrder = function (order, customer, shop, paid) {
                         $http({
                             url: 'addOrder',
                             method: 'post',
-                            data: {order: order, customer: customer, shop: shop}
+                            data: {order: order, customer: customer, shop: shop, paid: paid}
                         }).then(function (res) {
                             toaster.pop('success', 'Bill saved')
                         }).catch(function (res) {
@@ -163,7 +162,6 @@
                         }).then(function (res) {
                             $scope.orders = res.data;
                         })
-
                     }
                 }
             }

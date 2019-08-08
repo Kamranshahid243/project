@@ -15,6 +15,7 @@
                             </div>
                         </div>
                     </tr>
+
                     <tr ng-repeat="product in products| filter:product_name">
                         <td>
                             <h4>@{{ product.product_name }}</h4>
@@ -74,14 +75,19 @@
                         </th>
                     </tr>
                     <tr ng-show="bill && bill != 0">
-                        <th class="text-center" colspan="2">
-                            <a href class="btn btn-danger" ng-click="clearitems()">Clear Record</a>
+                        <th class="text-center" style="padding-left: 350px" colspan="7">Total Bill : @{{ totalBill() }}
                         </th>
-                        <th class="text-center" colspan="5">Total Bill : @{{ totalBill() }}</th>
                     </tr>
                     <tr ng-show="bill && bill != 0">
-                        <th colspan="7" class="text-center">
-                            <a style="margin-left: 300px;" href ng-click="SaleOrder(bill, Addcustomers, Addshop)"
+                        <th class="text-center" colspan="3">Paid:</th>
+                        <th colspan="4"><input type="number" min="0" max="@{{ totalBill() }}" ng-model="paid"></th>
+
+                    </tr>
+                    <tr ng-show="bill && bill != 0">
+                        <th class="text-center" colspan="7">
+                            <a href class="btn btn-danger" ng-click="clearitems()">Clear Record</a>
+
+                            <a style="margin-left: 250px;" href ng-click="SaleOrder(bill, Addcustomers, Addshop,paid)"
                                class="btn btn-success">Continue</a>
                         </th>
                     </tr>
