@@ -6,35 +6,34 @@
             @include('report.create')
             <div class="box" show-loader="state.loadingReport">
                 <div class="box-body">
-                    <div class="row">
-                        <table class="table table-bordered"
-                               ng-if="reports.expenses.length && reports.incomes.length">
-                            <tr>
+                        <table class="table table-bordered" ng-if="reports && reports.expenses || reports.incomes">
+                            <tr ng-show="reports.expenses.length || reports.incomes.length">
                                 <th colspan="2" style="text-align: center">Expense</th>
                                 <th colspan="2" style="text-align: center">Income</th>
                             </tr>
-                            <tr>
+                            <tr ng-show="reports.expenses.length || reports.incomes.length">
                                 <th>Category</th>
                                 <th>Amount</th>
                                 <th>Category</th>
                                 <th>Amount</th>
                             </tr>
                             {{--@{{ reports. }}--}}
-                            <tr ng-repeat="report in reports.expenses">
+                            <tr ng-repeat="report in reports.expenses"
+                                ng-show="reports.expenses.length || reports.incomes.length">
     {{--<td>@{{ ($index+1) + " " + $index  }}</td>--}}
                                 {{--<td>@{{ report[0].category_id }}</td>--}}
                                 <td>@{{ report[0].expense_category.cat_name }}</td>
                                 <td>@{{ report[0].total |currency:'PKR '}}</td>
-                                <td>@{{ reports.incomes[$index+1][$index].product_category.category_name }}</td>
-                                <td>@{{ reports.incomes[$index+1][0].amount|currency:'PKR ' }}</td>
+                                <td>@{{ reports.incomes[$index][0].product_category.category_name }}</td>
+                                <td>@{{ reports.incomes[$index][0].amount|currency:'PKR ' }}</td>
                             </tr>
-                            <tr>
+                            <tr ng-show="reports.expenses.length || reports.incomes.length">
                                 <th>Total</th>
                                 <th>@{{ reports.totalExpense|currency:'PKR ' }}</th>
                                 <th>Total</th>
                                 <th>@{{ reports.totalIncome|currency:'PKR ' }}</th>
                             </tr>
-                            <tr ng-if="reports.expenses && reports.incomes">
+                            <tr ng-show="reports.expenses.length || reports.incomes.length">
                                 <th
                                         colspan="4"
                                         class="text-center"
@@ -44,13 +43,11 @@
                                     @{{ reports.totalIncome - reports.totalExpense|currency:'PKR '}}
                                 </th>
                             </tr>
+                            <tr class="alert alert-warning"
+                                ng-show="!reports.expenses.length && !reports.incomes.length">
+                                <td colspan="4">No records found.</td>
+                            </tr>
                         </table>
-                    </div>
-                    <br>
-                    <div class="alert alert-warning"
-                         ng-if="reports && !reports.expenses.length && !reports.incomes.length && !state.loadingReport">
-                        <p>No records found.</p>
-                    </div>
                 </div>
             </div>
         </div>

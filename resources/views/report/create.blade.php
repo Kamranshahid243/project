@@ -3,26 +3,15 @@
         <div class="col-sm-4 col-md-4">
             <label>Quick Date Selector</label><br>
             <input type="radio" name="dateSelector" ng-change="updateDate()" ng-model="dateSelector"
-                   value="thisMonth" ><b>This Month</b>&nbsp;&nbsp;&nbsp;
+                   value="thisMonth" id="thisMonth"><label for="thisMonth">This Month</label>&nbsp;&nbsp;&nbsp;
             <input type="radio" name="dateSelector" ng-change="updateDate()" ng-model="dateSelector"
-                   value="lastMonth"><b>Last Month</b>&nbsp;&nbsp;&nbsp;
+                   value="lastMonth" id="lastMonth"><label for="lastMonth">Last Month</label>&nbsp;&nbsp;&nbsp;
             <input type="radio" name="dateSelector" ng-change="updateDate()" ng-model="dateSelector"
-                   value="currentYear"><b>Current Year</b>
+                   value="currentYear" id="currentYear"><label for="currentYear">Current Year</label>
         </div>
         <div class="col-md-8">
             <table class="table table-bordered table-hover grid-view-tbl">
                 <tr class="search-row">
-
-                    {{--<td>--}}
-                    {{--<label>Shop</label>--}}
-                    {{--<select class="form-control"--}}
-                    {{--ng-model="state.params.shop_id">--}}
-                    {{--<option value="">Shop</option>--}}
-                    {{--<option value="@{{ shop.shop_id }}" ng-repeat="shop in allShops"--}}
-                    {{--ng-show="shop.shop_status=='Active'">@{{ shop.shop_name }}--}}
-                    {{--</option>--}}
-                    {{--</select>--}}
-                    {{--</td>--}}
                     <td>
                         <label>Start Date</label>
                         <input ng-model="startDate" class="form-control" moment-picker="start"
