@@ -55,11 +55,11 @@ class OrdersController extends Controller
             abort(403, "Please select some items.");
         }
 
-        if (!$ids = collect($items)->pluck('order_id')->all()) {
+        if (!$ids = collect($items)->pluck('id')->all()) {
             abort(403, "No ids provided.");
         }
 
-        Order::whereIn('order_id', $ids)->delete();
+        Order::whereIn('id', $ids)->delete();
         return response("Deleted");
     }
 
@@ -85,7 +85,7 @@ class OrdersController extends Controller
             abort(403, "No ids provided.");
         }
 
-        Order::whereIn('order_id', $ids)->update([$fieldName => array_get($field, 'value')]);
+        Order::whereIn('id', $ids)->update([$fieldName => array_get($field, 'value')]);
         return response("Updated");
     }
 

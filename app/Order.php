@@ -9,8 +9,7 @@ class Order extends Model
 //
 
     protected $table = "orders";
-    protected $primaryKey = "id";
-    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'product_category', 'bill_id', 'order_status', 'price', 'qty', 'date', "created_at", "updated_at"];
+    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'bill_id', 'order_status', 'price', 'qty', "created_at", "updated_at",'date'];
 
 
     public static function findRequested()
@@ -95,5 +94,10 @@ class Order extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function productCategory()
+    {
+        return $this->belongsTo(ProductCategory::class);
     }
 }

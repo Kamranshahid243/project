@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Expense;
+use App\Order;
 use Illuminate\Http\Request;
 
 class IncomeExpenseController extends Controller
@@ -40,15 +41,39 @@ class IncomeExpenseController extends Controller
     public function incomeExpenseReport(Request $request)
     {
         $expense = Expense::with('expenseCategory')->where('date', '>=', $request->startDate)->where('date', '<=', $request->endDate)->where('shop_id', session('shop')->shop_id)->get();
+        $expense = $expense->groupBy('category_id');
+        foreach ($expense as $key => $record)
+        {
+            $cost=0;
+            foreach ($record as $cat)
+            {
+                $cost+=$cat['cost'];
+            }
+            $record[0]['total']=$cost;
 
-        $income = [
-            [
-                'name' => 'asset sold',
-                'cost' => 12000,
-                'total' => 1
-            ]
-        ];
-        $total= Expense::with('expenseCategory')->where('date', '>=', $request->startDate)->where('date', '<=', $request->endDate)->where('shop_id', session('shop')->shop_id)->sum('cost');
+
+        }
+
+        $income= Order::with('productCategory')->where('date', '>=', $request->startDate)->where('date', '<=', $request->endDate)->where('shop_id', session('shop')->shop_id)->get();
+        $income=$income->groupBy('product_category');
+            foreach ($income as $key => $data){
+                $price=0;
+                foreach ($data as $info){
+                    $price+=$info['price'];
+                }
+                $data[0]['amount']=$price;
+            }
+
+        $totalIncome = Order::with('productCategory')->where('date', '>=', $request->startDate)->where('date', '<=', $request->endDate)->where('shop_id', session('shop')->shop_id)->sum('price');
+//        dd($income->sum('price'));
+//        $income = [
+//            [
+//                'name' => 'asset sold',
+//                'cost' => 12000,
+//                'total' => 1
+//            ]
+//        ];
+        $totalExpense = Expense::with('expenseCategory')->where('date', '>=', $request->startDate)->where('date', '<=', $request->endDate)->where('shop_id', session('shop')->shop_id)->sum('cost');
         $diff = abs(count($expense) - count($income));
         for ($i = 0; $i <= $diff; $i++) {
             if (count($expense) > count($income)) {
@@ -60,8 +85,9 @@ class IncomeExpenseController extends Controller
         }
         return [
             'expenses' => $expense,
-            'income' => $income,
-            'totalCost' => $total,
+            'incomes' => $income,
+            'totalExpense' => $totalExpense,
+            'totalIncome' => $totalIncome,
         ];
     }
 }
