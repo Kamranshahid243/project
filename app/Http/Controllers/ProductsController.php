@@ -15,7 +15,6 @@ class ProductsController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $product = Product::all();
             return Product::findRequested();
         }
         return view('Products.index');

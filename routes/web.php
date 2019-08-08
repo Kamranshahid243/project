@@ -64,6 +64,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/orders/bulk-edit', 'OrdersController@bulkEdit');
         Route::post('/orders/bulk-delete', 'OrdersController@bulkDelete');
         Route::get('add-orders', 'OrdersController@addOrder');
+        Route::post('searchorder', 'OrdersController@SearchOrder');
         Route::post('addOrder', 'BillController@store');
 
         //Vandors Routes

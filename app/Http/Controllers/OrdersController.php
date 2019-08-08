@@ -15,7 +15,7 @@ class OrdersController extends Controller
     public function index(Request $request, Order $order)
     {
         if ($request->wantsJson()) {
-            return $order::findRequested();
+            return Order::findRequested();
         }
         return $this->view("index");
     }
@@ -112,5 +112,11 @@ class OrdersController extends Controller
     public function addOrder()
     {
         return view('order.addOrderPage');
+    }
+
+    public function SearchOrder(Request $request)
+    {
+        $order = Order::where('id', '=', $request->id)->get();
+        return $order;
     }
 }

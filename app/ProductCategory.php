@@ -10,7 +10,7 @@ class ProductCategory extends Model
 
     public static function findRequested()
     {
-        $query = ProductCategory::where('shop_id', '=', session('shop')->shop_id);
+        $query = ProductCategory::where('shop_id', '=', session('shop')->shop_id);;
 
         // search results based on user input
         if (request('id')) $query->where('id', 'like', '%' . request('id') . '%');

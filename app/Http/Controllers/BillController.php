@@ -52,6 +52,9 @@ class BillController extends Controller
         foreach ($items as $billitem) {
             $item = Product::where('product_id', $billitem['product_id'])->first();
             $oldNumber = $item->available_quantity - $billitem['available_quantity'];
+            if ($oldNumber == 0) {
+                $item->update(['product_status' => 'Unavailable']);
+            }
             $data = ['available_quantity' => $oldNumber];
             $item->update($data);
             $order = new Order([

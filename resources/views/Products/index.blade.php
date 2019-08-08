@@ -40,7 +40,8 @@
                         <tr class="search-row">
                             <form class="search-form form-material">
                                 <td>
-                                    <select ng-options="item for item in ['active','inactive']" class="form-control"
+                                    <select ng-options="item for item in ['Available','Unavailable']"
+                                            class="form-control"
                                             ng-model="state.params.product_status">
                                         <option value="">Sort status</option>
                                     </select>
@@ -108,7 +109,7 @@
                         </tr>
                         </thead>
                         <tbody>
-
+                        {{--<pre>@{{ products | json }}</pre>--}}
                         <tr ng-repeat="product in products"
                             ng-class="{'bg-aqua-active': product.$selected,'bg-danger text-bold':product.available_quantity<=10}">
                             <th>
@@ -127,10 +128,7 @@
                                 ></n-editable>
                             </td>
                             <td>
-                                <n-editable type="text" name="product_category"
-                                            value="product.category.category_name"
-                                            url="/editProducts/@{{product.product_id}}"
-                                ></n-editable>
+                                @{{ product.category.category_name }}
                             </td>
                             <td>
                                 <n-editable type="text" name="product_description"
