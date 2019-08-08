@@ -18,8 +18,8 @@
                         $scope.end = moment().endOf('month');
                     }
                     if ($scope.dateSelector == 'lastMonth') {
-                        $scope.start = moment().add(-1, 'month').startOf('month');
-                        $scope.end = moment().add(-1, 'month').endOf('month');
+                        $scope.start = moment().subtract(1, 'month').startOf('month');
+                        $scope.end = moment().subtract(1, 'month').endOf('month');
                     }
                     if ($scope.dateSelector == 'currentYear') {
                         $scope.start = moment().startOf('year').format();

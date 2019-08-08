@@ -70,4 +70,3 @@
     <toaster-container></toaster-container>
 @endsection
 @include('order.order-ng-app')
-@include('customer.customer-ng-app')
