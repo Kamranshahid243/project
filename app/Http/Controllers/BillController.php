@@ -68,7 +68,7 @@ class BillController extends Controller
                 'bill_id' => $bill->id,
                 'product_category' => $billitem['product_category'],
                 'price' => $item->unit_price * $billitem['available_quantity'],
-                'payable' => (($item->unit_price * $billitem['available_quantity']) - \request('paid')),
+                'paid' => \request('paid'),
                 'qty' => $billitem['available_quantity'],
                 'date' => date('Y-m-d'),
                 'order_status' => (($item->unit_price * $billitem['available_quantity']) > \request('paid')) ? 'Pending' : 'Paid',

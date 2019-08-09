@@ -30,7 +30,7 @@
                             });
                     };
                     $scope.$watch('state.params', $scope.loadOrders, true);
-                    
+
                     $scope.loadProducts = function () {
                         state.loadingProducts = true;
                         $http.get("editProducts")

@@ -46,11 +46,12 @@
                         {{--<pre>@{{ orders | json }}</pre>--}}
                         <tr ng-repeat="order in orders">
                             <td style="color: orange" ng-show="order.order_status == 'Pending'">
-                                <i class="far fa-clock"></i>
+                                <i uib-tooltip="@{{order.order_status}}" class="far fa-clock"></i>
                             </td>
                             <td style="color: blue" ng-show="order.order_status == 'Paid'">
-                                <i class="far fa-check-circle"></i></td>
+                                <i uib-tooltip="@{{order.order_status}}" class="far fa-check-circle"></i></td>
                             <td>
+
                                 <n-editable type="select" name="customer_id"
                                             value="order.customer_id"
                                             url="orders/@{{order.id}}"
@@ -60,8 +61,14 @@
                                 ></n-editable>
                             </td>
                             <td>PKR: @{{ order.price }}</td>
-                            <td>PKR: @{{ order.price - order.payable }}</td>
-                            <td>PKR: @{{ order.payable }}</td>
+                            <td>
+                                <n-editable type="text" name="paid"
+                                            value="order.paid"
+                                            url="orders/@{{order.id}}"
+                                ></n-editable>
+                            </td>
+                            <td ng-if="order.price - order.paid">PKR: @{{ order.price - order.paid }}</td>
+                            <td ng-if="!(order.price - order.paid)"><span class="text-bold text-green">Paid</span></td>
                             <td>@{{ order.qty }}</td>
                             <td>@{{ order.date| nvdDate:"mediumDate" }}</td>
                             <td><a type="submit" class="btn btn-success">View Bill</a></td>
