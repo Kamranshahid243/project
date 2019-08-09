@@ -43,7 +43,7 @@ class ExpenseController extends Controller
 
         $expense = Expense::where('id', $id)->first();
 
-        $expense = Expense::where('expense_id', $id)->first();
+        $expense = Expense::where('id', $id)->first();
 
         if ($request->wantsJson()) {
             $data = [$request->name => $request->value];

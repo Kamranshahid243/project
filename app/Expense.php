@@ -16,7 +16,7 @@ class Expense extends Model
 //    }
     public static function findRequested()
     {
-        $query = Expense::query();
+        $query = Expense::with('expenseCategory');
 
         // search results based on user input
         if (request('shop_id')) $query->where('shop_id', request('shop_id'));

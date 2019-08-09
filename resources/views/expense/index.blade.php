@@ -70,8 +70,14 @@
                             <th>
                                 <bulk-assigner-checkbox target="expense"></bulk-assigner-checkbox>
                             </th>
-                            <td>@{{ expense.expense_category.cat_name }}</td>
                             <td>
+                                <n-editable type="select" name="category_id"
+                                            value="expense.category_id"
+                                            url="/expenses/@{{expense.id}}" dd-options="allCategories"
+                                            dd-label-field="cat_name" dd-value-field="id"
+                                ></n-editable>
+                            </td>
+                            <td>PKR
                                 <n-editable type="text" name="cost"
                                             value="expense.cost"
                                             url="/expenses/@{{expense.id}}"
