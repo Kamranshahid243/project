@@ -3,7 +3,7 @@
     angular.module('myApp').requires.push('nvdDashboard');
     angular.module("myApp").controller('MainController', MainController);
 
-    function MainController($scope) {
+    function MainController($scope,$http) {
         $scope.dashboardConfig = {
             tabs: [
                 {
@@ -31,6 +31,41 @@
                 }
             }
         };
+        $scope.saleChart=function () {
+            var allSales = $scope.allSales = [];
+            $http.get('sale-chart').then(function (response) {
+                allSales = response.data;
+            var ctx = document.getElementById('myChart');
+            var year = new Date();
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: "Annual Sale (" + year.getFullYear() + ")",
+                        data:allSales,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                steps: 10,
+                                stepValue: 10000,
+                                max: 1000000,
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+        }
+        $scope.saleChart();
     }
 })();</script>
 <link rel="stylesheet" href="/vendors/angular-gridster/angular-gridster.min.css">

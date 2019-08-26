@@ -3,7 +3,7 @@
 @section('content')
     <div class="row" ng-controller="MainController" show-loader="state.loadingExpenses">
         <div class="col-sm-12">
-            @include('report.create')
+            @include('report.income_expense.create')
             <div class="box" show-loader="state.loadingReport">
                 <div class="box-body">
                         <table class="table table-bordered" ng-if="reports && reports.expenses || reports.incomes">
@@ -54,4 +54,4 @@
         <toaster-container></toaster-container>
     </div>
 @endsection
-@include('report.income-expense-ng-app')
+@include('report.income_expense.income-expense-ng-app')
