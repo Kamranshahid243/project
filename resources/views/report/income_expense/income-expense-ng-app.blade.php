@@ -8,7 +8,7 @@
                 var states = $scope.states = {
                     loadingReport: false
                 }
-                $scope.dateSelector='thisMonth';
+                $scope.dateSelector = 'thisMonth';
                 $scope.start = moment().startOf('month');
                 $scope.end = moment().endOf('month');
                 $scope.lastmonth = moment().add(-1, 'month').startOf('month');
@@ -25,7 +25,6 @@
                         $scope.start = moment().startOf('year').format();
                         $scope.end = moment().endOf('year').format();
                     }
-                    console.log($scope.dateSelector, moment().startOf('month'));
                 }
                 $scope.showReport = function (startDate, endDate) {
                     state.loadingReport = true;
@@ -34,7 +33,6 @@
                         method: 'post',
                         data: {startDate: startDate, endDate: endDate}
                     }).then(function (response) {
-                        console.log(response.data);
                         $scope.reports = response.data;
                     }).catch(function (res) {
 
@@ -54,19 +52,9 @@
                 $scope.LoadExpense = function () {
                     $http.get('expenses')
                         .then(function (res) {
-                            console.log(res.data);
                         })
                 }
 
-                // $scope.getShops = function () {
-                //     $http({
-                //         url: 'get-shops',
-                //         mehtod: 'get'
-                //     }).then(function (response) {
-                //         $scope.allShops = response.data;
-                //     });
-                // }
-                // $scope.getShops();
             }
 
         })();

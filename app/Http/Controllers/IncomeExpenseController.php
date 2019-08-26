@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class IncomeExpenseController extends Controller
 {
-    public $viewDir = "report";
+    public $viewDir = "report.income_expense";
 
     public function index(Request $request)
     {

@@ -132,4 +132,20 @@ class OrdersController extends Controller
         return view('order.addOrderPage');
     }
 
+    public function SearchOrder(Request $request)
+    {
+        $order = Order::where('id', '=', $request->id)->get();
+        return $order;
+    }
+
+    public function annualSale()
+    {
+        $prices=[];
+        for ($m = 1; $m <= date('m'); $m++){
+          $sales = Order::where('shop_id', '=', session('shop')->shop_id)->where('date', '>=', date('Y-' . sprintf("%02d", $m) . '-01'))->where('date','<=', date('Y-' . sprintf("%02d", $m) . '-t'))->sum('price');
+
+          $prices[]=$sales;
+        }
+        return $prices;
+    }
 }

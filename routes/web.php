@@ -106,9 +106,16 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('income-expense', 'IncomeExpenseController');
         Route::post('show-report', 'IncomeExpenseController@incomeExpenseReport');
 
+        //product summary reports
+        Route::resource('product-summary', 'ProductSummaryController');
+        Route::post('show-product-summary', 'ProductSummaryController@ProductSummaryReport');
+
+//        income
         Route::resource('income', 'incomeController');
     });
 
+    //sale chart
+    Route::get('sale-chart','OrdersController@annualSale');
 
     if (env('APP_ENV') == 'local') {
         require_once __DIR__ . "/../tests/test-routes.php";

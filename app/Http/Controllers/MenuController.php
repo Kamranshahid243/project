@@ -183,6 +183,11 @@ class MenuController extends Controller
                 'class' => 'fas fa-chart-line',
                 'title' => 'Income-Expense Report'
             ],
+            [
+                'url' => 'product-summary',
+                'class' => 'fas fa-chart-line',
+                'title' => 'Product Summary Report'
+            ],
         ];
         return collect($array);
     }

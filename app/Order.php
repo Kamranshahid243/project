@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Request;
 
 class Order extends Model
 {
@@ -30,7 +31,8 @@ class Order extends Model
 
 
         // sort results
-//        if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
+        if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
+        if (request("start_date")) $query->where('date','>=', request("start_date"))->where('date', '<=', request("end_date"));
 
         // paginate results
         if ($resPerPage = request("perPage"))
@@ -105,5 +107,10 @@ class Order extends Model
     public function productCategory()
     {
         return $this->belongsTo(ProductCategory::class, 'product_category');
+    }
+
+    public function products()
+    {
+        return $this->belongsTo(Product::class,'product_id','product_id');
     }
 }
