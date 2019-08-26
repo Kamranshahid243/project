@@ -11,7 +11,8 @@
                             <div class="col-md-12 col-sm-12" style="padding: 1%;">
                                 <input class="form-control" ng-model="product_name"
                                        placeholder="Search products"
-                                       style="border-radius: 5px;"/>
+                                       ng-change="searchProduct(product_name)"
+                                       style=" border-radius: 5px;"/>
                             </div>
                         </div>
                     </tr>
@@ -22,7 +23,8 @@
                         </td>
                         <td>Rs @{{ product.unit_price}}</td>
                         <td><a href="" ng-click="addOrder(product)">
-                                <i class="fas fa-plus-circle pull-right" style="color:mediumseagreen; font-size: 30px;"></i>
+                                <i class="fas fa-plus-circle pull-right"
+                                   style="color:mediumseagreen; font-size: 30px;"></i>
                             </a>
                             <br>
                             <span class="text-muted">Category : @{{ product.category.category_name }}</span>

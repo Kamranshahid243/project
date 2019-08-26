@@ -3,10 +3,11 @@
         (function () {
                 angular.module("myApp").controller('MainController', MainController);
 
-                function MainController($http, $scope, PageState, toaster) {
+                function MainController($http, $scope, PageState, toaster, $uibModal) {
                     $scope.orders = [];
                     $scope.recordsInfo = {};
                     $scope.form = {};
+                    $scope.modalBill = [];
                     $scope.customers = [];
                     $scope.products = [];
                     $scope.OrderProducts = [];
@@ -17,10 +18,9 @@
                     $scope.loadOrders = function () {
                         $scope.orders = [];
                         state.loadingOrders = true;
-                        $http.get("/orders", {params: state.params})
+                        $http.get("/bills", {params: state.params})
                             .then(function (res) {
-                                $scope.orders = res.data.data;
-                                $scope.recordsInfo = res.data;
+                                $scope.orders = res.data.data
                             })
                             .catch(function (res) {
                                 toaster.pop('error', 'Error while loading Orders', res.data);
@@ -30,6 +30,43 @@
                             });
                     };
                     $scope.$watch('state.params', $scope.loadOrders, true);
+
+                    $scope.searchBill = function (name) {
+                        state.loadingOrders = true;
+                        $http({
+                            url: '/orderSearch',
+                            method: 'post',
+                            data: {name: name}
+                        }).then(function (res) {
+                            $scope.orders = res.data;
+                        }).catch(function (res) {
+                            toaster.pop('error', 'Sorry no bill exist of this name');
+                        }).then(function (res) {
+                            state.loadingOrders = false;
+                        });
+                    }
+
+                    $scope.totalprice = function (orders) {
+                        var total = 0;
+                        if (orders) {
+                            for (i = 0; i < orders.length; i++) {
+                                var data = orders[i];
+                                total += data.price
+                            }
+                            return total;
+                        }
+                    }
+
+                    $scope.totalQty = function (orders) {
+                        var total = 0;
+                        if (orders) {
+                            for (i = 0; i < orders.length; i++) {
+                                var data = orders[i];
+                                total += data.qty
+                            }
+                            return total;
+                        }
+                    }
 
                     $scope.loadProducts = function () {
                         state.loadingProducts = true;
@@ -65,6 +102,16 @@
                             toaster.pop('success', 'Bill saved')
                         }).catch(function (res) {
                             toaster.pop('error', 'Field is missing');
+                        })
+                    }
+
+                    $scope.searchProduct = function (product) {
+                        $http({
+                            url: 'searchproduct',
+                            method: 'post',
+                            data: {data: product}
+                        }).then(function (res) {
+                            $scope.products = res.data;
                         })
                     }
 
@@ -120,6 +167,11 @@
                         }
                     };
 
+                    $scope.orderDetail = function (orders) {
+                        $scope.modalBill = orders;
+                        console.log($scope.modalBill);
+                    }
+
                     $scope.lessAction = function (order) {
                         var existing = $scope.OrderProducts.findOne(function (item) {
                             return item.product_id == order.product_id;
@@ -153,15 +205,15 @@
                         $scope.bill.remove(existed);
                         $scope.loadProducts();
                     }
-
-                    $scope.SearchOrder = function (id) {
-                        $http({
-                            url: 'searchorder',
-                            method: 'post',
-                            data: {id: id}
-                        }).then(function (res) {
-                            $scope.orders = res.data;
-                        })
+                    $scope.orderDetail = function (record) {
+                        var modal = $uibModal.open({
+                            animation: true,
+                            templateUrl: 'orderDetails.html',
+                            controller: function ($scope) {
+                                $scope.billDetails = record;
+                            },
+                            size: 'md',
+                        });
                     }
                 }
             }

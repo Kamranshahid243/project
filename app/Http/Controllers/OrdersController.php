@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bill;
 use App\Order;
 use App\Product;
 use App\Shop;
@@ -27,9 +28,26 @@ class OrdersController extends Controller
         return Order::create($data);
     }
 
+    public function editcustomer(Request $request)
+    {
+        echo "<pre>";
+        print_r($request->all());
+        echo "<pre>";
+    }
+
+    public function updateCustomer($id, Request $request)
+    {
+        $data = [$request->name => $request->value];
+        $order = Bill::where('id', $id)->first()->update($data);
+    return 'string';
+    }
+
     public function update(Request $request, Order $order)
     {
+
+
         if ($request->wantsJson()) {
+            return $order->get();
             $data = [$request->name => $request->value];
             $validator = \Validator::make($data, Order::validationRules($request->name));
             if ($validator->fails())
@@ -42,7 +60,7 @@ class OrdersController extends Controller
         return redirect('/orders');
     }
 
-    public function destroy(Request $request, Order $order)
+    public function destroy(Order $order)
     {
         $order->delete();
         return "Order deleted";
@@ -114,9 +132,4 @@ class OrdersController extends Controller
         return view('order.addOrderPage');
     }
 
-    public function SearchOrder(Request $request)
-    {
-        $order = Order::where('id', '=', $request->id)->get();
-        return $order;
-    }
 }

@@ -2,6 +2,7 @@
 @section('title') Orders @stop
 @section('content')
     <div class="row" ng-controller="MainController" show-loader="state.loadingOrders">
+
         <div class="col-sm-12">
             <div align="right">
                 <a href="javascript:void(0)" class="box-option"
@@ -13,7 +14,7 @@
                        uib-tooltip="Download data as CSV"
                        tooltip-placement="left"></i>
                 </a>&nbsp;
-                <a href="javascript:void(0)" ng-click="Orders()" class="box-option">
+                <a href="javascript:void(0)" ng-click="loadOrders()" class="box-option">
                     <i class="fa fa-sync-alt"
                        uib-tooltip="Reload records"
                        tooltip-placement="left"></i>
@@ -22,7 +23,7 @@
             <div class="row" style="background: darkslategray; margin: 0px; padding-right: 10px;">
                 <div class="col-md-11 col-sm-10" style="padding: 1%;">
                     <input type="text" class="form-control" placeholder="Search Order"
-                           ng-model="state.params.customer_name">
+                           ng-model="customer_name" ng-change="searchBill(customer_name)">
                 </div>
                 <div class="col-md-1 col-sm-2" style="padding: 1% 0%;">
                     <a href="add-orders">
@@ -43,35 +44,51 @@
                             <th>Date</th>
                             <th>Actions</th>
                         </tr>
-                        {{--<pre>@{{ orders | json }}</pre>--}}
-                        <tr ng-repeat="order in orders">
-                            <td style="color: orange" ng-show="order.order_status == 'Pending'">
-                                <i uib-tooltip="@{{order.order_status}}" class="far fa-clock"></i>
-                            </td>
-                            <td style="color: blue" ng-show="order.order_status == 'Paid'">
-                                <i uib-tooltip="@{{order.order_status}}" class="far fa-check-circle"></i></td>
+                        <tr ng-repeat="bill in orders | filter:customer_name ">
                             <td>
+                                <i ng-show="@{{ totalprice(bill.order) > bill.paid }}" uib-tooltip="Pending"
+                                   class="far fa-clock"
+                                   style="color: orange"></i>
 
+                                <i ng-show="@{{ totalprice(bill.order) == bill.paid }}" uib-tooltip="Paid"
+                                   class="far fa-check-circle"
+                                   style="color: blue"></i>
+                            </td>
+                            <td>
                                 <n-editable type="select" name="customer_id"
-                                            value="order.customer_id"
-                                            url="orders/@{{order.id}}"
+                                            value="bill.customer.customer_id"
+                                            url="/updateOrders/@{{ bill.id }}"
                                             dd-options="customers"
                                             dd-label-field="customer_name"
                                             dd-value-field="customer_id"
                                 ></n-editable>
                             </td>
-                            <td>PKR: @{{ order.price }}</td>
+                            <td>PKR: @{{ totalprice(bill.order) }}</td>
                             <td>
-                                <n-editable type="text" name="paid"
-                                            value="order.paid"
-                                            url="orders/@{{order.id}}"
-                                ></n-editable>
+                                <n-editable
+                                        type="text"
+                                        name="paid"
+                                        on-success="loadOrders()"
+                                        value="bill.paid"
+                                        url="/bills/@{{ bill.id }}"
+                                >
+                                </n-editable>
                             </td>
-                            <td ng-if="order.price - order.paid">PKR: @{{ order.price - order.paid }}</td>
-                            <td ng-if="!(order.price - order.paid)"><span class="text-bold text-green">Paid</span></td>
-                            <td>@{{ order.qty }}</td>
-                            <td>@{{ order.date| nvdDate:"mediumDate" }}</td>
-                            <td><a type="submit" class="btn btn-success">View Bill</a></td>
+                            <td ng-show="@{{ (totalprice(bill.order) - bill.paid) == 0}}"
+                                class="text-success text-bold">Paid
+                            </td>
+                            <td ng-show="@{{ (totalprice(bill.order) - bill.paid) != 0 }}">
+
+
+                                PKR: @{{
+                                totalprice(bill.order) - bill.paid }}
+                            </td>
+                            <td>@{{ totalQty(bill.order) }}</td>
+                            <td>@{{ bill.date| nvdDate:"mediumDate" }}</td>
+                            <td><a type="submit" class="btn btn-success"
+                                   ng-click="orderDetail(bill)">View
+                                    Bill</a>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -82,4 +99,5 @@
     </div>
     <toaster-container></toaster-container>
 @endsection
+@include('order.orderDetails')
 @include('order.order-ng-app')
