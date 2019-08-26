@@ -20,6 +20,15 @@ class ProductsController extends Controller
         return view('Products.index');
     }
 
+    public function search()
+    {
+        if ($search = \request('data')) {
+            $products = Product::where('product_name', 'like', "%{$search}%")->get(
+            );
+        }
+        return $products;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

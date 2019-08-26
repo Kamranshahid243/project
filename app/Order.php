@@ -10,12 +10,18 @@ class Order extends Model
 //
 
     protected $table = "orders";
-    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'product_id', 'product_category', 'bill_id', 'order_status', 'price', 'payable', 'qty', 'order_status', "created_at", "updated_at", 'date'];
+    protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'product_id', 'product_category', 'bill_id', 'order_status', 'price', 'qty', "created_at", "updated_at", 'date'];
 
 
     public static function findRequested()
     {
-        $query = Order::with(['shop', 'customer','products','productCategory']);
+        $query = Order::with(['shop', 'customer', 'product']);
+//
+//        if ($customerName = request('customer_name')) {
+//            $query->whereHas('customer', function ($item) use ($customerName) {
+//                $item->where('customer_name', "like", "%{$customerName}%");
+//            });
+//        }
 
         // search results based on user input
         if (request('customer_id')) $query->where('customer_id', request('customer_id'));
@@ -23,11 +29,6 @@ class Order extends Model
         if (request('shop_id')) $query->where('shop_id', 'like', ' % ' . request('shop_id') . ' % ');
         if (request('shop_type')) $query->where('shop_type', 'like', ' % ' . request('shop_type') . ' % ');
 
-        if ($customerName = request('customer_name')) {
-            $query->whereHas('customer', function ($item) use ($customerName) {
-                $item->where('customer_name', "like", "%{$customerName}%");
-            });
-        }
 
         // sort results
         if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
@@ -70,7 +71,6 @@ class Order extends Model
             'customer_email' => 'required | email | unique:customers,customer_email',
             'shop_id' => 'required | integer',
             'customer_type' => 'required | in:Shopkeeper,Consumer',
-            'paid' => 'required',
             'shop_type' => 'required',
         ];
 
@@ -96,12 +96,17 @@ class Order extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class, 'customer_id','customer_id');
+        return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'product_id');
     }
 
     public function productCategory()
     {
-        return $this->belongsTo(ProductCategory::class,'product_category');
+        return $this->belongsTo(ProductCategory::class, 'product_category');
     }
 
     public function products()

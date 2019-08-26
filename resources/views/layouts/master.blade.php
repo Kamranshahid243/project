@@ -33,7 +33,6 @@
     <script src="/vendors/momentjs/moment.min.js"></script>
     {{--angular assets--}}
     <script src="/assets/js/angular.min.js"></script>
-
     <!-------------------------------- Moment Picker -------------------------------->
     <link rel="stylesheet" href="/vendors/moment-picker/angular-moment-picker.min.css">
     <script src="/vendors/moment-picker/angular-moment-picker.min.js"></script>
@@ -52,6 +51,7 @@
 
     <script src="/assets/js/underscore.js"></script>
     <script src="//js.pusher.com/3.0/pusher.min.js"></script>
+
     <script src="//cdn.jsdelivr.net/angular.pusher/latest/pusher-angular.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
@@ -73,11 +73,11 @@
 <body class="hold-transition skin-blue sidebar-mini @stack('body-classes')">
 <div class="wrapper">
 
-    @include('layouts.header')
-    <!-- Left side column. contains the logo and sidebar -->
-    @include('layouts.side_panel_upper')
+@include('layouts.header')
+<!-- Left side column. contains the logo and sidebar -->
+@include('layouts.side_panel_upper')
 
-    <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
         <!-- Content Header (Page header) -->
@@ -95,7 +95,7 @@
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
     @include('layouts.footer')
-{{--    @include('layouts.side_panel_lower')--}}
+    {{--    @include('layouts.side_panel_lower')--}}
 </div><!-- ./wrapper -->
 
 @stack('scripts')

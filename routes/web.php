@@ -49,22 +49,27 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/products/bulk-delete', "ProductsController@bulkDelete");
         Route::post('/products/bulk-edit', "ProductsController@bulkEdit");
         Route::get('statusCheck', "ProductsController@editStatus");
-//        Route::get('get-products', 'ProductsController@getProducts');
+        Route::post('searchproduct', "ProductsController@search");
 
         //purchases
         Route::resource('purchases', 'PurchasesController');
         Route::post('/purchases/bulk-edit', 'PurchasesController@bulkEdit');
         Route::post('/purchases/bulk-delete', 'PurchasesController@bulkDelete');
         Route::get('get-vendors', 'PurchasesController@vendors');
-//        Route::get('get-shops', 'ShopController@allShops');
 
         //orders
         Route::resource('/orders', 'OrdersController');
+        Route::put('/updateOrders/{id}', 'OrdersController@updateCustomer');
         Route::post('/orders/bulk-edit', 'OrdersController@bulkEdit');
         Route::post('/orders/bulk-delete', 'OrdersController@bulkDelete');
         Route::get('add-orders', 'OrdersController@addOrder');
         Route::post('searchorder', 'OrdersController@SearchOrder');
+        Route::put('editCustomer', 'OrdersController@update');
+
+        // Bill Routes
+        Route::resource('bills', 'BillController');
         Route::post('addOrder', 'BillController@store');
+        Route::post('orderSearch', 'BillController@searchBill');
 
         //Vandors Routes
         Route::get('vendor', 'VendorController@index');

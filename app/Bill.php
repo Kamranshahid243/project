@@ -6,15 +6,39 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bill extends Model
 {
-    public $fillable = ['customer_id', 'date'];
+    public $fillable = ['customer_id', 'paid', 'date'];
+    public $appends = ['total'];
 
-    public function Customer()
+    public function getTotalAttribute()
+    {
+        return $this->order->sum('price');
+    }
+
+    public static function findRequested()
+    {
+        $query = Bill::with(['customer', 'order.product']);
+
+        if ($customerName = \request('name')) {
+            $query->whereHas('customer', function ($item) use ($customerName) {
+                $item->where('customer_name', 'like', "%{$customerName}%");
+            });
+        }
+
+        // paginate results
+        if ($resPerPage = request("perPage"))
+            return $query->paginate($resPerPage);
+
+        return $query->get();
+    }
+
+    public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public function Order()
+    public function order()
     {
+
         return $this->hasMany(Order::class, 'bill_id');
     }
 
@@ -22,6 +46,7 @@ class Bill extends Model
     {
         $rules = [
             'customer' => 'required',
+            'paid' => 'required',
         ];
 
         // no list is provided
