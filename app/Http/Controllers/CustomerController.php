@@ -31,7 +31,12 @@ class CustomerController extends Controller
     {
         $this->validate($request, Customer::validationRules());
         $data = $request->all();
-        return Customer::create($data);
+        if (!array_get($data, 'shop_id')) {
+            $data['shop_id'] = session('shop')->shop_id;
+        }
+
+        $customer = Customer::create($data);
+        return $customer;
     }
 
     public function update(Request $request, Customer $customer)
@@ -69,13 +74,6 @@ class CustomerController extends Controller
 
         Customer::whereIn('customer_id', $ids)->delete();
         return response("Deleted");
-    }
-
-    public function editCustomer(Request $request)
-    {
-        echo "<pre>";
-        print_r($request->all());
-        echo "<pre>";
     }
 
     public function bulkEdit(Request $request)

@@ -61,7 +61,6 @@ class BillController extends Controller
         $shop = json_decode($request->shop, true);
         $customer = json_decode($request->customer, true);
 
-
         /*Storing values in Bill Table*/
         $this->validate($request, Bill::validationRules());
         $bill = new Bill([
