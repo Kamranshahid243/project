@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $table="customers";
-    protected $primaryKey="customer_id";
+    protected $table = "customers";
+    protected $primaryKey = "customer_id";
     protected $guarded = ["customer_id", "created_at", "updated_at"];
     protected $hidden = ['remember_token'];
     public static $bulkEditableFields = ['shop_id', 'customer_type'];
@@ -73,7 +73,6 @@ class Customer extends Model
             'customer_address' => 'required|string|max:191',
             'customer_phone' => 'required',
             'customer_email' => 'required|email|unique:customers,customer_email',
-            'shop_id' => 'required|integer',
             'customer_type' => 'required|in:Shopkeeper,Consumer',
             'status' => 'required|in:Active,Inactive'
 
@@ -94,8 +93,9 @@ class Customer extends Model
         return $newRules;
     }
 
-    public function shop(){
-        return $this->belongsTo(Shop::class,'shop_id');
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class, 'shop_id');
     }
 
     public function orders()

@@ -28,18 +28,11 @@ class OrdersController extends Controller
         return Order::create($data);
     }
 
-    public function editcustomer(Request $request)
-    {
-        echo "<pre>";
-        print_r($request->all());
-        echo "<pre>";
-    }
-
     public function updateCustomer($id, Request $request)
     {
         $data = [$request->name => $request->value];
         $order = Bill::where('id', $id)->first()->update($data);
-    return 'string';
+        return 'string';
     }
 
     public function update(Request $request, Order $order)
@@ -140,11 +133,11 @@ class OrdersController extends Controller
 
     public function annualSale()
     {
-        $prices=[];
-        for ($m = 1; $m <= date('m'); $m++){
-          $sales = Order::where('shop_id', '=', session('shop')->shop_id)->where('date', '>=', date('Y-' . sprintf("%02d", $m) . '-01'))->where('date','<=', date('Y-' . sprintf("%02d", $m) . '-t'))->sum('price');
+        $prices = [];
+        for ($m = 1; $m <= date('m'); $m++) {
+            $sales = Order::where('shop_id', '=', session('shop')->shop_id)->where('date', '>=', date('Y-' . sprintf("%02d", $m) . '-01'))->where('date', '<=', date('Y-' . sprintf("%02d", $m) . '-t'))->sum('price');
 
-          $prices[]=$sales;
+            $prices[] = $sales;
         }
         return $prices;
     }

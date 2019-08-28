@@ -65,35 +65,26 @@
                             </td>
                             <td>PKR: @{{ totalprice(bill.order) }}</td>
                             <td>
-                                <n-editable
-                                        type="text"
-                                        name="paid"
-                                        on-success="loadOrders()"
-                                        value="bill.paid"
-                                        url="/bills/@{{ bill.id }}"
-                                >
+                                <n-editable type="text" name="paid" on-success="loadOrders()" value="bill.paid"
+                                            url="/bills/@{{ bill.id }}">
                                 </n-editable>
                             </td>
                             <td ng-show="@{{ (totalprice(bill.order) - bill.paid) == 0}}"
                                 class="text-success text-bold">Paid
                             </td>
                             <td ng-show="@{{ (totalprice(bill.order) - bill.paid) != 0 }}">
-
-
                                 PKR: @{{
                                 totalprice(bill.order) - bill.paid }}
                             </td>
                             <td>@{{ totalQty(bill.order) }}</td>
                             <td>@{{ bill.date| nvdDate:"mediumDate" }}</td>
-                            <td><a type="submit" class="btn btn-success"
-                                   ng-click="orderDetail(bill)">View
-                                    Bill</a>
+                            <td><a class="btn btn-success"
+                                   ng-click="orderDetail(bill)">View Bill</a>
                             </td>
                         </tr>
                     </table>
                 </div>
                 <pagination state="state" records-info="recordsInfo"></pagination>
-
             </div>
         </div>
     </div>

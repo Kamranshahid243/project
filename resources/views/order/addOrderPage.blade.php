@@ -18,27 +18,25 @@
                     </tr>
                     <tr ng-repeat="product in products| filter:product_name">
                         <td>
-                            <h4>@{{ product.product_name }}</h4>
+                            <h4 ng-class="{'text-muted':product.available_quantity == 0}">@{{ product.product_name
+                                }}</h4>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-muted">@{{ product.available_quantity }} in stock</span>
                         </td>
-                        <td>Rs @{{ product.unit_price}}</td>
+                        <td id="unitPrice" ng-class="{'text-muted': product.available_quantity == 0}">Rs @{{
+                            product.unit_price}}
+                        </td>
                         <td><a href="" ng-click="addOrder(product)">
-                                <i class="fas fa-plus-circle pull-right"
-                                   style="color:mediumseagreen; font-size: 30px;"></i>
+                                <i ng-class="{ 'text-muted' : product.available_quantity == 0, 'text-success': product.available_quantity != 0 }"
+                                   class="btn1 fas fa-plus-circle pull-right "></i>
                             </a>
                             <br>
                             <span class="text-muted">Category : @{{ product.category.category_name }}</span>
                         </td>
                     </tr>
-                    {{--<tr>--}}
-                    {{--<td>abc</td>--}}
-                    {{--<td>def</td>--}}
-                    {{--<td style="color:mediumseagreen"><i class="fas fa-plus-circle"></i></td>--}}
-                    {{--</tr>--}}
                 </table>
             </div>
             <div class="col-md-6 bill">
-                <table class="table table-striped" show-loader="state.loadProducts">
+                <table class="table table-striped">
                     <tr style="background: slategray; color: white;">
                         <th>Qty</th>
                         <th>Product</th>
@@ -63,14 +61,15 @@
                                                             style="font-size: 30px;"></i></td>
                     </tr>
                     <tr ng-show="bill && bill != 0">
-                        <th colspan="3" class="text-center">
-                            <h4>Add Customers</h4>
+                        <th id="customerBtn" colspan="4" class="text-center">
+                            <a class="btn btn-success" ng-click="addCustomer()">Add Customer</a>
                         </th>
-                        <th colspan="4" class="text-center">
-                            <select class="form-control" ng-model="Addcustomers" style="margin-top: 8px;" id="">
-                                <option selected value="">Please Select</option>
+                        <th colspan="3" class="text-center">
+                            <select class="form-control btn btn-primary" id="addCustomer">
+                                <option ng-if="customers == 0" value="">Add Customers</option>
                                 <option ng-repeat="x in customers"
-                                        value="@{{ x }}">
+                                        value="@{{ x }}"
+                                >
                                     @{{ x.customer_name }}
                                 </option>
                             </select>
@@ -82,7 +81,7 @@
                     </tr>
                     <tr ng-show="bill && bill != 0">
                         <th class="text-center" colspan="3">Paid:</th>
-                        <th colspan="4"><input type="number" min="0" max="@{{ totalBill() }}" ng-model="paid"></th>
+                        <th colspan="4"><input type="number" ng-model="paid"></th>
 
                     </tr>
                     <tr ng-show="bill && bill != 0">
@@ -102,3 +101,4 @@
 @endsection
 @include('order.order-ng-app')
 @include('order.addordder-style')
+@include('order.addCusomterModel')
