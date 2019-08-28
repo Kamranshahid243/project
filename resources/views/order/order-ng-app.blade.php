@@ -40,7 +40,6 @@
                         }).then(function (res) {
                             $scope.orders = res.data;
                         }).catch(function (res) {
-                            toaster.pop('error', 'Sorry no bill exist of this name');
                         }).then(function (res) {
                             state.loadingOrders = false;
                         });
@@ -100,6 +99,7 @@
                             data: {order: order, customer: customer, shop: shop, paid: paid}
                         }).then(function (res) {
                             toaster.pop('success', 'Bill saved')
+                            $scope.loadOrders();
                         }).catch(function (res) {
                             toaster.pop('error', 'Field is missing');
                         })
@@ -140,6 +140,7 @@
                         duplicateRecord.available_quantity = 1;
                         $scope.bill.push(duplicateRecord);
                         $scope.OrderProducts.push(product);
+
                     }
 
                     $scope.totalBill = function () {

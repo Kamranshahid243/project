@@ -35,7 +35,7 @@
             var allSales = $scope.allSales = [];
             $http.get('sale-chart').then(function (response) {
                 allSales = response.data;
-            var ctx = document.getElementById('myChart');
+            var ctx = document.getElementById('saleChart');
             var year = new Date();
             var myChart = new Chart(ctx, {
                 type: 'line',
@@ -66,6 +66,167 @@
         });
         }
         $scope.saleChart();
+        $scope.qtyChart = function () {
+            var allQtySales = $scope.allQtySales = [];
+            $http.get('qty-chart').then(function (response) {
+                allQtySales = response.data;
+                // console.log(allQtySales)
+                    $scope.productsLabel=[];
+                    $scope.productQty=[];
+                angular.forEach(allQtySales,function (value,key) {
+                    $scope.productsLabel.push([value.product_name]);
+                    $scope.productQty.push(value.tqty);
+                })
+
+                // angular.forEach(allQtySales, function (allQtySale, allQtySales) {
+                //     console.log(allQtySale[],'oka');
+                // });
+                // console.log(allQtySales);
+                var ctx = document.getElementById('qtyChart');
+                var year = new Date();
+                var qtyChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: $scope.productsLabel,
+                        datasets: [{
+                            label: "Quantity Sale (" + moment().format('MMMM YYYY') + ")",
+                            data: $scope.productQty,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255,255,102,0.2)',
+                                'rgba(102,204,102,0.2)',
+                                'rgba(51,255,0,0.2)',
+                                'rgba(102,102,255,0.2)',
+                                'rgba(153,102,153,0.2)',
+                                'rgba(153,102,0,0.2)',
+                                'rgba(102,102,204,0.2)',
+                                'rgba(255,255,153,0.2)',
+                                'rgba(51,51,255,0.2)'
+                            ],
+
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(255,255,102,1)',
+                                'rgba(102,204,102,1)',
+                                'rgba(51,255,0,1)',
+                                'rgba(102,102,255,1)',
+                                'rgba(153,102,153,1)',
+                                'rgba(153,102,0,1)',
+                                'rgba(102,102,204,1)',
+                                'rgba(255,255,153,1)',
+                                'rgba(51,51,255,1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    steps: 10,
+                                    stepValue: 5,
+                                    max: 500,
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            });
+        }
+        $scope.qtyChart();
+        $scope.profitChart = function () {
+            var allProfitSales = $scope.allProfitSales = [];
+            $http.get('profit-chart').then(function (response) {
+                allProfitSales = response.data;
+                $scope.productsLabel = [];
+                $scope.productProfit = [];
+                angular.forEach(allProfitSales, function (value, key) {
+                    $scope.productsLabel.push([value.product_name]);
+                    $scope.productProfit.push(value.tprice);
+                    console.log($scope.productProfit);
+                })
+
+                var ctx = document.getElementById('profitChart');
+                var year = new Date();
+                var profitChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: $scope.productsLabel,
+                        datasets: [{
+                            label: "Product Profit (" + moment().format('MMMM YYYY') + ")",
+                            data: $scope.productProfit,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255,255,102,0.2)',
+                                'rgba(102,204,102,0.2)',
+                                'rgba(51,255,0,0.2)',
+                                'rgba(102,102,255,0.2)',
+                                'rgba(153,102,153,0.2)',
+                                'rgba(153,102,0,0.2)',
+                                'rgba(102,102,204,0.2)',
+                                'rgba(255,255,153,0.2)',
+                                'rgba(51,51,255,0.2)'
+                            ],
+
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(255,255,102,1)',
+                                'rgba(102,204,102,1)',
+                                'rgba(51,255,0,1)',
+                                'rgba(102,102,255,1)',
+                                'rgba(153,102,153,1)',
+                                'rgba(153,102,0,1)',
+                                'rgba(102,102,204,1)',
+                                'rgba(255,255,153,1)',
+                                'rgba(51,51,255,1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    steps: 10,
+                                    stepValue: 10000,
+                                    max: 300000,
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            });
+        }
+        $scope.profitChart();
+        $scope.topSeller=function () {
+            $http.get('top-seller').then(function (response) {
+                $scope.topProduct=response.data;
+                console.log(response.data);
+            });
+        }
+        $scope.topSeller();
     }
 })();</script>
 <link rel="stylesheet" href="/vendors/angular-gridster/angular-gridster.min.css">

@@ -11,9 +11,15 @@ use PhpParser\Builder;
 class Product extends Model
 {
     protected $primaryKey = 'product_id';
-    public $fillable = ['product_id', 'shop_id', 'product_name', 'product_code', 'product_category', 'product_description', 'available_quantity', 'unit_price', 'product_status'];
+    protected $appends =['tqty','tprice'];
+    public $fillable = ['product_id', 'shop_id', 'product_name', 'product_code', 'product_category', 'product_description', 'available_quantity', 'unit_price', 'product_status','purchase_id'];
     public static $bulkEditableFields = ['available_quantity', 'unit_price'];
-
+    public function getTpriceAttribute() {
+        return ($this->unit_price - $this->purchase['purchase_cost']) * $this->getTqtyAttribute();
+    }
+    public function getTqtyAttribute() {
+        return $this->productOrder->sum('qty');
+    }
     public static function validationRules($attributes = null)
     {
         $rules = [
@@ -46,11 +52,16 @@ class Product extends Model
 
     public static function findRequested()
     {
-        $query = Product::with(['category']);
+        $query = Product::with(['category','productOrder','purchase']);
         // search results based on user input
         if ($categoryName = request('category_name')) {
             $query->whereHas('category', function ($item) use ($categoryName) {
                 $item->where('category_name', "like", "%{$categoryName}%");
+            });
+        }
+        if ($orderDate = date('Y-m-')) {
+            $query->whereHas('productOrder', function ($item) use ($orderDate) {
+                $item->where('date', ">=", $orderDate.'01')->where('date','<=',$orderDate.'t');
             });
         }
         if (request('product_name')) $query->where('product_name', 'like', "%" . request('product_name') . "%");
@@ -80,4 +91,8 @@ class Product extends Model
         return $this->hasMany(Order::class, 'product_id', 'product_id');
     }
 
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class,'purchase_id','id');
+    }
 }

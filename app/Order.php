@@ -8,11 +8,19 @@ use Illuminate\Support\Facades\Request;
 class Order extends Model
 {
 //
-
+    protected $appends = ['tqty', 'tprice'];
     protected $table = "orders";
     protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'product_id', 'product_category', 'bill_id', 'order_status', 'price', 'qty', "created_at", "updated_at", 'date'];
 
+    public function getTpriceAttribute()
+    {
+        return ($this->unit_price - $this->purchase['purchase_cost']) * $this->getTqtyAttribute();
+    }
 
+    public function getTqtyAttribute()
+    {
+        return $this->where('shop_id','=',session('shop')->shop_id)->where('date', '>=', date('Y-m-01'))->where('date', '<=', date('Y-m-d'))->groupBy('product_id')->sum('qty');
+    }
     public static function findRequested()
     {
         $query = Order::with(['shop', 'customer', 'product']);
@@ -112,5 +120,10 @@ class Order extends Model
     public function products()
     {
         return $this->belongsTo(Product::class,'product_id','product_id');
+    }
+
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class, 'product_name', 'product_name');
     }
 }

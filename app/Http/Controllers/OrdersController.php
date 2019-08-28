@@ -148,4 +148,65 @@ class OrdersController extends Controller
         }
         return $prices;
     }
+
+    public function qtySale()
+    {
+//        return Product::all();
+        return $qtySales = \App\Product::where('shop_id','=',session('shop')->shop_id)->limit(15)->get();
+    }
+
+    public function profitSale()
+    {
+        return Product::with('purchase')->where('shop_id', '=', session('shop')->shop_id)->limit(15)->get();
+    }
+    public function topSeller(){
+
+
+
+        return $qtyProducts= Product::where('shop_id', '=', session('shop')->shop_id)->get();
+       $grouped=$qtyProducts->groupBy('product_id');
+      $quantity=[];
+      $maxQtyProduct=[];
+      foreach ($grouped as $max){
+          $quantity[]= $max->sum('qty');
+          if(max($quantity)) {
+              $maxQtyProduct=$max[0];
+          }
+      }
+      $sale=[];
+      $purchase=[];
+        foreach ($grouped as $maxProfit){
+            $sale[]=$maxProfit->sum('price');
+            $purchase[]=$maxProfit[2]->qty;
+        }
+        return $purchase;
+        return [
+          'maxQuantity' => max($quantity),
+          'maxProduct' => $maxQtyProduct,
+        ];
+
+
+
+//$qtyProducts= Order::with('product')->where('shop_id', '=', session('shop')->shop_id)->where('date', '>=', date('Y-m-01'))->where('date', '<=', date('Y-m-d'))->get();
+//       $grouped=$qtyProducts->groupBy('product_id');
+//      $quantity=[];
+//      $maxQtyProduct=[];
+//      foreach ($grouped as $max){
+//          $quantity[]= $max->sum('qty');
+//          if(max($quantity)) {
+//              $maxQtyProduct=$max[0];
+//          }
+//      }
+//      $sale=[];
+//      $purchase=[];
+//        foreach ($grouped as $maxProfit){
+//            $sale[]=$maxProfit->sum('price');
+//            $purchase[]=$maxProfit[2]->qty;
+//        }
+//        return $purchase;
+//        return [
+//          'maxQuantity' => max($quantity),
+//          'maxProduct' => $maxQtyProduct,
+//        ];
+    }
 }

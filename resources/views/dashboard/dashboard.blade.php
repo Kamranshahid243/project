@@ -8,9 +8,12 @@
         </div>
     </div>
     @include('dashboard.widgets.users-widget-directive')
+    @include('dashboard.info-boxes')
+    <br>
     @include('dashboard.charts')
         <script>
 
     </script>
 @endsection
 @include('dashboard.dashboard-ng-app')
+@include('dashboard.styles')

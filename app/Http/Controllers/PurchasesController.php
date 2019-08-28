@@ -29,9 +29,25 @@ class PurchasesController extends Controller
         if ($request->paid < 0 && $request->paid > ($request->quantity * $request->purchase_cost)) {
             return "Paid Amount is greater lesser than Total Amount";
         }
+        Purchase::create([
+            'shop_id' => session('shop')->shop_id,
+            'vendor_id' => $request->vendor_id,
+            'product_name' => $request->product_name,
+            'quantity' => $request->quantity,
+            'original_cost' => $request->original_cost,
+            'purchase_cost' => $request->purchase_cost,
+            'customer_cost' => $request->customer_cost,
+            'paid' => $request->paid,
+            'payable' => ($request->quantity * $request->purchase_cost) - $request->paid,
+            'total' => ($request->quantity * $request->purchase_cost),
+            'date' => date('Y-m-d', strtotime($request->date)),
+        ]);
+
+        $purchaseId= DB::table('purchases')->where('shop_id', session('shop')->shop_id)->latest('created_at')->first()->id;
         if (!Product::where('shop_id', session('shop')->shop_id)->where('product_name', $request->product_name)->first()) {
             Product::create([
                 'shop_id' => session('shop')->shop_id,
+                'purchase_id' => $purchaseId,
                 'product_name' => $request->product_name,
                 'product_code' => $request->product_code,
                 'product_category' => $request->category_id,
@@ -50,21 +66,10 @@ class PurchasesController extends Controller
                 'available_quantity' => $qty + $request->quantity,
                 'unit_price' => $request->customer_cost,
                 'product_status' => $request->product_status,
+                'purchase_id' => $purchaseId,
             ]);
         }
-        return Purchase::create([
-            'shop_id' => session('shop')->shop_id,
-            'vendor_id' => $request->vendor_id,
-            'product_name' => $request->product_name,
-            'quantity' => $request->quantity,
-            'original_cost' => $request->original_cost,
-            'purchase_cost' => $request->purchase_cost,
-            'customer_cost' => $request->customer_cost,
-            'paid' => $request->paid,
-            'payable' => ($request->quantity * $request->purchase_cost) - $request->paid,
-            'total' => ($request->quantity * $request->purchase_cost),
-            'date' => date('Y-m-d', strtotime($request->date)),
-        ]);
+
     }
 
     public function update(Request $request, Purchase $purchase)

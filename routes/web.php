@@ -115,7 +115,13 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     //sale chart
-    Route::get('sale-chart','OrdersController@annualSale');
+    Route::get('sale-chart', 'OrdersController@annualSale');
+    Route::get('qty-chart', 'OrdersController@qtySale');
+    Route::get('profit-chart', 'OrdersController@profitSale');
+
+    //dashboard info boxes
+    Route::get('top-seller', 'OrdersController@topSeller');
+
 
     if (env('APP_ENV') == 'local') {
         require_once __DIR__ . "/../tests/test-routes.php";
