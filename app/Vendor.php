@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Vendor extends Model
+class   Vendor extends Model
 {
     public $fillable = ['vendor_id','v_cat_id', 'shop_id', 'vendor_name', 'vendor_address', 'vendor_phone', 'vendor_email', 'vendor_status'];
     public static $bulkEditableFields = ['vendor_name', 'vendor_status'];
@@ -37,10 +37,11 @@ class Vendor extends Model
 
     public static function findRequested()
     {
-        $query = Vendor::with('vendorCategory')->where('shop_id','=',session('shop')->shop_id)->with('shop');
+        $query = Vendor::with(['vendorCategory','purchases'])->where('shop_id','=',session('shop')->shop_id)->with('shop');
 
 //         search results based on user input
         if (request('shop_id')) $query->where('shop_id', request('shop_id'));
+        if (request('id')) $query->where('vendor_id', request('id'));
         if (request('vendor_name')) $query->where('vendor_name', 'like', '%' . request('vendor_name') . '%');
         if (request('vendor_address')) $query->where('vendor_address', 'like', '%' . request('vendor_address') . '%');
         if (request('created_at')) $query->where('created_at', request('created_at'));
@@ -66,6 +67,11 @@ class Vendor extends Model
     public function vendorCategory()
     {
         return $this->hasOne(VendorCategory::class,'id','v_cat_id');
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class,'vendor_id','vendor_id');
     }
 
 }

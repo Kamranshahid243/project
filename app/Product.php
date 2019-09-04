@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Nvd\Crud\Db;
 use PhpParser\Builder;
 
-class Product extends Model
+class  Product extends Model
 {
     protected $primaryKey = 'product_id';
     protected $appends =['tqty','tprice'];
@@ -53,15 +53,15 @@ class Product extends Model
     public static function findRequested()
     {
         $query = Product::with(['category','productOrder','purchase']);
-        // search results based on user input
+//         search results based on user input
         if ($categoryName = request('category_name')) {
             $query->whereHas('category', function ($item) use ($categoryName) {
                 $item->where('category_name', "like", "%{$categoryName}%");
             });
         }
-        if ($orderDate = date('Y-m-')) {
-            $query->whereHas('productOrder', function ($item) use ($orderDate) {
-                $item->where('date', ">=", $orderDate.'01')->where('date','<=',$orderDate.'t');
+        if ($monthlyDate = date('Y-m')) {
+            $query->whereHas('productOrder', function ($item) use ($monthlyDate) {
+                $item->where('date','>=',$monthlyDate.'-01')->where('date','<=',$monthlyDate.'-t');
             });
         }
         if (request('product_name')) $query->where('product_name', 'like', "%" . request('product_name') . "%");
@@ -75,8 +75,8 @@ class Product extends Model
         if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
 
         // paginate results
-        if ($resPerPage = request("perPage"))
-            return $query->paginate($resPerPage);
+        if (request("perPage"))
+            return $query->paginate(request('perPage'));
 
         return $query->get();
     }

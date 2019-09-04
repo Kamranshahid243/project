@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExpenseCategoriesTable extends Migration
+class CreateCustomersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class CreateExpenseCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('expense_categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('cat_name');
+        Schema::create('customers', function (Blueprint $table) {
+            $table->increments('customer_id');
             $table->integer('shop_id');
+            $table->string('customer_name');
+            $table->string('customer_address');
+
+            $table->string('customer_phone');
+            $table->string('customer_email');
+            $table->enum('customer_type',['Shopkeeper','Consumer']);
             $table->enum('status',['Active','Inactive']);
             $table->timestamps();
         });

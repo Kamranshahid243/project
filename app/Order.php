@@ -19,8 +19,9 @@ class Order extends Model
 
     public function getTqtyAttribute()
     {
-        return $this->where('shop_id','=',session('shop')->shop_id)->where('date', '>=', date('Y-m-01'))->where('date', '<=', date('Y-m-d'))->groupBy('product_id')->sum('qty');
+        return $this->where('shop_id', '=', session('shop')->shop_id)->where('date', '>=', date('Y-m-01'))->where('date', '<=', date('Y-m-d'))->groupBy('product_id')->sum('qty');
     }
+
     public static function findRequested()
     {
         $query = Order::with(['shop', 'customer', 'product']);
@@ -40,7 +41,7 @@ class Order extends Model
 
         // sort results
         if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
-        if (request("start_date")) $query->where('date','>=', request("start_date"))->where('date', '<=', request("end_date"));
+        if (request("start_date")) $query->where('date', '>=', request("start_date"))->where('date', '<=', request("end_date"));
 
         // paginate results
         if ($resPerPage = request("perPage"))
@@ -119,7 +120,7 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsTo(Product::class,'product_id','product_id');
+        return $this->belongsTo(Product::class, 'product_id', 'product_id');
     }
 
     public function purchase()

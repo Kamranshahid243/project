@@ -52,7 +52,7 @@
         /*-o-transition: all .3s linear;*/
         transition: all .3s linear;
         position: absolute;
-        margin-top: 17px;
+        margin-top: 15px;
         right: 10px;
         z-index: 0;
         font-size: 90px;
@@ -94,5 +94,9 @@
     }
     .inner>h3{
         font-size: 30px !important;
+    }
+
+    .inner > p {
+        font-size: 20px !important;
     }
 </style>

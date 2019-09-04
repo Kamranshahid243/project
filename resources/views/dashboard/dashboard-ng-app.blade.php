@@ -4,6 +4,7 @@
     angular.module("myApp").controller('MainController', MainController);
 
     function MainController($scope,$http) {
+        $scope.loadingData = false;
         $scope.dashboardConfig = {
             tabs: [
                 {
@@ -32,9 +33,8 @@
             }
         };
         $scope.saleChart=function () {
-            var allSales = $scope.allSales = [];
             $http.get('sale-chart').then(function (response) {
-                allSales = response.data;
+                $scope.allSales = response.data;
             var ctx = document.getElementById('saleChart');
             var year = new Date();
             var myChart = new Chart(ctx, {
@@ -43,7 +43,7 @@
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                     datasets: [{
                         label: "Annual Sale (" + year.getFullYear() + ")",
-                        data:allSales,
+                        data:$scope.allSales,
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
 
                         borderColor: 'rgba(54, 162, 235, 1)',
@@ -70,7 +70,7 @@
             var allQtySales = $scope.allQtySales = [];
             $http.get('qty-chart').then(function (response) {
                 allQtySales = response.data;
-                // console.log(allQtySales)
+
                     $scope.productsLabel=[];
                     $scope.productQty=[];
                 angular.forEach(allQtySales,function (value,key) {
@@ -79,9 +79,9 @@
                 })
 
                 // angular.forEach(allQtySales, function (allQtySale, allQtySales) {
-                //     console.log(allQtySale[],'oka');
+
                 // });
-                // console.log(allQtySales);
+
                 var ctx = document.getElementById('qtyChart');
                 var year = new Date();
                 var qtyChart = new Chart(ctx, {
@@ -154,7 +154,7 @@
                 angular.forEach(allProfitSales, function (value, key) {
                     $scope.productsLabel.push([value.product_name]);
                     $scope.productProfit.push(value.tprice);
-                    console.log($scope.productProfit);
+
                 })
 
                 var ctx = document.getElementById('profitChart');
@@ -221,9 +221,13 @@
         }
         $scope.profitChart();
         $scope.topSeller=function () {
+            $scope.loadingData = true;
             $http.get('top-seller').then(function (response) {
                 $scope.topProduct=response.data;
-                console.log(response.data);
+            }).catch(function (res) {
+                toaster.pop('error', 'Error while loading Dashboard', res.data);
+            }).then(function (res) {
+                $scope.loadingData = false;
             });
         }
         $scope.topSeller();

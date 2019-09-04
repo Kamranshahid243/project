@@ -10,6 +10,7 @@
                 var state = $scope.state = PageState;
                 state.loadingProducts = false;
                 state.params.sort = 'product_id';
+                state.params.perPage = '1';
                 $scope.loadProducts = function () {
                     state.loadingProducts = true;
                     $http.get("showProducts", {params: state.params}).then(function (res) {

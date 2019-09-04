@@ -45,9 +45,12 @@ class Purchase extends Model
 
     public static function findRequested()
     {
-        $query = Purchase::where('shop_id', session('shop')->shop_id)->with('Shop')->with('Vendor');
+        $query = Purchase::where('shop_id', session('shop')->shop_id)->with(['Shop','vendor','vendorCategory']);
         // search results based on user input
         if (request('vendor_id')) $query->where('vendor_id', 'like', "%" . request('vendor_id') . "%");
+        if (request('startDate')) $query->where('date', '>=', request('startDate') . "%");
+        if (request('endDate')) $query->where('date', '<=', request('endDate') . "%");
+        if (request('id')) $query->where('vendor_id', 'like', "%" . request('id') . "%");
         if (request('product_name')) $query->where('product_name', 'like', "%" . request('product_name') . "%");
         if (request('quantity')) $query->where('quantity', 'like', "%" . request('quantity') . "%");
         if (request('original_cost')) $query->where('original_cost', 'like', "%" . request('original_cost') . "%");
@@ -73,8 +76,13 @@ class Purchase extends Model
         return $this->belongsTo(Shop::class, 'shop_id', 'shop_id');
     }
 
-    public function Vendor()
+    public function vendor()
     {
         return $this->belongsTo(Vendor::class, 'vendor_id', 'vendor_id');
+    }
+
+    public function vendorCategory()
+    {
+        return $this->belongsTo(VendorCategory::class, 'vendor_id');
     }
 }

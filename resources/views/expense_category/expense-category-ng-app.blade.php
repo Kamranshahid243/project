@@ -13,10 +13,10 @@
                 $scope.loadExpenseCategories= function () {
                     $scope.expenseCategories = [];
                     state.loadingExpenseCategories = true;
-                    $http.get("/expense-category", {params: state.params})
+                    $http.get("/expense-category")
                         .then(function (response) {
-                            $scope.expenseCategories = response.data.data;
-                            $scope.recordsInfo = response.data;
+                            $scope.expenseCategories = response.data;
+                            // $scope.recordsInfo = response.data;
                         })
                         .catch(function (res) {
                             toaster.pop('error', 'Error while loading Expense Categories', res.data);
@@ -48,7 +48,25 @@
                     });
                 }
                 $scope.getShops();
+                $scope.changeStatus = function (category) {
+                    state.loadingCategories = true;
 
+                    if (category.status == 'Active')
+                        category.status == 'Inactive';
+                    else
+                        category.status == 'Active';
+                    $http({
+                        method: 'post',
+                        url: 'category-expense-status',
+                        data: {id: category.id}
+                    }).then(function (res) {
+
+                    }).catch(function (res) {
+
+                    }).then(function () {
+                        $scope.loadExpenseCategories()
+                    })
+                }
             }
         })();
     </script>

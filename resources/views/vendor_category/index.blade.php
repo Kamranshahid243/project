@@ -16,7 +16,7 @@
                                     on-success="loadVendorCategories()">
                             <i class="fa fa-times" style="color: red;"></i>
                         </delete-btn>
-                        <a href="" class="pull-right" title="Change status" ng-click="vendorCatStatus(vendorCategory.id)"><i class="fa fa-sync-alt"></i>&nbsp;</a>
+                        <a href="" class="pull-right" ng-click="vendorCatStatus(vendorCategory.id)"><i class="fa fa-sync-alt" uib-tooltip="Enable/Disable"></i>&nbsp;</a>
                     </div>
                     <div class="alert alert-warning" ng-if="!vendorCategories.length && !state.loadingVendorCategories">
                         No records found.

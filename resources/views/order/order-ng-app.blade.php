@@ -74,6 +74,7 @@
                     state.loadingProducts = true;
                     $http.get("editProducts")
                         .then(function (res) {
+                            console.log(res.data);
                             $scope.products = res.data;
                         })
                         .catch(function (res) {
@@ -100,6 +101,7 @@
                         toaster.pop("error", "Paid price is greater than total price");
                         return;
                     }
+                    console.log('gdfg',customer);
                     $http({
                         url: 'addOrder',
                         method: 'post',
@@ -251,12 +253,10 @@
                         }
                     });
                     modal.result.then(function (res) {
-
-                        // $scope.Customers();
-                        $('#addCustomer').append('<option selected value="' + res + '">' + res.customer_name + '</option>');
-
-
+                        console.log('data',res);
+                        $('#addCustomer').append('<option selected value="' + res.customer_id + '">' + res.customer_name + '</option>');
                     }, function () {
+
                     });
                 }
             }
