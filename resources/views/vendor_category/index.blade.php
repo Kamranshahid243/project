@@ -7,7 +7,7 @@
             <div class="box">
                 <div class="box-body">
                     <div class="category-div" ng-repeat="vendorCategory in vendorCategories"
-                         ng-class="{'text-danger text-bold':vendorCategory.status=='0'}">
+                         ="{'text-danger text-bold':vendorCategory.status=='0'}">
                         <n-editable class="text-bold" type="text" name="cat_name"
                                     value="vendorCategory.cat_name"
                                     url="/vendor-category/@{{vendorCategory.id}}"

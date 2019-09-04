@@ -8,7 +8,7 @@
             <div class="products">
                 <h1 class="text-center">Shop Name: {{session('shop')->shop_name}}</h1>
                 <div class="header col-sm-5">
-                    <table class="table table-responsive table-bordered" align="right">
+                    <table class="table header-table table-responsive table-bordered" align="right">
                         <tr>
                             <th class="table-head">Invoice Number</th>
                             <td class="text-center">@{{data.id}}</td>
