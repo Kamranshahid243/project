@@ -56,13 +56,6 @@
                             </td>
                             <td>
                                 @{{bill.customer.customer_name}}
-                                {{--<n-editable type="select" name="customer_id"--}}
-                                            {{--value="bill.customer.customer_name"--}}
-                                            {{--url="/updateOrders/@{{ bill.id }}"--}}
-                                            {{--dd-options="customers"--}}
-                                            {{--dd-label-field="customer_name"--}}
-                                            {{--dd-value-field="customer_name"--}}
-                                {{--></n-editable>--}}
                             </td>
                             <td>PKR: @{{ totalprice(bill.order) }}</td>
                             <td>

@@ -65,6 +65,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('add-orders', 'OrdersController@addOrder');
         Route::post('searchorder', 'OrdersController@SearchOrder');
         Route::put('editCustomer', 'OrdersController@update');
+        Route::get('/reciept', 'OrdersController@openReciept');
+        Route::get('showReciept', 'OrdersController@showReciept');
 
         // Bill Routes
         Route::resource('bills', 'BillController');

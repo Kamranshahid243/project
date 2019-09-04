@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Request;
 class Order extends Model
 {
 //
-    protected $appends = ['tqty', 'tprice'];
     protected $table = "orders";
     protected $fillable = ['shop_type', 'shop_id', 'customer_id', 'product_id', 'product_category', 'bill_id', 'order_status', 'price', 'qty', "created_at", "updated_at", 'date'];
 
@@ -25,12 +24,6 @@ class Order extends Model
     public static function findRequested()
     {
         $query = Order::with(['shop', 'customer', 'product']);
-//
-//        if ($customerName = request('customer_name')) {
-//            $query->whereHas('customer', function ($item) use ($customerName) {
-//                $item->where('customer_name', "like", "%{$customerName}%");
-//            });
-//        }
 
         // search results based on user input
         if (request('customer_id')) $query->where('customer_id', request('customer_id'));
@@ -72,7 +65,6 @@ class Order extends Model
     public static function validationRules($attributes = null)
     {
         $rules = [
-            'customer_name' => 'required | string | max:191',
             'customer_id' => 'required',
             'shop_type' => 'required',
             'product_category' => 'required',

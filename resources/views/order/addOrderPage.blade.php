@@ -81,7 +81,7 @@
                     </tr>
                     <tr ng-show="bill && bill != 0">
                         <th class="text-center" colspan="3">Paid:</th>
-                        <th colspan="4"><input type="number" ng-model="paid"></th>
+                        <th colspan="4" id="paid"><input type="number" ng-model="paid"></th>
 
                     </tr>
                     <tr ng-show="bill && bill != 0">
@@ -93,8 +93,7 @@
                         </th>
                     </tr>
                 </table>
-                <p ng-if="bill == 0 || !bill" class="alert alert-danger">Your Cart is empty
-                <p>
+                <p ng-if="bill == 0 || !bill" class="alert alert-danger">Your Cart is empty</p>
             </div>
         </div>
     </div>

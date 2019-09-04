@@ -57,9 +57,9 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-
         $shop = json_decode($request->shop, true);
         $customer = json_decode($request->customer, true);
+
 
         /*Storing values in Bill Table*/
         $this->validate($request, Bill::validationRules());
@@ -69,7 +69,15 @@ class BillController extends Controller
             'date' => date('Y-m-d H:i:s'),
         ]);
         $bill->save();
-
+        $orders = $request->order;
+        foreach ($orders as $order) {
+            $income = new IncomeModel([
+                'product_name' => $order['product_name'],
+                'price' => $order['unit_price'] * $order['available_quantity'],
+                'date' => date('Y-m-d H:i:s')
+            ]);
+            $income->save();
+        }
         /*Updating Values in Products Table*/
         $items = \request('order');
         foreach ($items as $billitem) {
@@ -80,14 +88,12 @@ class BillController extends Controller
             }
             $data = ['available_quantity' => $oldNumber];
             $item->update($data);
-
             /*Storing Values in Order Table*/
             $order = new Order([
                 'shop_type' => session('shop')->shop_type,
                 'shop_id' => session('shop')->shop_id,
                 'customer_id' => $customer['customer_id'],
                 'product_id' => $billitem['product_id'],
-                'customer_name' => $customer['customer_name'],
                 'bill_id' => $bill->id,
                 'product_category' => $billitem['product_category'],
                 'price' => $item->unit_price * $billitem['available_quantity'],
@@ -96,15 +102,7 @@ class BillController extends Controller
             ]);
             $order->save();
         }
-        $orders = $request->order;
-        foreach ($orders as $order) {
-            $income = new IncomeModel([
-                'product_name' => $order['product_name'],
-                'price' => $order['unit_price'] * $order['available_quantity'],
-                'date' => date('Y-m-d H:i:s')
-            ]);
-            $income->save();
-        }
+        return $order;
     }
 
     /**

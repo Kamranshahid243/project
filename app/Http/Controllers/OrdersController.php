@@ -126,6 +126,17 @@ class OrdersController extends Controller
         return view('order.addOrderPage');
     }
 
+    public function openReciept()
+    {
+        $data = Bill::with(['order.product', 'customer'])->orderby('id', 'dec')->latest()->first();
+        return $data;
+    }
+
+    public function showReciept(Request $request)
+    {
+        return view('order.reciept', ['data', $request->all()]);
+    }
+
     public function SearchOrder(Request $request)
     {
         $order = Order::where('id', '=', $request->id)->get();

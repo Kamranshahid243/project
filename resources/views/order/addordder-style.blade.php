@@ -25,6 +25,6 @@
     }
 
     #customerBtn {
-        padding-top: 13px;
+        padding-top: 10px;
     }
 </style>
