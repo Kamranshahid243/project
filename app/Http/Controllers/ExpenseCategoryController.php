@@ -119,5 +119,13 @@ class ExpenseCategoryController extends Controller
         return Shop::get();
     }
 
+    public function status(Request $request)
+    {
+        $product = ExpenseCategory::find(\request('id'));
+        $product->status = $product->status == 'Active' ? 'Inactive' : 'Active';
+        $product->save();
+        return $product;
+    }
+
 
 }

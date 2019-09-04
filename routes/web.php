@@ -92,7 +92,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('expense-category', 'ExpenseCategoryController');
         Route::post('/expense-category/bulk-edit', 'ExpenseCategoryController@bulkEdit');
         Route::post('/expense-category/bulk-delete', 'ExpenseCategoryController@bulkDelete');
-
+        Route::post('category-expense-status', 'ExpenseCategoryController@status');
         //vendor categories
         Route::resource('vendor-category', 'VendorCategoryController');
         Route::get('vendor-category-status', 'VendorCategoryController@updateStatus');
@@ -112,6 +112,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('product-summary', 'ProductSummaryController');
         Route::post('show-product-summary', 'ProductSummaryController@ProductSummaryReport');
 
+//        Vendor Stock report
+        Route::resource('vendor-report', 'VendorReportController');
+        Route::get('vendor-detail-page', 'VendorReportController@VendorStockReportPage');
+        Route::get('detailed-report', 'VendorReportController@VendorStockReport');
+        Route::post('show-vendor-report', 'VendorReportController@datedVendorStockReport');
+        Route::get('vendor-profile', 'VendorReportController@vendorProfile');
 //        income
         Route::resource('income', 'incomeController');
     });

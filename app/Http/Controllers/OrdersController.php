@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bill;
+use App\Expense;
 use App\Order;
 use App\Product;
 use App\Shop;
@@ -155,6 +156,7 @@ class OrdersController extends Controller
 
     public function qtySale()
     {
+//        return Product::all();
         return $qtySales = \App\Product::where('shop_id', '=', session('shop')->shop_id)->limit(15)->get();
     }
 
@@ -165,45 +167,48 @@ class OrdersController extends Controller
 
     public function topSeller()
     {
-        return $qtyProducts = Product::where('shop_id', '=', session('shop')->shop_id)->get();
-        $grouped = $qtyProducts->groupBy('product_id');
+        $monthlyProducts = Product::join('orders', 'orders.product_id', 'products.product_id')->
+        join('purchases', 'purchases.id', 'products.purchase_id')->
+        select('products.product_name', 'products.product_id', 'orders.qty', 'orders.created_at', 'orders.date', 'purchases.purchase_cost', 'purchases.customer_cost', 'products.unit_price')->where('orders.date', '>=', date('Y-m-01'))->where('orders.date', '<=', date('Y-m-t'))->get();
+        $groupedMonthly = $monthlyProducts->groupBy('product_id');
+        $todayProducts = Product::join('orders', 'orders.product_id', 'products.product_id')->
+        join('purchases', 'purchases.id', 'products.purchase_id')->
+        select('products.product_name', 'products.product_id', 'orders.qty', 'orders.created_at', 'orders.date', 'purchases.purchase_cost', 'purchases.customer_cost', 'products.unit_price')->where('orders.date', date('Y-m-d'))->get();
+        $groupedDaily = $todayProducts->groupBy('product_id');
+        $todayExpense = Expense::where('shop_id', session('shop')->shop_id)->where('date', date('Y-m-d'))->get()->sum('cost');
         $quantity = [];
+        $price = [];
+        $saleToday = 0;
+        $profitToday = 0;
         $maxQtyProduct = [];
-        foreach ($grouped as $max) {
-            $quantity[] = $max->sum('qty');
-            if (max($quantity)) {
-                $maxQtyProduct = $max[0];
+        $maxProfitProduct = [];
+        foreach ($groupedMonthly as $product) {
+            $quantity[] = $product->sum('qty');
+            if ($product->sum('qty') == max($quantity)) {
+                $maxQtyProduct = $product;
+            }
+            $price[] = ($product[0]['unit_price'] - $product[0]['purchase_cost']) * $product->sum('qty');
+            if (($product[0]['unit_price'] - $product[0]['purchase_cost']) * $product->sum('qty') == max($price)) {
+                $maxProfitProduct = $product;
             }
         }
-        $sale = [];
-        $purchase = [];
-        foreach ($grouped as $maxProfit) {
-            $sale[] = $maxProfit->sum('price');
-            $purchase[] = $maxProfit[2]->qty;
+        foreach ($groupedDaily as $product) {
+            //today total sale
+            $saleToday += ($product->sum('qty') * $product[0]['unit_price']);
+////            saleEnd
+//            total profit today
+            $profitToday += ($product[0]['unit_price'] * $product->sum('qty')) - ($product[0]['purchase_cost'] * $product->sum('qty'));
+//            profit
         }
-        return $purchase;
-
-
-//$qtyProducts= Order::with('product')->where('shop_id', '=', session('shop')->shop_id)->where('date', '>=', date('Y-m-01'))->where('date', '<=', date('Y-m-d'))->get();
-//       $grouped=$qtyProducts->groupBy('product_id');
-//      $quantity=[];
-//      $maxQtyProduct=[];
-//      foreach ($grouped as $max){
-//          $quantity[]= $max->sum('qty');
-//          if(max($quantity)) {
-//              $maxQtyProduct=$max[0];
-//          }
-//      }
-//      $sale=[];
-//      $purchase=[];
-//        foreach ($grouped as $maxProfit){
-//            $sale[]=$maxProfit->sum('price');
-//            $purchase[]=$maxProfit[2]->qty;
-//        }
-//        return $purchase;
-//        return [
-//          'maxQuantity' => max($quantity),
-//          'maxProduct' => $maxQtyProduct,
-//        ];
+        return [
+            'maxQtyProduct' => $maxQtyProduct[0],
+            'maxQuantity' => max($quantity),
+            'maxProfitProduct' => $maxProfitProduct[0],
+            'maxProfit' => max($price),
+            'todayTotalSale' => $saleToday,
+            'todayTotalProfit' => $profitToday,
+            'todayExpense' => $todayExpense,
+            'cashInHand' => $saleToday - $todayExpense,
+        ];
     }
 }

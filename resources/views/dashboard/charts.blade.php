@@ -7,7 +7,7 @@
     </div>
 </div>
 <br>
-<div class="row">
+<div class="row" >
     <div class="col-md-8">
         <canvas id="saleChart"></canvas>
     </div>

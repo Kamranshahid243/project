@@ -75,6 +75,7 @@
                     state.loadingProducts = true;
                     $http.get("editProducts")
                         .then(function (res) {
+                            console.log(res.data);
                             $scope.products = res.data;
                         })
                         .catch(function (res) {
@@ -130,6 +131,7 @@
                         toaster.pop("error", "Paid price is greater than total price");
                         return;
                     }
+                    console.log('gdfg',customer);
                     $http({
                         url: 'addOrder',
                         method: 'post',

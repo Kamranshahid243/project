@@ -17,7 +17,7 @@
                                     uib-tooltip="Delete" on-success="loadproductCategories()">
                             <i class="fa fa-times" style="color: red;"></i>
                         </delete-btn>
-                        <a href="" class="pull-right" uib-tooltip="Change status"
+                        <a href="" class="pull-right" uib-tooltip="Enable/Disable"
                            ng-click="changeStatus(category)"><i
                                     class="fa fa-sync-alt"></i>&nbsp</a>
                     </div>

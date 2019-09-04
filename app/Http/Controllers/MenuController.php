@@ -180,13 +180,18 @@ class MenuController extends Controller
         $array = [
             [
                 'url' => 'income-expense',
-                'class' => 'fas fa-chart-line',
+                'class' => 'fas fa-coins',
                 'title' => 'Income-Expense Report'
             ],
             [
                 'url' => 'product-summary',
-                'class' => 'fas fa-chart-line',
+                'class' => 'fab fa-product-hunt',
                 'title' => 'Product Summary Report'
+            ],
+            [
+                'url' => 'vendor-report',
+                'class' => 'fas fa-truck-moving',
+                'title' => 'Vendor Stock Report'
             ],
         ];
         return collect($array);

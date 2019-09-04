@@ -104,4 +104,19 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'product_id');
     }
+
+    public function productCategory()
+    {
+        return $this->belongsTo(ProductCategory::class, 'product_category');
+    }
+
+    public function products()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'product_id');
+    }
+
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class, 'product_name', 'product_name');
+    }
 }
