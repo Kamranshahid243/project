@@ -55,13 +55,7 @@
                                    style="color: blue"></i>
                             </td>
                             <td>
-                                <n-editable type="select" name="customer_id"
-                                            value="bill.customer.customer_id"
-                                            url="/updateOrders/@{{ bill.id }}"
-                                            dd-options="customers"
-                                            dd-label-field="customer_name"
-                                            dd-value-field="customer_id"
-                                ></n-editable>
+                                @{{bill.customer.customer_name}}
                             </td>
                             <td>PKR: @{{ totalprice(bill.order) }}</td>
                             <td>

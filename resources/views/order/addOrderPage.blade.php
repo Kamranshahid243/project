@@ -65,11 +65,11 @@
                             <a class="btn btn-success" ng-click="addCustomer()">Add Customer</a>
                         </th>
                         <th colspan="3" class="text-center">
-                            <select class="form-control btn btn-primary" id="addCustomer">
-                                <option ng-if="customers == 0" value="">Add Customers</option>
+                            <select class="form-control btn btn-primary" ng-model="AddCustomer" id="addCustomer">
+                                <option ng-if="customers.length == 0" value="">Add Customers</option>
+                                <option ng-if="customers.length" value="">select customer</option>
                                 <option ng-repeat="x in customers"
-                                        value="@{{ x }}"
-                                >
+                                        value="@{{ x }}">
                                     @{{ x.customer_name }}
                                 </option>
                             </select>
@@ -81,20 +81,20 @@
                     </tr>
                     <tr ng-show="bill && bill != 0">
                         <th class="text-center" colspan="3">Paid:</th>
-                        <th colspan="4"><input type="number" ng-model="paid"></th>
+                        <th colspan="4" id="paid"><input type="number" ng-model="paid"></th>
 
                     </tr>
                     <tr ng-show="bill && bill != 0">
                         <th class="text-center" colspan="7">
                             <a href class="btn btn-danger" ng-click="clearitems()">Clear Record</a>
 
-                            <a style="margin-left: 250px;" href ng-click="SaleOrder(bill, Addcustomers, Addshop,paid)"
+                            <a style="margin-left: 250px;" href
+                               ng-click="SaleOrder(bill, AddCustomer, Addshop, paid)"
                                class="btn btn-success">Continue</a>
                         </th>
                     </tr>
                 </table>
-                <p ng-if="bill == 0 || !bill" class="alert alert-danger">Your Cart is empty
-                <p>
+                <p ng-if="bill == 0 || !bill" class="alert alert-danger">Your Cart is empty</p>
             </div>
         </div>
     </div>

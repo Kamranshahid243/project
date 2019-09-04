@@ -14,6 +14,7 @@
                 var state = $scope.state = PageState;
                 state.loadingOrders = false;
                 state.loadingProducts = false;
+                $scope.bill = [];
 
                 $scope.loadOrders = function () {
                     $scope.orders = [];
@@ -95,6 +96,35 @@
                 };
                 $scope.Customers();
 
+
+                $scope.getOrders = function () {
+                    $http({
+                        url: 'orders',
+                        method: 'get',
+                    }).then(function (res) {
+                        console.log(res.data);
+                    });
+                }
+                // $scope.getOrders();
+
+                $scope.viewReciept = function (data) {
+                    $http({
+                        url: 'showReciept',
+                        method: 'post',
+                        data: {data: data}
+                    })
+                }
+
+                $scope.recieptData = function () {
+                    $http({
+                        url: 'reciept',
+                        method: 'get',
+                    }).then(function (res) {
+                        console.log(res.data);
+                        window.location.href = 'showReciept?id=' + res.data.id;
+                    })
+                }
+
                 $scope.SaleOrder = function (order, customer, shop, paid) {
                     if (paid > $scope.totalBill()) {
                         toaster.pop("error", "Paid price is greater than total price");
@@ -106,6 +136,10 @@
                         data: {order: order, customer: customer, shop: shop, paid: paid}
                     }).then(function (res) {
                         toaster.pop('success', 'Bill saved');
+                        $scope.recieptData();
+                        $scope.bill = [];
+                        $scope.customer = null;
+                        $scope.paid = null;
                     }).catch(function (res) {
                         toaster.pop('error', 'Field is missing');
                     })
@@ -121,7 +155,6 @@
                     })
                 }
 
-                $scope.bill = [];
                 $scope.addOrder = function (product) {
                     if (product.available_quantity >= 0) {
                         product.available_quantity = product.available_quantity - 1;
@@ -172,11 +205,6 @@
                         }
                     }
                 };
-
-                $scope.orderDetail = function (orders) {
-                    $scope.modalBill = orders;
-                }
-
                 $scope.lessAction = function (order) {
                     var existing = $scope.OrderProducts.findOne(function (item) {
                         return item.product_id == order.product_id;
@@ -241,6 +269,7 @@
                                     }
                                 }).then(function (res) {
                                     modal.close(res.data);
+                                    $scope.Customers();
                                     toaster.pop('success', 'Customer Added')
                                 }).catch(function (res) {
                                     angular.forEach(res.data, function (value, key) {
@@ -251,12 +280,9 @@
                         }
                     });
                     modal.result.then(function (res) {
-
-                        // $scope.Customers();
-                        $('#addCustomer').append('<option selected value="' + res + '">' + res.customer_name + '</option>');
-
-
+                        $('#addCustomer').append('<option selected value="' + res.customer_id + '">' + res.customer_name + '</option>');
                     }, function () {
+
                     });
                 }
             }

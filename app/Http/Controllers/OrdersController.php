@@ -125,6 +125,17 @@ class OrdersController extends Controller
         return view('order.addOrderPage');
     }
 
+    public function openReciept()
+    {
+        $data = Bill::with(['order.product', 'customer'])->orderby('id', 'dec')->latest()->first();
+        return $data;
+    }
+
+    public function showReciept(Request $request)
+    {
+        return view('order.reciept', ['data', $request->all()]);
+    }
+
     public function SearchOrder(Request $request)
     {
         $order = Order::where('id', '=', $request->id)->get();
@@ -144,40 +155,33 @@ class OrdersController extends Controller
 
     public function qtySale()
     {
-//        return Product::all();
-        return $qtySales = \App\Product::where('shop_id','=',session('shop')->shop_id)->limit(15)->get();
+        return $qtySales = \App\Product::where('shop_id', '=', session('shop')->shop_id)->limit(15)->get();
     }
 
     public function profitSale()
     {
         return Product::with('purchase')->where('shop_id', '=', session('shop')->shop_id)->limit(15)->get();
     }
-    public function topSeller(){
 
-
-
-        return $qtyProducts= Product::where('shop_id', '=', session('shop')->shop_id)->get();
-       $grouped=$qtyProducts->groupBy('product_id');
-      $quantity=[];
-      $maxQtyProduct=[];
-      foreach ($grouped as $max){
-          $quantity[]= $max->sum('qty');
-          if(max($quantity)) {
-              $maxQtyProduct=$max[0];
-          }
-      }
-      $sale=[];
-      $purchase=[];
-        foreach ($grouped as $maxProfit){
-            $sale[]=$maxProfit->sum('price');
-            $purchase[]=$maxProfit[2]->qty;
+    public function topSeller()
+    {
+        return $qtyProducts = Product::where('shop_id', '=', session('shop')->shop_id)->get();
+        $grouped = $qtyProducts->groupBy('product_id');
+        $quantity = [];
+        $maxQtyProduct = [];
+        foreach ($grouped as $max) {
+            $quantity[] = $max->sum('qty');
+            if (max($quantity)) {
+                $maxQtyProduct = $max[0];
+            }
+        }
+        $sale = [];
+        $purchase = [];
+        foreach ($grouped as $maxProfit) {
+            $sale[] = $maxProfit->sum('price');
+            $purchase[] = $maxProfit[2]->qty;
         }
         return $purchase;
-        return [
-          'maxQuantity' => max($quantity),
-          'maxProduct' => $maxQtyProduct,
-        ];
-
 
 
 //$qtyProducts= Order::with('product')->where('shop_id', '=', session('shop')->shop_id)->where('date', '>=', date('Y-m-01'))->where('date', '<=', date('Y-m-d'))->get();

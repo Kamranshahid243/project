@@ -16,7 +16,7 @@ class Bill extends Model
 
     public static function findRequested()
     {
-        $query = Bill::with(['customer', 'order.product']);
+        $query = Bill::with(['customer', 'order.product', 'product']);
 
         if ($customerName = \request('name')) {
             $query->whereHas('customer', function ($item) use ($customerName) {
@@ -34,6 +34,11 @@ class Bill extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function order()
