@@ -52,16 +52,11 @@ class  Product extends Model
 
     public static function findRequested()
     {
-        $query = Product::with(['category','productOrder','purchase']);
+        $query = Product::with(['category','productOrder','purchase'])->where('shop_id',session('shop')->shop_id);
 //         search results based on user input
         if ($categoryName = request('category_name')) {
             $query->whereHas('category', function ($item) use ($categoryName) {
                 $item->where('category_name', "like", "%{$categoryName}%");
-            });
-        }
-        if ($monthlyDate = date('Y-m')) {
-            $query->whereHas('productOrder', function ($item) use ($monthlyDate) {
-                $item->where('date','>=',$monthlyDate.'-01')->where('date','<=',$monthlyDate.'-t');
             });
         }
         if (request('product_name')) $query->where('product_name', 'like', "%" . request('product_name') . "%");

@@ -102,12 +102,14 @@
                                 <n-editable type="text" name="product_name"
                                             value="purchase.product_name"
                                             url="/purchases/@{{purchase.id}}"
+                                            on-success="loadPurchases()"
                                 ></n-editable>
                             </td>
                             <td>PKR
                                 <n-editable type="text" name="paid"
                                             value="purchase.paid"
                                             url="/purchases/@{{purchase.id}}"
+                                            on-success="loadPurchases()"
                                 ></n-editable>
                             </td>
                             <td>@{{ purchase.payable|currency:'PKR ' }}</td>
@@ -116,10 +118,11 @@
                                 <n-editable type="date" name="date"
                                             value="purchase.date"
                                             url="/purchases/@{{purchase.id}}"
+                                            on-success="loadPurchases()"
                                 ></n-editable>
                             </td>
                             <td>
-                                <a href="#" ng-click="purchaseModal(purchase)"><i class="fa fa-folder-open"></i></a>
+                                <a href="" ng-click="purchaseModal(purchase)"><i class="fa fa-folder-open"></i></a>
                                 <delete-btn action="/purchases/@{{purchase.id}}" on-success="loadPurchases()">
                                     <i class="fa fa-trash"></i>
                                 </delete-btn>
@@ -194,7 +197,7 @@
                             <tr>
                                 <th>Date:</th>
                                 <td>
-                                    @{{ item.date }}
+                                    @{{ item.date|date:'longDate' }}
                                 </td>
                             </tr>
                         </table>

@@ -58,6 +58,13 @@
                 $scope.vendorProfile($scope.vendorId);
 
                 // $scope.$watch('state.params', $scope.VendorStockReport, true);
+
+                $scope.test =function(){
+                    $http.get('test',{params:state.params}).then(function(res){
+                       console.log(res.data);
+                    });
+                }
+                $scope.test();
             }
         })();
     </script>

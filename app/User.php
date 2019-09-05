@@ -60,7 +60,7 @@ class User extends Authenticatable
         if (request('updated_at')) $query->where('updated_at', request('updated_at'));
         if (request('status')) $query->where('status', 'like', '%' . request('status') . '%');
         if (request('user_role_id')) $query->where('user_role_id', request('user_role_id'));
-
+        if (request('shop_id')) $query->where('shop_id', request('shop_id'));
         // sort results 
         if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
 

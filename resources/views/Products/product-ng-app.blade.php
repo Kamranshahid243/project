@@ -10,7 +10,6 @@
                 var state = $scope.state = PageState;
                 state.loadingProducts = false;
                 state.params.sort = 'product_id';
-                state.params.perPage = '1';
                 $scope.loadProducts = function () {
                     state.loadingProducts = true;
                     $http.get("showProducts", {params: state.params}).then(function (res) {
@@ -23,14 +22,6 @@
                     });
                 };
 
-                $scope.loadShops = function () {
-                    $http.get("shops").then(function (res) {
-                        $scope.shops = res.data;
-                    }).catch(function (res) {
-                        toaster.pop('error', 'Error while loading Products', res.data);
-                    })
-                };
-                $scope.loadShops();
                 $scope.$watch('state.params', $scope.loadProducts, true);
 
                 $scope.bulkAssignerFields = {

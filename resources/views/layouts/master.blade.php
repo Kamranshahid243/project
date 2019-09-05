@@ -89,7 +89,7 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" style="height: 100%;">
             @yield('content')
             <toaster-container></toaster-container>
         </section><!-- /.content -->

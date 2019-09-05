@@ -5,7 +5,6 @@
 @section('content')
     <div class="row" ng-controller="ProductController">
         <div class="col-sm-12">
-            @include('Products.create')
             <div class="box" show-loader="state.loadingProducts">
                 <bulk-assigner target="products" url="/products/bulk-edit">
                     <bulk-assigner-field field="bulkAssignerFields.AvailableQuantity">

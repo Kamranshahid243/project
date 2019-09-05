@@ -31,7 +31,6 @@
                 }
                 $scope.loadproductcategory();
 
-
                 $scope.loadShops = function () {
                     $http.get("shops").then(function (res) {
                         $scope.shops = res.data;

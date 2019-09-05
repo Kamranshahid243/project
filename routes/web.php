@@ -2,12 +2,8 @@
 Route::group(['middleware' => ['web']], function () {
     Auth::routes();
     Route::group(['middleware' => ['auth']], function () {
-        Route::get('/', function () {
-            return view('dashboard.dashboard');
-        });
-        Route::get('/dashboard', function () {
-            return view('dashboard.dashboard');
-        });
+        Route::get('/', 'DashboardController@index');
+        Route::get('/dashboard','DashboardController@index');
 
         Route::get('/nvd-dashboard/load-config', 'NvdDashboardController@loadConfig');
         Route::post('/nvd-dashboard/save-config', 'NvdDashboardController@saveConfig');
@@ -120,6 +116,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('vendor-profile', 'VendorReportController@vendorProfile');
 //        income
         Route::resource('income', 'incomeController');
+
+
+        Route::get('test','VendorReportController@test');
     });
 
     //sale chart

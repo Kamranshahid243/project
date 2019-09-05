@@ -21,22 +21,27 @@
             <ul class="nav navbar-nav">
                 <!-- Notifications: style can be found in dropdown.less -->
                 <li class="dropdown notifications-menu">
-                    @if(Session::has('shop'))
+                @if((Session::has('shop')) && (Auth::user()->role->role == 'Admin'))
+                        <a href=""><i class="fas fa-store"></i> {{ Session::get('shop')->shop_name }}</a>
+
+                @endif
+                    @if((Session::has('shop')) && (Auth::user()->role->role == 'Super Admin'))
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fas fa-store"></i> {{ session('shop')->shop_name }}
                         </a>
-                    @else
+                    @endif
+                    @if(!(Session::has('shop')) && (Auth::user()->role->role == 'Super Admin'))
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fas fa-store"></i> --Select Shop--
                         </a>
                     @endif
                     <ul class="dropdown-menu">
                         <li class="header">Select a shop from following</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
+                        <li>                            <!-- inner menu: contains the actual data -->
                             <ul class="menu">
+
                                 @foreach(\App\Shop::all() as $shop)
-                                    @if($shop->shop_status=='Active')
+                                    @if($shop->shop_status=='Active' && Auth::user()->role->role == 'Super Admin')
                                 <li>
                                     <a href="shop-session/{{$shop->shop_id}}">
                                         <i class="fas fa-store text-aqua"></i> {{ $shop->shop_name }}

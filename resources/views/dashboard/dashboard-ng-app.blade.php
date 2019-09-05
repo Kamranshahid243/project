@@ -3,8 +3,9 @@
     angular.module('myApp').requires.push('nvdDashboard');
     angular.module("myApp").controller('MainController', MainController);
 
-    function MainController($scope,$http) {
+    function MainController($scope,$http, nvdDashboardService) {
         $scope.loadingData = false;
+        $scope.service = nvdDashboardService;
         $scope.dashboardConfig = {
             tabs: [
                 {

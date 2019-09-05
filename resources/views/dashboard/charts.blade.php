@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-show="{{session('shop')}}">
     <div class="col-md-6">
         <canvas id="qtyChart"></canvas>
     </div>
