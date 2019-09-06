@@ -15,6 +15,11 @@ class Bill extends Model
         return $this->order->sum('price');
     }
 
+    public function getTotalDailyPaidAttribute()
+    {
+        return $this->where('date',date('y-m-d'))->first()->sum('paid');
+    }
+
     public static function findRequested()
     {
         $query = Bill::with(['customer', 'order.product', 'product']);

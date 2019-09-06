@@ -119,4 +119,8 @@ class Order extends Model
     {
         return $this->belongsTo(Purchase::class, 'product_name', 'product_name');
     }
+    public function bill()
+    {
+        return $this->belongsTo(Bill::class, 'bill_id');
+    }
 }
