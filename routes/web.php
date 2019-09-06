@@ -81,6 +81,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/vendors/bulk-edit', 'VendorController@bulkEdit');
         Route::post('/vendors/bulk-delete', 'VendorController@bulkDelete');
         Route::get('get-vendor-categories', 'VendorController@vendorCategories');
+
         //expenses
         Route::resource('expenses', 'ExpenseController');
         Route::post('/expenses/bulk-edit', 'ExpenseController@bulkEdit');
@@ -93,6 +94,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/expense-category/bulk-edit', 'ExpenseCategoryController@bulkEdit');
         Route::post('/expense-category/bulk-delete', 'ExpenseCategoryController@bulkDelete');
         Route::post('category-expense-status', 'ExpenseCategoryController@status');
+
         //vendor categories
         Route::resource('vendor-category', 'VendorCategoryController');
         Route::get('vendor-category-status', 'VendorCategoryController@updateStatus');

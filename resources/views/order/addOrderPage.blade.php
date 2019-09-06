@@ -88,7 +88,8 @@
                         <th class="text-center" colspan="7">
                             <a href class="btn btn-danger" ng-click="clearitems()">Clear Record</a>
 
-                            <a style="margin-left: 250px;" href ng-click="SaleOrder(bill, AddCustomer, Addshop, paid)"
+                            <a style="margin-left: 250px;" href
+                               ng-click="SaleOrder(bill, AddCustomer, Addshop, paid); clearitem()"
                                class="btn btn-success">Continue</a>
                         </th>
                     </tr>

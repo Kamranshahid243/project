@@ -11,6 +11,7 @@
                 $scope.customers = [];
                 $scope.products = [];
                 $scope.OrderProducts = [];
+                var flag=$scope.flag = {saleRecord: false};
                 var state = $scope.state = PageState;
                 state.loadingOrders = false;
                 state.loadingProducts = false;
@@ -75,7 +76,6 @@
                     state.loadingProducts = true;
                     $http.get("editProducts")
                         .then(function (res) {
-                            console.log(res.data);
                             $scope.products = res.data;
                         })
                         .catch(function (res) {
@@ -115,35 +115,36 @@
                         data: {data: data}
                     })
                 }
-
                 $scope.recieptData = function () {
                     $http({
                         url: 'reciept',
                         method: 'get',
                     }).then(function (res) {
-                        console.log(res.data);
                         window.location.href = 'showReciept?id=' + res.data.id;
                     })
                 }
 
                 $scope.SaleOrder = function (order, customer, shop, paid) {
+                    if (flag.saleRecord) return;
+                    flag.saleRecord=true;
                     if (paid > $scope.totalBill()) {
                         toaster.pop("error", "Paid price is greater than total price");
+                        flag.saleRecord = false;
                         return;
                     }
-                    console.log('gdfg',customer);
                     $http({
                         url: 'addOrder',
                         method: 'post',
                         data: {order: order, customer: customer, shop: shop, paid: paid}
                     }).then(function (res) {
+                        console.log(res.data);
                         toaster.pop('success', 'Bill saved');
                         $scope.recieptData();
                         $scope.bill = [];
-                        $scope.customer = null;
-                        $scope.paid = null;
                     }).catch(function (res) {
                         toaster.pop('error', 'Field is missing');
+                    }).then(function (res) {
+                        flag.saleRecord=false;
                     })
                 }
 

@@ -66,6 +66,7 @@ class BillController extends Controller
         $bill = new Bill([
             'customer_id' => $customer['customer_id'],
             'paid' => $request->paid,
+            'shop_id' => session('shop')->shop_id,
             'date' => date('Y-m-d H:i:s'),
         ]);
         $bill->save();

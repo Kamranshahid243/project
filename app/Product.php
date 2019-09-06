@@ -59,11 +59,6 @@ class  Product extends Model
                 $item->where('category_name', "like", "%{$categoryName}%");
             });
         }
-        if ($monthlyDate = date('Y-m')) {
-            $query->whereHas('productOrder', function ($item) use ($monthlyDate) {
-                $item->where('date','>=',$monthlyDate.'-01')->where('date','<=',$monthlyDate.'-t');
-            });
-        }
         if (request('product_name')) $query->where('product_name', 'like', "%" . request('product_name') . "%");
         if (request('product_code')) $query->where('product_code', 'like', '%' . request('product_code') . '%');
         if (request('product_description')) $query->where('product_description', 'like', '%' . request('product_description') . '%');

@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bill extends Model
 {
-    public $fillable = ['customer_id', 'paid', 'date'];
+//    public $fillable = ['customer_id', 'paid', 'shop_id', 'date'];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
     public $appends = ['total'];
 
     public function getTotalAttribute()
