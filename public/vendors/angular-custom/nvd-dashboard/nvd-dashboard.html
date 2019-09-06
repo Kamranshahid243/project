@@ -1,4 +1,4 @@
-<div class="nvd-dashboard-container" show-loader="service.loadingConfig">
+<div show-loader="service.loadingConfig && !parentLoader">
     <uib-tabset active="service.activeTab">
         <uib-tab ng-repeat="tab in service.config.tabs" index="$index">
             <uib-tab-heading>

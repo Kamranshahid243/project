@@ -9,7 +9,8 @@ angular.module('nvdDashboard', [
         restrict: 'E',
         templateUrl: '/vendors/angular-custom/nvd-dashboard/nvd-dashboard.html',
         scope: {
-            config: '='
+            config: '=',
+            parentLoader:'@'
         },
         link: function (scope, elem, attrs) {
             var service = scope.service = nvdDashboardService;

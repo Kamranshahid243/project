@@ -28,14 +28,14 @@ class ProductCatSeeder extends Seeder
                                 'updated_at' => date('Y-m-d H:i:s'),
                             ],
                             [
-                                'title' => 'Create new Product category',
+                                'title' => 'Create new product category',
                                 'route' => 'product-category',
                                 'method' => 'POST',
                                 'created_at' => date('Y-m-d H:i:s'),
                                 'updated_at' => date('Y-m-d H:i:s'),
                             ],
                             [
-                                'title' => 'Create new product category',
+                                'title' => 'Edit product category',
                                 'route' => 'product-category',
                                 'method' => 'PUT',
                                 'created_at' => date('Y-m-d H:i:s'),

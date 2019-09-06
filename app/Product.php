@@ -52,7 +52,7 @@ class  Product extends Model
 
     public static function findRequested()
     {
-        $query = Product::with(['category','productOrder','purchase']);
+        $query = Product::with(['category','productOrder','purchase'])->where('shop_id',session('shop')->shop_id);
 //         search results based on user input
         if ($categoryName = request('category_name')) {
             $query->whereHas('category', function ($item) use ($categoryName) {

@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Shop;
 use App\User;
 use Illuminate\Http\Request;
@@ -52,10 +52,19 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, User::validationRules());
-        $data = $request->all();
-        $data['password'] = bcrypt($data['password']);
-        return User::create($data);
+        if (Auth::user()->role->role == 'Super Admin') {
+            $this->validate($request, User::validationRules());
+            $data = $request->all();
+            $data['password'] = bcrypt($data['password']);
+            return User::create($data);
+        }
+        else{
+            $this->validate($request, User::validationRules());
+            $data = $request->all();
+            $data['password'] = bcrypt($data['password']);
+            $data['shop_id'] = session('shop')->shop_id;
+            return User::create($data);
+        }
     }
 
     public function update(Request $request, User $user)

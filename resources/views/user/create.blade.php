@@ -33,7 +33,16 @@
                                 placeholder="User Role"
                         ></remote-select>
                     </nvd-form-element>
-
+                    @if(Auth::user()->role->role == 'Super Admin')
+                        <nvd-form-element field="shop_id">
+                            <remote-select
+                                    url="/shops"
+                                    ng-model="form.shop_id"
+                                    label-field="shop_name" value-field="shop_id"
+                                    placeholder="User Shop"
+                            ></remote-select>
+                        </nvd-form-element>
+                    @endif
                     <button type="submit" class="btn btn-primary btn-flat">Create</button>
                 </nvd-form>
             </uib-accordion-group>

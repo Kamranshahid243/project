@@ -1,4 +1,4 @@
-<div class="row" ng-controller="MainController" show-loader="loadingData">
+<div class="row" ng-controller="MainController"  ng-show="{{session('shop')}}">
     <div class="col-md-4 col-sm-6" ng-show="topProduct">
         <!-- small box -->
         <div class="small-box bg-aqua">
@@ -91,5 +91,4 @@
         </div>
     </div>
 </div>
-@include('dashboard.dashboard-ng-app')
 @include('dashboard.styles')

@@ -39,4 +39,10 @@ class VendorReportController extends Controller
         return Vendor::with(['vendorCategory'])->where('shop_id',session('shop')->shop_id)->where('vendor_id',$request->id)->first();
     }
 
+    public function test(Request $request)
+    {
+        if ($request->wantsJson()) {
+            return Vendor::findRequested();
+        }
+    }
 }
