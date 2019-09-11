@@ -14,10 +14,8 @@
         @include('dashboard.charts')
     </div>
     <div class="box" ng-show="!{{session('shop')}}">
-        <div class="box-body bg-danger"
-             style="border-radius: 5px;">
-            <h2 style="font-family: 'Lobster', cursive;
-">Hello Mr. {{Auth::user()->name}}! please select a shop from top right.</h2>
+        <div class="box-body alert-warning">
+            <h2>Hello Mr. {{Auth::user()->name}}! Please select a shop from top right.</h2>
         </div>
     </div>
 
