@@ -24,6 +24,8 @@ class ProductsController extends Controller
     {
         if ($search = \request('data')) {
             $products = Product::where('product_name', 'like', "%{$search}%")->get();
+        } elseif ($search == null) {
+            return Product::all();
         }
         return $products;
     }

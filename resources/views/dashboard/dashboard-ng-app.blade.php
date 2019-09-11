@@ -224,6 +224,7 @@
         $scope.topSeller=function () {
             $scope.loadingData = true;
             $http.get('top-seller').then(function (response) {
+                console.log(response.data);
                 $scope.topProduct=response.data;
             }).catch(function (res) {
                 toaster.pop('error', 'Error while loading Dashboard', res.data);

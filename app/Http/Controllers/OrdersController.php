@@ -157,7 +157,7 @@ class OrdersController extends Controller
     public function qtySale()
     {
 //        return Product::all();
-        return $qtySales = \App\Product::where('shop_id', '=', session('shop')->shop_id)->limit(15)->get();
+        return $qtySales = Product::where('shop_id', '=', session('shop')->shop_id)->limit(15)->get();
     }
 
     public function profitSale()
@@ -169,7 +169,7 @@ class OrdersController extends Controller
     {
         $monthlyProducts = Product::join('orders', 'orders.product_id', 'products.product_id')->
         join('purchases', 'purchases.id', 'products.purchase_id')->
-        select('products.product_name', 'products.product_id', 'orders.qty', 'orders.created_at', 'orders.date', 'purchases.purchase_cost', 'purchases.customer_cost', 'products.unit_price')->where('orders.date', '>=', date('Y-m-01'))->where('orders.date', '<=', date('Y-m-t'))->where('orders.shop_id',session('shop')->shop_id)->get();
+        select('products.product_name', 'products.product_id', 'orders.qty', 'orders.created_at', 'orders.date', 'purchases.purchase_cost', 'purchases.customer_cost', 'products.unit_price')->where('orders.date', '>=', date('Y-m-01'))->where('orders.date', '<=', date('Y-m-t'))->where('orders.shop_id', session('shop')->shop_id)->get();
         $groupedMonthly = $monthlyProducts->groupBy('product_id');
 
         $todayProducts = Product::join('orders', 'orders.product_id', 'products.product_id')->
@@ -178,6 +178,7 @@ class OrdersController extends Controller
         $groupedDaily = $todayProducts->groupBy('product_id');
 
         $todayExpense = Expense::where('shop_id', session('shop')->shop_id)->where('date', date('Y-m-d'))->get()->sum('cost');
+
         $todayPaid = Bill::where('shop_id', session('shop')->shop_id)->where('date', date('Y-m-d'))->get()->sum('paid');
 
         $quantity = [];

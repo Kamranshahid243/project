@@ -17,12 +17,13 @@ class Bill extends Model
 
     public function getTotalDailyPaidAttribute()
     {
-        return $this->where('date',date('y-m-d'))->first()->sum('paid');
+        return $this->where('date', date('y-m-d'))->first()->sum('paid');
     }
 
     public static function findRequested()
     {
         $query = Bill::with(['customer', 'order.product', 'product']);
+        $query = $query->where('shop_id', '=', session('shop')->shop_id);
 
         if ($customerName = \request('name')) {
             $query->whereHas('customer', function ($item) use ($customerName) {
