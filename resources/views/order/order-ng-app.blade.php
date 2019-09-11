@@ -11,7 +11,7 @@
                 $scope.customers = [];
                 $scope.products = [];
                 $scope.OrderProducts = [];
-                var flag=$scope.flag = {saleRecord: false};
+                var flag = $scope.flag = {saleRecord: false};
                 var state = $scope.state = PageState;
                 state.loadingOrders = false;
                 state.loadingProducts = false;
@@ -126,7 +126,7 @@
 
                 $scope.SaleOrder = function (order, customer, shop, paid) {
                     if (flag.saleRecord) return;
-                    flag.saleRecord=true;
+                    flag.saleRecord = true;
                     if (paid > $scope.totalBill()) {
                         toaster.pop("error", "Paid price is greater than total price");
                         flag.saleRecord = false;
@@ -144,7 +144,7 @@
                     }).catch(function (res) {
                         toaster.pop('error', 'Field is missing');
                     }).then(function (res) {
-                        flag.saleRecord=false;
+                        flag.saleRecord = false;
                     })
                 }
 

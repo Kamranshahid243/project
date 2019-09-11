@@ -3,7 +3,6 @@
 @section('content')
     <div class="box" ng-controller="MainController">
         <div class="row">
-
             <div class="col-md-6 products">
                 <table class="table table-striped" show-loader="state.loadingProducts">
                     <tr>
@@ -38,24 +37,24 @@
             <div class="col-md-6 bill">
                 <table class="table table-striped">
                     <tr style="background: slategray; color: white;">
-                        <th>Qty</th>
                         <th>Product</th>
                         <th>Price</th>
                         <th>Total</th>
                         <th>Less Qty</th>
+                        <th>Qty</th>
                         <th>Add Qty</th>
                         <th>Erase item</th>
                     </tr>
                     <tr ng-repeat="order in bill">
-                        <td>@{{ order.available_quantity }}</td>
                         <td>@{{ order.product_name }}</td>
                         <td>Rs @{{ order.unit_price}}</td>
                         <td>Rs @{{ order.unit_price * order.available_quantity}}</td>
-                        <td><a href ng-click="lessAction(order)"><i style="font-size: 30px"
+                        <td><a href ng-click="lessAction(order)"><i style="font-size: 20px"
                                                                     class="fas fa-minus-circle btn btn-danger"
                                                                     style="font-size: 30px;"></i></a>
+                        <td style="font-size: 20px;"><b>@{{ order.available_quantity }}</b></td>
                         <td><a href ng-click="addAction(order)"><i class="fas fa-plus-circle btn btn-success"
-                                                                   style="font-size: 30px;"></i></a>
+                                                                   style="font-size: 20px;"></i></a>
                         </td>
                         <td ng-click="deleteItem(order)"><i cursor="pointer" class="fa fa-trash"
                                                             style="font-size: 30px;"></i></td>

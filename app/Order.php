@@ -24,13 +24,12 @@ class Order extends Model
     public static function findRequested()
     {
         $query = Order::with(['shop', 'customer', 'product']);
-
+        $query = $query->where('shop_id', '=', session('shop')->shop_id);
         // search results based on user input
         if (request('customer_id')) $query->where('customer_id', request('customer_id'));
         if (request('order_id')) $query->where('order_id', 'like', ' % ' . request('order_id') . ' % ');
         if (request('shop_id')) $query->where('shop_id', 'like', ' % ' . request('shop_id') . ' % ');
         if (request('shop_type')) $query->where('shop_type', 'like', ' % ' . request('shop_type') . ' % ');
-
 
         // sort results
         if (request("sort")) $query->orderBy(request("sort"), request("sortType", "asc"));
