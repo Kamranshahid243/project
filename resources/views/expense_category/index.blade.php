@@ -8,9 +8,9 @@
                 <div class="box-options">
                 </div>
                 <div class="box-body">
-                    <div class="category-div" ng-repeat="category in expenseCategories"
-                         ng-class="{'text-danger text-bold':category.status=='Active'}">
-                        <n-editable uib-tooltip="@{{ category.status }}" type="text" name="category_name"
+                    <div class="category-div text-bold" ng-repeat="category in expenseCategories"
+                         ng-class="{'text-danger text-bold':category.status=='Inactive'}">
+                        <n-editable type="text" name="category_name"
                                     value="category.cat_name"
                                     url="/expense-category/@{{category.id}}"
                         ></n-editable>
@@ -18,9 +18,12 @@
                                     uib-tooltip="Delete" on-success="loadExpenseCategories()">
                             <i class="fa fa-times" style="color: red;"></i>
                         </delete-btn>
-                        <a href="" class="pull-right" uib-tooltip="Enable/Disable"
+                        <a href="" class="pull-right text-success" ng-show="category.status=='Active'"
                            ng-click="changeStatus(category)"><i
-                                    class="fa fa-sync-alt"></i>&nbsp</a>
+                                    class="fa fa-check-circle" uib-tooltip="Category status is enabled"></i>&nbsp</a>
+                        <a href="" class="pull-right disable-icon" ng-show="category.status=='Inactive'"
+                           ng-click="changeStatus(category)"><i
+                                    class="fa fa-check-circle" uib-tooltip="Category status is disabled"></i>&nbsp</a>
                     </div>
                 </div>
             </div>

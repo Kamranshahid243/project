@@ -42,6 +42,12 @@ function MainController($http, $scope, PageState, toaster) {
         {name: 'created_at', label: 'Created At'},
         {name: 'updated_at', label: 'Updated At'}
     ];
+    $scope.loadRoles=function () {
+        $http.get('get-user-role').then(function (res) {
+            $scope.userRoles=res.data;
+        });
+    }
+    $scope.loadRoles();
 }
 })();
 </script>

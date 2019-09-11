@@ -24,7 +24,7 @@
                             <option value="">Status</option>
                         </select>
                     </nvd-form-element>
-
+                    @if(Auth::user()->role->role == 'Super Admin')
                     <nvd-form-element field="user_role_id">
                         <remote-select
                                 url="/user-role"
@@ -33,6 +33,23 @@
                                 placeholder="User Role"
                         ></remote-select>
                     </nvd-form-element>
+                        @else
+                        <nvd-form-element field="user_role_id">
+                            <select ng-model="form.user_role_id" class="form-control">
+                                <option value="">User Role</option>
+                                <option value="@{{ userRole.id }}" ng-repeat="userRole in userRoles"
+                                        ng-hide="userRole.role=='Super Admin'">@{{ userRole.role }}
+                                </option>
+                            </select>
+                            {{--<remote-select--}}
+                            {{--url="/user-role"--}}
+                            {{--ng-model="form.user_role_id"--}}
+                            {{--label-field="role" value-field="id"--}}
+                            {{--placeholder="User Role"--}}
+                            {{--></remote-select>--}}
+                        </nvd-form-element>
+                    @endif
+
                     @if(Auth::user()->role->role == 'Super Admin')
                         <nvd-form-element field="shop_id">
                             <remote-select

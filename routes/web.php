@@ -25,6 +25,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('page', 'PageController@index');
         Route::get('load-menu', 'MenuController@load');
         Route::get('/online-users/load', 'OnlineUsersController@load');
+        Route::get('get-user-role', 'UserRoleController@Roles');
 
         // shop
         Route::resource('shops', 'ShopController');

@@ -125,4 +125,8 @@ class UserRoleController extends Controller
         abort(404);
     }
 
+    public function Roles()
+    {
+        return UserRole::all();
+    }
 }

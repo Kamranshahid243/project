@@ -10,5 +10,9 @@
             margin-right: 1%;
             border-radius: 3px;
         }
+
+        .disable-icon {
+            color: grey;
+        }
     </style>
 @endpush
