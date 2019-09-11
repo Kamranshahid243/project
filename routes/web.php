@@ -118,9 +118,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('vendor-profile', 'VendorReportController@vendorProfile');
 //        income
         Route::resource('income', 'incomeController');
-
-
-        Route::get('test','VendorReportController@test');
     });
 
     //sale chart

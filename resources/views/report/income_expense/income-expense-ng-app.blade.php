@@ -31,7 +31,7 @@
                     $http({
                         url: 'show-report',
                         method: 'post',
-                        data: {startDate: startDate, endDate: endDate}
+                        data: {startDate: $scope.start, endDate: $scope.end}
                     }).then(function (response) {
                         $scope.reports = response.data;
                     }).catch(function (res) {
@@ -40,7 +40,8 @@
                         state.loadingReport = false;
                     });
                 }
-
+                $scope.showReport();
+                // $scope.$watch('reports', $scope.showReport, true);
                 $scope.loadIncome = function () {
                     $http.get('income')
                         .then(function (res) {

@@ -22,7 +22,7 @@
                         <input ng-model="endDate" class="form-control"
                                moment-picker="end" format="YYYY-MM-DD"></td>
                     <td style="padding-top: 32px;">
-                        <button class="btn btn-primary btn-flat" ng-click="VendorStockReport(startDate,endDate)">
+                        <button class="btn btn-primary btn-flat" ng-click="VendorStockReport()">
                             Generate Report
                         </button>
                     </td>

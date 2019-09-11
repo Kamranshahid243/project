@@ -2,7 +2,8 @@
 @section('title') Shops @stop
 @section('content')
     <div class="row" ng-controller="MainController" show-loader="state.loadingShops">
-        <div class="col-sm-12">
+        <div class="col-sm-
+        12">
             @include('shop.create')
             <div class="box">
 

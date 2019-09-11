@@ -10,6 +10,9 @@
         font-weight: 400;
        /* overflow-x: hidden;
         overflow-y: auto;*/
+    /*}*/
+    .content{
+    min-height: 525px !important;
     }
     .small-box {
         background: mediumseagreen;

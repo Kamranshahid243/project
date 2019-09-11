@@ -3,7 +3,7 @@
 @push('body-classes') no-content-header @endpush
 @section('content')
     <div ng-controller="MainController" ng-show="{{session('shop')}}" show-loader="service.loadingConfig">
-        <div class="row">
+        <div class="row" height="700">
             <div class="col-sm-12">
                 <nvd-dashboard parent-loader="true" config="dashboardConfig"></nvd-dashboard>
             </div>

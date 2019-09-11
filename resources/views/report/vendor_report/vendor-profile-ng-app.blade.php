@@ -13,24 +13,24 @@
                 state.params.id=$scope.vendorId;
                 state.params.startDate
                 $scope.dateSelector = 'thisMonth';
-                $scope.start = moment().startOf('month');
-                $scope.end = moment().endOf('month');
+                $scope.start = moment().startOf('month').format('YYYY-MM-DD');
+                $scope.end = moment().endOf('month').format('YYYY-MM-DD');
                 $scope.lastmonth = moment().add(-1, 'month').startOf('month');
                 $scope.updateDate = function () {
                     if ($scope.dateSelector == 'thisMonth') {
-                        $scope.start = moment().startOf('month');
-                        $scope.end = moment().endOf('month');
+                        $scope.start = moment().startOf('month').format('YYYY-MM-DD');
+                        $scope.end = moment().endOf('month').format('YYYY-MM-DD');
                     }
                     if ($scope.dateSelector == 'lastMonth') {
-                        $scope.start = moment().subtract(1, 'month').startOf('month');
-                        $scope.end = moment().subtract(1, 'month').endOf('month');
+                        $scope.start = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
+                        $scope.end = moment().subtract(1, 'month').endOf('month').format('YYYY-MM-DD');
                     }
                     if ($scope.dateSelector == 'currentYear') {
-                        $scope.start = moment().startOf('year').format();
-                        $scope.end = moment().endOf('year').format();
+                        $scope.start = moment().startOf('year').format('YYYY-MM-DD');
+                        $scope.end = moment().endOf('year').format('YYYY-MM-DD');
                     }
                 }
-                $scope.VendorStockReport = function (startDate, endDate) {
+                $scope.VendorStockReport = function () {
                     state.loadingVendorsReport = true;
                     state.params.startDate =$scope.start;
                     state.params.endDate= $scope.end;
@@ -44,27 +44,19 @@
                         state.loadingVendorsReport = false;
                     });
                 };
-
                 $scope.vendorProfile=function(id){
                     $http({
                         method:'get',
                         url:'vendor-profile',
                         params:{id:id}
                     }).then(function(res){
-                        console.log(res.data);
+                        // console.log(res.data);
                         $scope.profile=res.data;
                     });
                 }
                 $scope.vendorProfile($scope.vendorId);
 
                 $scope.$watch('state.params', $scope.VendorStockReport, true);
-
-                $scope.test =function(){
-                    $http.get('test',{params:state.params}).then(function(res){
-                       console.log(res.data);
-                    });
-                }
-                $scope.test();
             }
         })();
     </script>

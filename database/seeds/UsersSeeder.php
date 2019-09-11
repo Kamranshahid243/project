@@ -20,6 +20,7 @@ class UsersSeeder extends Seeder
                 'user_role_id' => 1,
                 'status' => 'Enabled',
                 'created_at' => date('Y-m-d H:i:s'),
+                'shop_id' => Null,
             ],
             [
                 'name' => 'Admin',
@@ -28,6 +29,7 @@ class UsersSeeder extends Seeder
                 'user_role_id' => 2,
                 'status' => 'Enabled',
                 'created_at' => date('Y-m-d H:i:s'),
+                'shop_id' => Null,
             ],
             [
                 'name' => 'Guest',
@@ -36,6 +38,7 @@ class UsersSeeder extends Seeder
                 'user_role_id' => 3,
                 'status' => 'Enabled',
                 'created_at' => date('Y-m-d H:i:s'),
+                'shop_id' => Null,
             ],
         ]);
     }

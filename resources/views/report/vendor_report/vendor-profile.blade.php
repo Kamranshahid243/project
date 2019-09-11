@@ -3,7 +3,7 @@
 @section('content')
     <div class="row" ng-controller="VendorProfileController">
         <div class="col-md-3">
-            <div class="box box-primary" show-loader="state.loadingUser">
+            <div class="box box-primary" show-loader="state.loadingVendorsReport">
                 <div class="box-body box-profile">
                     <img class="profile-user-img img-responsive img-circle" src="{{Auth::user()->photo}}" alt="User profile picture">
                     <h3 class="profile-username text-center">

@@ -54,7 +54,7 @@
                             <td>@{{ vendor.vendor_phone }}</td>
                             <td>@{{ vendor.vendor_email }}</td>
                             <td>
-                                <a href="vendor-detail-page?id=@{{ vendor.vendor_id }}"><i class="fa fa-folder-open"></i></a>
+                                <a href="vendor-detail-page?id=@{{ vendor.vendor_id }}"><i class="fa fa-folder-open" uib-tooltip="Vendor details"></i></a>
                             </td>
                         </tr>
 

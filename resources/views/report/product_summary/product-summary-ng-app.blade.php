@@ -14,7 +14,7 @@
 
                 state.loadingProductsReport = false;
                 $scope.dateSelector='thisMonth';
-                $scope.start = moment().startOf('month').add(1, 'day').format('YYYY-MM-DD');
+                $scope.start = moment().startOf('month').format('YYYY-MM-DD');
                 $scope.end = moment().endOf('month').format('YYYY-MM-DD');
                 $scope.lastmonth = moment().add(-1, 'month').startOf('month');
                 $scope.updateDate = function () {
